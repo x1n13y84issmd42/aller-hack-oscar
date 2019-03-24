@@ -13,6 +13,8 @@
 
 		"paths": {
 			"fw/*": ["app/fw/*"],
+			"lib/*": ["app/lib/*"],
+			"streams/*": ["app/streams/*"],
 			"HTTP/*": ["app/HTTP/*"],
 			"main/*": ["app/main/*"],
 			"system/*": ["app/system/*"],
