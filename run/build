@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+clear
+
+if [[ -d out && $1 == clean ]]; then
+	echo "Removing the build artifacts"
+	find out/ -maxdepth 1 -mindepth 1 -exec rm -rf {} \;
+fi
+
+export DEBUG="*,-mquery,-data/connection,-babel,-agenda*"
+
+echo -en "Building The App\n"
+node_modules/.bin/tsc --pretty --project tsconfig.json
