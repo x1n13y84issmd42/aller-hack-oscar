@@ -1,12 +1,9 @@
 # Oscar
 Out contribution to the Aller Hackathon 2019.
 
-## Abstract
-A video filtering & post-processing for social networks. Think super-advanced Instagram filters but for video, or, the other way round, a super-retarded Adobe After Effects in browser/on mobile.
-
-Since we're limited in many ways, from screen real estate to users' proficiency in video editing, the app must be as automatic as possible.
-
-A typical usage scenario: a user uploads few videos they took with their camera, selects a `preset`, makes minor adjustments, the app renders the resulting video and uploads it to a social network of choice.
+| | |
+|----|---|
+|![w](doc/oscar.png)|A video filtering & post-processing for social networks. Think super-advanced Instagram filters but for video, or, the other way round, a super-retarded Adobe After Effects in browser/on mobile.<br><br>Since we're limited in many ways, from screen real estate to users' proficiency in video editing, the app must be as automatic as possible.<br><br>A typical usage scenario: a user uploads few videos they took with their camera, selects a `preset`, makes minor adjustments, the app renders the resulting video and uploads it to a social network of choice.|
 
 ## Main components
 Lucky us, we have the exact number of people we need to parallelize the development.
