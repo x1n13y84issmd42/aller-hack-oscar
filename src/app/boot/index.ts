@@ -9,6 +9,7 @@ import Bye from 'system/Bye';
 import * as app from 'app';
 
 import Hello from 'system/cli/Hello';
+import RenderTest from "system/cli/RenderTest";
 
 const bootMgr = new BootManager();
 
@@ -23,6 +24,12 @@ bootMgr.define('web', new BootSequence([
 bootMgr.define('cli', new BootSequence([
 	Env,
 	Hello,
+	Bye,
+]));
+
+bootMgr.define('rt', new BootSequence([
+	Env,
+	RenderTest,
 	Bye,
 ]));
 

@@ -1,8 +1,8 @@
 //import gl from 'gl';
 import gl = require('gl');
 import * as THREE from 'three.js-node';
-import {Frame} from 'fw/Frame';
 import * as dom from 'jsdom-global';
+import {Frame} from 'fw/Frame';
 
 dom();
 
