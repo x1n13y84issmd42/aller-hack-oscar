@@ -1,0 +1,48 @@
+{
+	"include": [
+		"./src/**/*"
+	],
+	"exclude": [
+		"./node_modules",
+		"./out"
+	],
+	"compilerOptions": {
+		"outDir": "./out",
+		"baseUrl": "./src",
+		"rootDir": "./src",
+
+		"paths": {
+			"fw/*": ["app/fw/*"],
+			"lib/*": ["app/lib/*"],
+			"streams/*": ["app/streams/*"],
+			"HTTP/*": ["app/HTTP/*"],
+			"main/*": ["app/main/*"],
+			"system/*": ["app/system/*"],
+			"app": ["app/app"],
+			"main": ["app/main"],
+			"migrate": ["app/migrate"],
+			"tasks": ["app/tasks"],
+			"boot": ["app/boot/index"],
+		},
+
+		"module": "commonjs",
+		"moduleResolution": "node",
+
+		"allowJs": false,
+		"declaration": true,
+		"experimentalDecorators": true,
+		"noImplicitAny": false,
+		"preserveConstEnums": true,
+		"removeComments": true,
+		"sourceMap": true,
+		"suppressImplicitAnyIndexErrors": true,
+        
+		"target": "es6",
+		"jsx": "react",
+
+		"lib": [
+			"dom",
+			"es2017"
+		]
+	}
+}
