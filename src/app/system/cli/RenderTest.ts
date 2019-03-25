@@ -33,7 +33,8 @@ export default function (app: Express) {
 			if (ops[op]) {
 				ops[op](videoFilePath, name);
 			} else {
-				throw new Error(`Operation "${op}" is not defined.`);
+				log(`Operation "${op}" is not defined.`);
+				process.exit(0);
 			}
 			resolve();
 		});
@@ -41,22 +42,6 @@ export default function (app: Express) {
 }
 
 const ops = {
-	srcframes: (vfp: string, name: string) => {
-		let theProject: Project = {
-			settings: {
-				FPS: 30,
-				width: 800,
-				height: 600,
-			},
-	
-			timelines: []
-		};
-	
-		decoder(vfp)
-			.pipe(new RGB24toJPEG(name))
-			;
-	},
-
 	pixels: (vfp: string, name: string) => {
 		decoder(vfp)
 			.pipe(new FrameUnwrapper<RGB24Frame>())
@@ -64,12 +49,13 @@ const ops = {
 			;
 	},
 
-	singleframe: (vfp: string, name: string) => {
+	frames: (vfp: string, name: string) => {
 		let frameN = (args[4] !== undefined) ? args[4] : 5;
-		log(`Grabbing frame #${frameN}`);
+		let frames = (args[5] !== undefined) ? args[5] : 1;
+		log(`Grabbing ${frames} frames from #${frameN}`);
 		decoder(vfp, {
 			from: frameN / 25,
-			frames: 1,
+			frames: frames,
 		})
 			.pipe(new RGB24toJPEG(`single_${frameN}`))
 			;
