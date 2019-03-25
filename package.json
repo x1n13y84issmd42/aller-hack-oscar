@@ -27,6 +27,8 @@
     "fetch-defaults": "^1.0.0",
     "find-root": "^1.1.0",
     "fluent-ffmpeg": "^2.1.2",
+    "gl": "^4.2.2",
+    "jsdom": "^14.0.0",
     "jsdom-global": "^3.0.2",
     "minimist": "^1.2.0",
     "ndarray": "^1.0.18",

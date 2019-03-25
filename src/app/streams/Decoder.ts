@@ -7,6 +7,9 @@ import { Buffer } from 'buffer';
 import { FrameType } from 'fw/Frame';
 import { FrameWrapper } from 'streams/FrameWrapper';
 import { encode } from 'punycode';
+import * as debug from 'debug';
+
+const log = debug(`decoder`);
 
 export interface DecoderOptions {
 	from?: number;
@@ -70,9 +73,9 @@ function parseCodecData(cdata:any): CodecData {
 	return res;
 }
 
-export function decoder(input?: string | Readable, options?: DecoderOptions);
-export function decoder(options?: DecoderOptions);
-export function decoder(input?: any, options?: any) {
+export function decoder(input?: string | Readable, options?: DecoderOptions): FrameWrapper;
+export function decoder(options?: DecoderOptions): FrameWrapper;
+export function decoder(input?: any, options?: any): FrameWrapper {
 
 	options = _.extend({}, DefaultDecoderOptions, options);
 	
@@ -82,6 +85,7 @@ export function decoder(input?: any, options?: any) {
 		.addOption(['-pix_fmt', 'rgb24']);
 
 	if (options.from) {
+		log(`seekInput`, options.from);
 		ff.seekInput(options.from || '0:0:0');
 	}
 
@@ -89,7 +93,7 @@ export function decoder(input?: any, options?: any) {
 	let frameSize;
 
 	ff.on('codecData', function(cdata) {
-	//	console.log(cdata);
+		log(cdata);
 
 		encoding = parseCodecData(cdata);
 		frameSize = encoding.width * encoding.height * 3;
@@ -105,10 +109,11 @@ export function decoder(input?: any, options?: any) {
 	let maker = new FrameWrapper();
 
 	ff.on('start', function(cmd) {
-		console.log(`Decoder spawned: ${cmd}`);
+		log(`Decoder spawned: ${cmd}`);
 		maker.emit('start', cmd);
 	});
 
+	log('ffmpeg piped to the maker')
 	ff.pipe(maker);
 
 	return maker;

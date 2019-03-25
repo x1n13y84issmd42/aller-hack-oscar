@@ -14,6 +14,8 @@ import {
 	encoder,
 	FrameUnwrapper,
 } from 'streams';
+import { TheMachine } from 'lib/render';
+import { Project } from 'lib/render/Project';
 
 const log = debug('rendertest');
 
@@ -35,6 +37,16 @@ export default function (app: Express) {
 	}
 }
 
-function frames(vfp: string) {
-	let s = decoder(vfp);
+function srcframes(vfp: string) {
+	let theProject: Project = {
+		settings: {
+			FPS: 30,
+			width: 800,
+			height: 600,
+		},
+
+		timelines: []
+	};
+
+	decoder(vfp).pipe(new RGB24toGL());
 }

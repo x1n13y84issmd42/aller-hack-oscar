@@ -6,6 +6,10 @@ import { GLFrame } from 'lib/render/3';
 
 dom();
 
+interface IFrameRetriever {
+	get(project: Project, t: number): GLFrame[];
+}
+
 /**
  * The Render Machine
  * Renders Projects.
@@ -13,15 +17,27 @@ dom();
 export class TheMachine {
 	private gl;
 
-	constructor(private project: Project) {
+	constructor(private project: Project, private frameRetriever: IFrameRetriever) {
 		this.gl = gl(project.settings.width, project.settings.height, {
 			preserveDrawingBuffer: true
 		});
 	}
 
-	render(frame: GLFrame) {
-		//TODO: actual rendering of all the Timelines happens here!
-		return this.getFramePixels();	//	This goes to the following.
+	render(timestamp?: number) {
+
+		if (timestamp) {
+			this.renderFrame(timestamp);
+		} else {
+			let frameFrom = 0, frameTo = 1000;
+			for (let i = frameFrom; i<frameTo; i++) {
+				this.renderFrame(i);
+			}
+		}
+	}
+
+	renderFrame(t: number) {
+		//TODO: rendering
+		return this.getFramePixels();
 	}
 
 	getFramePixels() {
@@ -32,4 +48,17 @@ export class TheMachine {
 		//TODO: optimize this.
 		return new Buffer(pixels);
 	}
+
+	getFramesFromAllTheTimelines(frameIndex: number): GLFrame[] {
+		return [];
+	}
 }
+
+class FileUint8FrameRetriever implements IFrameRetriever {
+	get(project: Project, t: number): GLFrame[] {
+		return [];
+	}
+	
+}
+
+let machine = new TheMachine(undefined, new FileUint8FrameRetriever());

@@ -30,7 +30,7 @@ bootMgr.define('cli', new BootSequence([
 bootMgr.define('rt', new BootSequence([
 	Env,
 	RenderTest,
-	Bye,
+//	Bye,
 ]));
 
 export const boot = bootMgr;
