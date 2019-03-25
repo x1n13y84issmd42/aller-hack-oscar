@@ -12,7 +12,7 @@ export class RGB24toJPEG extends TTransform<RGB24Frame, Buffer> {
 
 	constructor(
 		private name: string,
-		private transpose = false
+		private transpose = true
 	) {
 		super();
 

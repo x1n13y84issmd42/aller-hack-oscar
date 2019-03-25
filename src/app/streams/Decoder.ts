@@ -13,6 +13,7 @@ const log = debug(`decoder`);
 
 export interface DecoderOptions {
 	from?: number;
+	frames?: number;
 };
 
 const DefaultDecoderOptions: DecoderOptions = {
@@ -78,10 +79,16 @@ export function decoder(options?: DecoderOptions): FrameWrapper;
 export function decoder(input?: any, options?: any): FrameWrapper {
 
 	options = _.extend({}, DefaultDecoderOptions, options);
+	let frames
 	
-	let ff = ffmpeg(input).format('image2pipe')
-		.frames(180)
-		.videoCodec('rawvideo')
+	let ff = ffmpeg(input).format('image2pipe');
+
+	if (options.frames) {
+		log(`frames`, options.frames);
+		ff = ff.frames(options.frames);
+	}
+	
+	ff.videoCodec('rawvideo')
 		.addOption(['-pix_fmt', 'rgb24']);
 
 	if (options.from) {

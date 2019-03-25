@@ -23,7 +23,7 @@ export class Renderer extends TTransform<GLFrame, RGBA32Frame> {
 			glFrame.height,
 			glFrame.t,
 			FrameType.pixels,
-			this.machine.render(glFrame),
+			undefined, //this.machine.render(glFrame),
 		));
 
 		callback();
