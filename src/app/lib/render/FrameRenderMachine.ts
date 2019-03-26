@@ -23,13 +23,18 @@ export class FrameRenderMachine<V, F> {
   }
 
   render(timestamp: number): F {
+    // RenderMachine treat last timeline as most important,
+    // but in project first timeline is most important,
+    // so we must revers timelines array.
+    let timelines = this.project.timelines.reverse();
+
     let targetVideoIdsWithOffsetsAndEffects =
-      this.getVideoIdWithOffsetAndEffects(this.project.timelines, timestamp);
+      this.getVideoIdWithOffsetAndEffects(timelines, timestamp);
 
     let targetFramesWithEffects =
       this.getFramesWithEffects(targetVideoIdsWithOffsetsAndEffects);
 
-    let processedFrames: F[];
+    let processedFrames: F[] = [];
 
     for (let fae of targetFramesWithEffects) {
       let workingFrame = fae.frame;
@@ -58,7 +63,7 @@ export class FrameRenderMachine<V, F> {
   ):
     VideoWithOffsetAndEffects[]
   {
-    let result: VideoWithOffsetAndEffects[];
+    let result: VideoWithOffsetAndEffects[] = [];
 
     for (let timeline of timelines) {
       for (let clip of timeline.entities) {
@@ -85,7 +90,7 @@ export class FrameRenderMachine<V, F> {
   ):
     FrameWithEffects<F>[]
   {
-    let result: FrameWithEffects<F>[];
+    let result: FrameWithEffects<F>[] = [];
 
     for (let vof of vofs) {
       result.push({
