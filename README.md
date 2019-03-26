@@ -1,7 +1,7 @@
+<img align=left src="doc/oscar.png">
+
 # Oscar
 Out contribution to the Aller Hackathon 2019.
-
-## Abstract
 A video filtering & post-processing for social networks. Think super-advanced Instagram filters but for video, or, the other way round, a super-retarded Adobe After Effects in browser/on mobile.
 
 Since we're limited in many ways, from screen real estate to users' proficiency in video editing, the app must be as automatic as possible.

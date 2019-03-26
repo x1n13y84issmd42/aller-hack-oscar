@@ -1,17 +1,17 @@
 import axios from 'axios';
 
 
-//interface IOptions {
-//	responseType?: string;
-//	headers?: Headers;
-//};
+interface IOptions {
+	responseType?: string;
+	headers?: {};
+};
 
 export const API = axios.create({
 	baseURL: 'localhost',
 	withCredentials: true,
 });
 
-export const APIGet = (url: string, params?: URLSearchParams,   sfsoptions = {}) => {
+export const APIGet = (url: string, params?: URLSearchParams, options: IOptions = {}) => {
 	return API({
 		method: 'get',
 		url,

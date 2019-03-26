@@ -28,7 +28,7 @@ export const getFrames = async () => {
  */
 export const sendVideo = async (data) => {
 	try {
-		await APIPost(`/video`, data, { headers: {'Content-Type': 'multipart/form-data'} });
+		await APIPost(`http://oscar.local:4000/api/lib/videos`, data, { headers: {'Content-Type': 'multipart/form-data'} });
 		Store.dispatch(sendVideoAction());
 	} catch (err) {
 		Store.dispatch(sendVideoErrorAction());

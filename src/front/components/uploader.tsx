@@ -1,17 +1,24 @@
 import {Component} from 'react';
 import * as React from 'react';
 import Dropzone from 'react-dropzone';
+import { sendVideo } from 'front/actions/actions';
 
 
 class VideoUploader extends React.Component<any, any> {
 	constructor(props) {
 		super(props);
 		this.state = {
-			files: []
+			files: [],
+			filesToUpload: [],
+
 		};
 	}
 	onDrop = (files) => {
-		this.setState({files})
+		this.setState({files});
+		let formData = new FormData();
+		files.forEach(file => {
+			formData.append(file.name, file)});
+		sendVideo(formData);
 	};
 
 	render() {

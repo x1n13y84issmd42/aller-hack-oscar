@@ -8,8 +8,9 @@ import {
 
 const staticRoute: Router = Router();
 
-//staticRoute.use('/react', serveStatic(path.join(app.root, 'node_modules/react/cjs/')));
-//staticRoute.use('/react', serveStatic(path.join(app.root, 'node_modules/react-dom/cjs/')));
+staticRoute.use('/react', serveStatic(path.join(app.root, 'node_modules/react/cjs/')));
+staticRoute.use('/react', serveStatic(path.join(app.root, 'node_modules/react-dom/cjs/')));
+staticRoute.use('/images', serveStatic(path.join(app.root, 'assets/images/')));
 
 staticRoute.use('/', serveStatic(path.join(app.root, 'out/dist')));
 
