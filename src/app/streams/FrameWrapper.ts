@@ -15,12 +15,14 @@ export class FrameWrapper extends TTransform<Buffer, RGB24Frame>
 	private bufOffset = 0;
 	private T = 0;
 
+	private statsTotalBytes = 0;
+
 	constructor() {
 		super({
 			objectMode: true,
 			writableObjectMode: false,
 			readableObjectMode: true,
-			highWaterMark: 1024 * 1024 * 10
+			highWaterMark: 1024 * 1024 * 100
 		});
 	}
 
@@ -30,11 +32,10 @@ export class FrameWrapper extends TTransform<Buffer, RGB24Frame>
 	}
 
 	_transform(chunk: Buffer, enc: string, callback: Function) {
-
-		let bytes = chunk.copy(this.buffer, this.bufOffset, 0, this.cfg.frameSize - this.bufOffset);
+		let copied = chunk.copy(this.buffer, this.bufOffset, 0, this.cfg.frameSize - this.bufOffset);
 		
-		this.bufOffset += bytes;
-		this.totalBytes += bytes;
+		this.bufOffset += copied;
+		this.totalBytes += copied;
 		
 		if (this.totalBytes >= this.cfg.frameSize) {
 			this.totalBytes -= this.cfg.frameSize;
@@ -42,7 +43,7 @@ export class FrameWrapper extends TTransform<Buffer, RGB24Frame>
 
 			this.framesEmitted++;
 
-			this.log(`${this.T.toFixed(2)} Emitting a frame #${this.framesEmitted}`);
+			this.log(` ++ ${this.T.toFixed(2)} Emitting a frame #${this.framesEmitted}, ${this.statsTotalBytes} bytes so far.`);
 
 			this.push(new RGB24Frame(
 				this.cfg.width,
@@ -54,10 +55,10 @@ export class FrameWrapper extends TTransform<Buffer, RGB24Frame>
 
 			this.T += this.cfg.frameT;
 
-			if (bytes != chunk.length) {
-				bytes = chunk.copy(this.buffer, this.bufOffset, bytes, chunk.length - bytes);
-				this.bufOffset += bytes;
-				this.totalBytes += bytes;
+			if (copied != chunk.length) {
+				copied = chunk.copy(this.buffer, this.bufOffset, copied);
+				this.bufOffset += copied;
+				this.totalBytes += copied;
 			}
 		}
 

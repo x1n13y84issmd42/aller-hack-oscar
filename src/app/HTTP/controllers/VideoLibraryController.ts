@@ -24,10 +24,11 @@ const ctrler =  {
 			mockVideo('DCIM-0004'),
 			mockVideo('DCIM-0008'),
 		]).end();
-	},
+	},	
 
-	upload: function(req: Request, resp: Response) {
-		
+	upload: function(req, resp: Response) {
+		console.log('Uploaded file', req.files);
+		resp.status(200).end();
 	}
 };
 

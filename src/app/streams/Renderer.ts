@@ -1,10 +1,11 @@
 import {TTransform} from 'fw/streams';
-import {GLFrame} from 'lib/render/3';
+import {GLFrame} from 'lib/render/GL';
 import {FrameType} from 'fw/Frame';
 import {RGBA32Frame} from 'lib/ffmpeg';
+import { TheMachine } from 'lib/render';
 
 export class Renderer extends TTransform<GLFrame, RGBA32Frame> {
-	constructor() {
+	constructor(private machine: TheMachine) {
 		super({
 			objectMode: true,
 			writableObjectMode: true,
@@ -21,7 +22,7 @@ export class Renderer extends TTransform<GLFrame, RGBA32Frame> {
 			glFrame.height,
 			glFrame.t,
 			FrameType.pixels,
-			undefined //	Three.renderFrame(glFrame)
+			undefined, //this.machine.render(glFrame),
 		));
 
 		callback();

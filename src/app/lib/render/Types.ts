@@ -1,6 +1,11 @@
 export type VideoDesc = {
-  id: string,
-  name: string
+	id: string;
+	name: string;
+	path: string;
+	FPS: number;
+	width: number;
+	height: number;
+	length: number;
 };
 
 export type EffectSetting = {

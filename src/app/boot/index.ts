@@ -10,7 +10,7 @@ import * as app from 'app';
 
 import Hello from 'system/cli/Hello';
 import FrameRenderMachineTest from 'system/cli/FrameRenderMachineTest';
-import RenderTest_Pass from 'system/cli/RenderTest_Pass';
+import RenderTest from "system/cli/RenderTest";
 
 const bootMgr = new BootManager();
 
@@ -28,10 +28,10 @@ bootMgr.define('cli', new BootSequence([
 	Bye,
 ]));
 
-bootMgr.define('rtpass', new BootSequence([
+bootMgr.define('rt', new BootSequence([
 	Env,
-	RenderTest_Pass,
-	Bye,
+	RenderTest,
+//	Bye,
 ]));
 
 bootMgr.define('frame_render_machine_test', new BootSequence([
