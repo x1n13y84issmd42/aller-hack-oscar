@@ -5,7 +5,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-    entry: ['./src/front/utils/polyfills.ts', './src/front/App.tsx'],
+    entry: ['./src/front/utils/polyfills.ts', './src/front/App.tsx', './src/front/styles/index.scss'],
     watchOptions: {
         aggregateTimeout: 300,
         poll: 1000,

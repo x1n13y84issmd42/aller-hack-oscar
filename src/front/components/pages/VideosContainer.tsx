@@ -12,6 +12,7 @@ class VideosContainer extends React.Component<any, any> {
 				if (video){
 					return (
 						<li key={video.id} data-id={video.id}>
+							<span><i className="far fa-file-video large-fa-file-video"></i></span>
 							<span>{video.title}</span> <span> {video.length}</span>
 						</li>
 					)

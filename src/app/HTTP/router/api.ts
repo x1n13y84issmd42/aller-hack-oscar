@@ -12,12 +12,10 @@ const router: Router = Router();
 
 router.use('/auth', adminRoute);
 
-router.get('/lib/videos', auth.middleware, VideoLibraryController.index);
-router.post('/lib/videos', auth.middleware, VideoLibraryController.upload);
-
-router.get('/lib/clips', auth.middleware, ClipLibraryController.index);
-
-router.get('/lib/effects', auth.middleware, FXLibraryController.index);
+router.get('/lib/videos', VideoLibraryController.index); //auth.middleware,
+router.post('/lib/videos', VideoLibraryController.upload); //auth.middleware,
+router.get('/lib/clips', ClipLibraryController.index); //auth.middleware,
+router.get('/lib/effects', FXLibraryController.index); //auth.middleware,
 
 
 export default router;

@@ -1,0 +1,13 @@
+.main-container {
+  display: flex;
+  border: 1px solid red;
+  width: 100%;
+}
+.main-item {
+  border: 1px solid green;
+  flex-grow: 1;
+  padding: 10px;
+}
+.video-frame {
+  width: 65%
+}

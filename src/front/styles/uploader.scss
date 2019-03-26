@@ -1,0 +1,17 @@
+.uploader {
+  width: 200px;
+  height: 200px;
+  border-width: 2px;
+  border-radius: 5px;
+  margin: auto;
+}
+.active {
+  border: green solid;
+  background-color: gray;
+}
+.inactive {
+  border: dashed;
+}
+.large-fa-file-video {
+  font-size: 32px;
+}

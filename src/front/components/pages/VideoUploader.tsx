@@ -32,9 +32,9 @@ class VideoUploader extends React.Component<any, any> {
 		return (
 			<>
 			<Dropzone onDrop={this.onDrop}>
-				{({getRootProps, getInputProps}) => (
-					<section>
-						<div {...getRootProps()}>
+				{({getRootProps, getInputProps, isDragActive}) => (
+					<section >
+						<div className={'uploader ' + (isDragActive ? 'active' : 'inactive')} {...getRootProps()}>
 							<input {...getInputProps()} />
 							<p>Drag 'n' drop some files here, or click to select files</p>
 						</div>
