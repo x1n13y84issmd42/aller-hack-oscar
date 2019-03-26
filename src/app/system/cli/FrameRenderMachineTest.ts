@@ -103,7 +103,11 @@ function main() {
           settings: []
         }]
       }]
-    }]
+    }],
+    settings: {
+      width: 640,
+      height: 480
+    }
   } as Types.Project;
 
   let renderMachine =
