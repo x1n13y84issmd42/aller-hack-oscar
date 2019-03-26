@@ -12,10 +12,14 @@ class VideoClipsContainer extends React.Component<any, any> {
 			if (clip){
 				return (
 					<li key={clip.id} data-id={clip.id}>
-						<span>{clip.videoID}</span>
-						<span>{clip.t1}</span>
-						<span>{clip.t2}</span>
-						<img src={clip.URL}/>
+						<div>
+							<img width="100" height="100" src={clip.URL}/>
+						</div>
+						<div>
+							<span>{clip.videoID}</span>
+							<span>{clip.t1}</span>
+							<span>{clip.t2}</span>
+						</div>
 					</li>
 				)
 			}
@@ -25,7 +29,7 @@ class VideoClipsContainer extends React.Component<any, any> {
 
 		return (
 			<div>
-				<h3> Effects </h3>
+				<h3> Clips </h3>
 				<ul>
 					{this.renderClipsList(this.props.clips)}
 				</ul>
