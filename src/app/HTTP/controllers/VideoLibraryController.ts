@@ -27,7 +27,9 @@ const ctrler =  {
 	},
 
 	upload: function(req: Request, resp: Response) {
-		resp.status(200).end();
+		resp.status(200).json([
+			{id: 100, title: "uploaded video", length: Math.random() * 60 * 5}
+		]).end();
 	}
 };
 

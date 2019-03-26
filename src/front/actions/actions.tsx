@@ -3,35 +3,54 @@ import Store from 'front/stores/Main';
 import {APIGet, APIPost} from 'front/service/API';
 import Constants from 'front/constants';
 
-const getFramesAction: Action = createAction(Constants.GET_FRAMES);
-const getFramesErrorAction: Action = createAction(Constants.GET_FRAMES_ERROR);
-const sendVideoAction: Action = createAction(Constants.SEND_VIDEO);
-const sendVideoErrorAction: Action = createAction(Constants.SEND_VIDEO_ERROR);
+const getVideosAction: Action = createAction(Constants.GET_VIDEOS);
+const getClipsAction: Action = createAction(Constants.GET_CLIPS);
+const getEffectsAction: Action = createAction(Constants.GET_EFFECTS);
+const getVideosErrorAction: Action = createAction(Constants.GET_VIDEOS_ERROR);
+const getClipsErrorAction: Action = createAction(Constants.GET_CLIPS_ERROR);
+const getEffectsErrorAction: Action = createAction(Constants.GET_EFFECTS_ERROR);
+const addVideoAction: Action = createAction(Constants.ADD_VIDEO);
+const addVideoErrorAction: Action = createAction(Constants.ADD_VIDEO_ERROR);
 
-/**
- * @param getTickets : function, request user credit cards
- */
-export const getFrames = async () => {
+
+export const getVideos = async () => {
 	try {
-		let {data} = await APIGet(`/frames`);
-		return Store.dispatch(getFramesAction(data))
+		let {data} = await APIGet(`/api/lib/videos`);
+		return Store.dispatch(getVideosAction(data))
 	} catch (err) {
-		Store.dispatch(getFramesErrorAction());
+		Store.dispatch(getVideosErrorAction());
 		throw err;
 	}
 };
 
-/**
- * @param addTicket : Why not POST? Additing process was delegated to third party api,
- * Mediaconnect client makes POST inside, creates transactiondID and redirect
- * That's why we need to call minside-api without any body
- */
-export const sendVideo = async (data) => {
+export const getClips = async () => {
 	try {
-		await APIPost(`/api/lib/videos`, data, { headers: {'Content-Type': 'multipart/form-data'} });
-		Store.dispatch(sendVideoAction());
+		let {data} = await APIGet(`/api/lib/clips`);
+		return Store.dispatch(getClipsAction(data))
 	} catch (err) {
-		Store.dispatch(sendVideoErrorAction());
+		Store.dispatch(getClipsErrorAction());
+		throw err;
+	}
+};
+
+export const getEffects = async () => {
+	try {
+		let {data} = await APIGet(`/api/lib/effects`);
+		return Store.dispatch(getEffectsAction(data))
+	} catch (err) {
+		Store.dispatch(getEffectsErrorAction());
+		throw err;
+	}
+};
+
+export const addVideo = async (params) => {
+	try {
+		console.log(params);
+		const {data} = await APIPost(`/api/lib/videos`, params, { headers: {'Content-Type': 'multipart/form-data'} });
+		console.log(data);
+		Store.dispatch(addVideoAction(data));
+	} catch (err) {
+		Store.dispatch(addVideoErrorAction());
 		throw err;
 	}
 };
