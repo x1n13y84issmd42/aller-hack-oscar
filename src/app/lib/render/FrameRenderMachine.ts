@@ -94,9 +94,9 @@ export class FrameRenderMachine<V, F> {
 
     for (let vof of vofs) {
       result.push({
-        frame: this.frameExtractor.extractFrame(
-          this.videosRepo.getVideo(vof.videoId),
-          vof.offset),
+        frame:
+          this.frameExtractor.extractFrame(
+            this.videosRepo.getVideo(vof.videoId), vof.offset),
         effects: vof.effects
       } as FrameWithEffects<F>);
     }
