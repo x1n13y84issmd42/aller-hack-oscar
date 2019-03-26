@@ -2,6 +2,20 @@ import * as http from 'http';
 import * as app from 'app';
 import * as colors from 'ansicolors';
 
+declare global {
+	export namespace Express {
+		export type UploadedFile = {
+			name: string;
+			mimetype: string;
+			data: Buffer;
+		};
+
+		export interface Request {
+			files: {[k: string]: UploadedFile};
+		}
+	}
+}
+
 const log = app.log('http');
 
 export default function (app) {

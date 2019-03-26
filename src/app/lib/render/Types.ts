@@ -1,5 +1,5 @@
 export type VideoDesc = {
-	id: string;
+	id?: string;
 	name: string;
 	path: string;
 	FPS: number;

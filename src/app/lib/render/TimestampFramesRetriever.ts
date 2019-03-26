@@ -1,5 +1,5 @@
 import { IFramesRetriever } from "lib/render/IFrameRetriever";
-import { GLFrame } from "lib/render/GL.ts";
+import { GLFrame } from "lib/render/GL";
 import { Project } from "lib/render/Project";
 
 export class TimestampFramesRetriever implements IFramesRetriever {

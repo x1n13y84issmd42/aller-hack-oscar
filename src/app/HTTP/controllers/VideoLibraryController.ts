@@ -1,6 +1,8 @@
 import {Request, Response} from 'express';
-import {metaDecoder} from 'streams';
+import {metaDecoder} from 'lib/streams';
 import * as stream from 'stream';
+import { VideoDesc } from 'lib/render/Types';
+import { MongoVideos } from 'storage/Video/MongoVideos';
 
 const ctrler =  {
 	index: (req: Request, resp: Response) => {
@@ -28,14 +30,27 @@ const ctrler =  {
 		]).end();
 	},	
 
-	upload: async function(req, resp: Response) {
+	upload: async function(req: Request, resp: Response) {
 		console.log('Uploaded file', req.files);
+		let video = req.files.video;
 
-		if (req.files.video) {
-			
+		if (video) {
 			var videoFileStream = new stream.PassThrough();
-			videoFileStream.end(req.files.video.data);
+			videoFileStream.end(video.data);
 			let codecData = await metaDecoder(videoFileStream);
+
+			let vd: VideoDesc = {
+				FPS: codecData.FPS,
+				width: codecData.width,
+				height: codecData.height,
+				length: codecData.duration,
+				path: '',
+				name: video.name,
+			};
+
+			let videos = new MongoVideos();
+			videos.put(vd);
+
 			resp.status(200).json(codecData).end();
 		} else {
 			resp.status(400).json({error: `Please provide a file as 'video'.`});

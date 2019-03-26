@@ -16,7 +16,7 @@ import {
 	Encoder,
 	encoder,
 	FrameUnwrapper,
-} from 'streams';
+} from 'lib/streams';
 
 import { TheMachine } from 'lib/render';
 import { Project } from 'lib/render/Project';

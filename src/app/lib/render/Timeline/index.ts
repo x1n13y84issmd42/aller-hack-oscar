@@ -1,5 +1,5 @@
 import { VideoDesc } from "lib/render/Types";
-import { IVideos } from "app/storage/Video";
+import { IVideos } from "../../../storage/Video";
 
 //	Potentially this can become more than a single number
 export type FrameTimestamp = number;

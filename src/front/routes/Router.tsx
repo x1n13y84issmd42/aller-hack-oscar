@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {Route, Switch, withRouter, Redirect} from 'react-router';
 import {connect} from 'react-redux';
-import MainPage from 'front/components/pages/MainPage';
+import MainPage from '../components/pages/MainPage';
 
 
 

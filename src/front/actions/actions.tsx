@@ -1,7 +1,7 @@
 import {Action, createAction} from 'redux-actions';
-import Store from 'front/stores/Main';
-import {APIGet, APIPost} from 'front/service/API';
-import Constants from 'front/constants';
+import Store from '../stores/Main';
+import {APIGet, APIPost} from '../service/API';
+import Constants from '../constants';
 
 const getFramesAction: Action = createAction(Constants.GET_FRAMES);
 const getFramesErrorAction: Action = createAction(Constants.GET_FRAMES_ERROR);

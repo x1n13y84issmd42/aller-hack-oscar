@@ -5,10 +5,10 @@ import * as ffmpeg from 'fluent-ffmpeg';
 import * as _ from 'underscore';
 import { Buffer } from 'buffer';
 import { FrameType } from 'fw/Frame';
-import { FrameWrapper } from 'streams/FrameWrapper';
+import { FrameWrapper } from 'lib/streams/framewrapper';
 import { encode } from 'punycode';
 import * as debug from 'debug';
-import { Sink } from 'streams/Sink';
+import { Sink } from 'lib/streams/sink';
 
 const log = debug(`decoder`);
 
@@ -25,6 +25,7 @@ interface CodecData {
 	width: number;
 	height: number;
 	FPS: number;
+	duration: number;
 }
 
 let CodecDataParsers = [

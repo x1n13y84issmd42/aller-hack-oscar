@@ -5,6 +5,7 @@ import HTTP from 'system/HTTP';
 import HTTPS from 'system/HTTPS';
 import Router from 'system/Router';
 import Session from 'system/Session';
+import MongoDB from 'system/MongoDB';
 import Bye from 'system/Bye';
 import * as app from 'app';
 
@@ -16,6 +17,7 @@ const bootMgr = new BootManager();
 bootMgr.define('web', new BootSequence([
 	Env,
 	Session,
+	MongoDB,
 	HTTP,
 	HTTPS,
 	Router,
@@ -23,12 +25,14 @@ bootMgr.define('web', new BootSequence([
 
 bootMgr.define('cli', new BootSequence([
 	Env,
+	MongoDB,
 	Hello,
 	Bye,
 ]));
 
 bootMgr.define('rt', new BootSequence([
 	Env,
+	MongoDB,
 	RenderTest,
 //	Bye,
 ]));
