@@ -1,17 +1,17 @@
 import gl = require('gl');
 import * as Types from 'lib/render/Types';
-import { VideosRepo } from 'lib/render/VideosRepo';
+import { IVideos } from 'storage/Video/IVideos';
 import { EffectsRepo } from 'lib/render/EffectsRepo';
 import { FrameExtractor } from 'lib/render/FrameExtractor';
 import { FrameBlender } from 'lib/render/FrameBlender';
 
-export class FrameRenderMachine<V, F> {
+export class FrameRenderMachine<V extends Types.VideoDesc, F> {
 
   private gl: WebGLRenderingContext;
 
   constructor(
     private project: Types.Project,
-    private videosRepo: VideosRepo<V>,
+    private videosRepo: IVideos<V>,
     private effectsRepo: EffectsRepo<F>,
     private frameExtractor: FrameExtractor<V, F>,
     private frameBlender: FrameBlender<F>,
@@ -90,7 +90,7 @@ export class FrameRenderMachine<V, F> {
     for (let vof of vofs) {
       result.push({
         frame: this.frameExtractor.extractFrame(
-          this.videosRepo.getVideo(vof.videoId),
+          this.videosRepo.get(vof.videoId),
           vof.offset),
         effects: vof.effects
       } as FrameWithEffects<F>);

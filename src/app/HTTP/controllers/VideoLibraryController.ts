@@ -1,5 +1,6 @@
 import {Request, Response} from 'express';
 import {metaDecoder} from 'streams';
+import * as stream from 'stream';
 
 const ctrler =  {
 	index: (req: Request, resp: Response) => {
@@ -31,8 +32,11 @@ const ctrler =  {
 		console.log('Uploaded file', req.files);
 
 		if (req.files.video) {
-			let codecData = await metaDecoder(req.files.video);
-			resp.status(200).end();
+			
+			var videoFileStream = new stream.PassThrough();
+			videoFileStream.end(req.files.video.data);
+			let codecData = await metaDecoder(videoFileStream);
+			resp.status(200).json(codecData).end();
 		} else {
 			resp.status(400).json({error: `Please provide a file as 'video'.`});
 		}
