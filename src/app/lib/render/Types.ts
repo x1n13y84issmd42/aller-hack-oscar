@@ -3,6 +3,8 @@ export type VideoDesc = {
 	name: string;
 	path: string;
 	FPS: number;
+	width: number;
+	height: number;
 	length: number;
 };
 
