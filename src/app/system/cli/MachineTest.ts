@@ -19,6 +19,7 @@ import {
 import { TheMachine } from 'lib/render';
 import { Project } from 'lib/render/Project';
 import { RGB24Frame } from 'lib/ffmpeg';
+import { TimestampFramesRetriever } from 'lib/render/TimestampFramesRetriever';
 
 const log = debug('rendertest');
 
@@ -31,8 +32,12 @@ export default function (app: Express) {
 
 			log(`Working with ${videoFilePath}, performing the ${op} operation.`, args);
 
+			let theProject = undefined;
+			let theRetriever = new TimestampFramesRetriever();
+			let machine = new TheMachine(theProject, theRetriever);
+
 			if (ops[op]) {
-				ops[op](videoFilePath, name);
+				ops[op](videoFilePath, name, machine);
 			} else {
 				log(`Operation "${op}" is not defined.`);
 				process.exit(0);
@@ -43,23 +48,19 @@ export default function (app: Express) {
 	}
 }
 
-const ops = {
-	pixels: (vfp: string, name: string) => {
-		decoder(vfp)
-			.pipe(new FrameUnwrapper<RGB24Frame>())
-			.pipe(fs.createWriteStream(`storage/out/${'pixels'}.rgba`));
-			;
-	},
-
-	frames: (vfp: string, name: string) => {
+const ops: {[k:string]: (fn: string, name: string, machine: TheMachine) => void} = {
+	pass: (vfp: string, name: string, machine: TheMachine) => {
 		let frameN = (args[3] !== undefined) ? args[3] : 5;
 		let frames = (args[4] !== undefined) ? args[4] : 1;
-		log(`Grabbing ${frames} frames from #${frameN}`);
+		log(`Rendering ${frames} frames from #${frameN}`);
+
 		decoder(vfp, {
 			from: frameN / 25,
 			frames: frames,
 		})
-			.pipe(new RGB24toJPEG(name))
+			.pipe(new RGB24toGL())
+			.pipe(new Renderer(machine))
+			.pipe(new GLtoRGB24())
 			;
-	},
+	}
 };

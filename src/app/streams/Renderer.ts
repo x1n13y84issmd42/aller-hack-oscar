@@ -2,7 +2,6 @@ import {TTransform} from 'fw/streams';
 import {GLFrame} from 'lib/render/3';
 import {FrameType} from 'fw/Frame';
 import {RGBA32Frame} from 'lib/ffmpeg';
-import { TimelineDesc } from 'lib/render/Project';
 import { TheMachine } from 'lib/render';
 
 export class Renderer extends TTransform<GLFrame, RGBA32Frame> {
