@@ -8,6 +8,7 @@ import { FrameType } from 'fw/Frame';
 import { FrameWrapper } from 'streams/FrameWrapper';
 import { encode } from 'punycode';
 import * as debug from 'debug';
+import { Sink } from 'streams/Sink';
 
 const log = debug(`decoder`);
 
@@ -124,4 +125,24 @@ export function decoder(input?: any, options?: any): FrameWrapper {
 	ff.pipe(maker);
 
 	return maker;
+}
+
+
+export function metaDecoder(input?: string | Readable, options?: DecoderOptions): Promise<CodecData>;
+export function metaDecoder(options?: DecoderOptions): Promise<CodecData>;
+export function metaDecoder(input?: any, options?: any): Promise<CodecData> {
+
+	return new Promise<CodecData>((resolve) => {
+		let ff = ffmpeg(input).format('image2pipe');
+	
+		ff.on('codecData', function(cdata) {
+			resolve(parseCodecData(cdata));
+		});
+
+		ff.on('start', function(cmd) {
+			log(`Decoder spawned: ${cmd}`);
+		});
+
+		ff.pipe(new Sink());
+	});
 }

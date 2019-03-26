@@ -1,4 +1,5 @@
 export {decoder} from 'streams/Decoder';
+export {metaDecoder} from 'streams/Decoder';
 export {Encoder, encoder} from 'streams/Encoder';
 export {FrameWrapper} from 'streams/FrameWrapper';
 export {JSONEncoder} from 'streams/JSONEncoder';
@@ -9,3 +10,4 @@ export {GLtoRGB24} from 'streams/GLtoRGB24';
 export {RGB24toJPEG} from 'streams/RGB24toJPEG';
 export {RGBA32toJPEG} from 'streams/RGBA32toJPEG';
 export {FrameUnwrapper} from 'streams/FrameUnwrapper';
+export {Sink} from 'streams/Sink';

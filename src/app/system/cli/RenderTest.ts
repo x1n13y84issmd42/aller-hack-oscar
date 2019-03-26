@@ -6,6 +6,7 @@ import args from 'fw/args';
 
 import {
 	decoder,
+	metaDecoder,
 	RGB24toGL,
 	RGBA32toGL,
 	Renderer,
@@ -63,4 +64,9 @@ const ops = {
 			.pipe(new RGB24toJPEG(name))
 			;
 	},
+
+	meta: async (vfp: string, name: string) => {
+		let cdata = await metaDecoder(vfp);
+		log('Code Data From metaDecoder()', cdata);
+	}
 };
