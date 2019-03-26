@@ -1,4 +1,5 @@
 import {Request, Response} from 'express';
+import {metaDecoder} from 'streams';
 
 const ctrler =  {
 	index: (req: Request, resp: Response) => {
@@ -26,9 +27,15 @@ const ctrler =  {
 		]).end();
 	},	
 
-	upload: function(req, resp: Response) {
+	upload: async function(req, resp: Response) {
 		console.log('Uploaded file', req.files);
-		resp.status(200).end();
+
+		if (req.files.video) {
+			let codecData = await metaDecoder(req.files.video);
+			resp.status(200).end();
+		} else {
+			resp.status(400).json({error: `Please provide a file as 'video'.`});
+		}
 	}
 };
 
