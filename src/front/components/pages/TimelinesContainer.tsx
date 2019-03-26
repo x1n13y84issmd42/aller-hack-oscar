@@ -6,7 +6,9 @@ class TimelinesContainer extends React.Component<any, any> {
 	render(): JSX.Element {
 
 		return (
-			<div>
+			<div className="timelines-container">
+				<Timeline/>
+				<Timeline/>
 				<Timeline/>
 			</div>
 		);
