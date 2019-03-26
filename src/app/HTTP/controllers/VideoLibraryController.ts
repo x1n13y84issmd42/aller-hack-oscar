@@ -49,9 +49,10 @@ const ctrler =  {
 			};
 
 			let videos = new MongoVideos();
-			videos.put(vd);
+			await videos.put(vd);
+			//TODO: move the file somewhere
 
-			resp.status(200).json(codecData).end();
+			resp.status(200).json(vd).end();
 		} else {
 			resp.status(400).json({error: `Please provide a file as 'video'.`});
 		}
