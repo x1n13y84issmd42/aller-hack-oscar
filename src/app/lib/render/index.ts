@@ -15,10 +15,14 @@ interface IFrameRetriever {
  * Renders Projects.
  */
 export class TheMachine {
-	private gl;
+	private gl: WebGLRenderingContext;
 
-	constructor(private project: Project, private frameRetriever: IFrameRetriever) {
-		this.gl = gl(project.settings.width, project.settings.height, {
+	/**
+	 * @param webgl A WebGLRenderingContext instance. Use it in browser to hook The Machine to your canvas.
+	 */
+	constructor(private project: Project, private frameRetriever: IFrameRetriever, webgl?: WebGLRenderingContext) {
+		CanvasRenderingContext2D
+		this.gl = webgl || gl(project.settings.width, project.settings.height, {
 			preserveDrawingBuffer: true
 		});
 	}
