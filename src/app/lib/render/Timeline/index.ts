@@ -1,11 +1,12 @@
-import { VideoDesc } from "lib/render/Video";
+import { VideoDesc } from "lib/render/Types";
+import { IVideos } from "app/storage/Video";
 
 //	Potentially this can become more than a single number
 export type FrameTimestamp = number;
 
 export type ClipDesc = {
 	id: number,
-	videoID: number,
+	videoID: string,
 	t1: FrameTimestamp,
 	t2: FrameTimestamp,
 	URL: string,
@@ -22,7 +23,7 @@ export type TimelineDesc = {
  * A reference to the 
  */
 export type VideoFrameRef = {
-	videoID: number;
+	videoID: string;
 	frameT: FrameTimestamp;
 };
 
@@ -34,19 +35,14 @@ export namespace Timeline {
 	 * it assumes that `t` is a numeric timestamp ★ IN ★ CLIP ★ TIME ★ SPACE ★, and calculates exact frame timestamp
 	 * from it and the referenced video FPS.
 	 */
-	export function selectFramesAt(tls: TimelineDesc[], t: FrameTimestamp): VideoFrameRef[] {
+	export function selectFramesAt<VT extends VideoDesc>(tls: TimelineDesc[], t: FrameTimestamp, videos: IVideos<VT>): VideoFrameRef[] {
 		let res: VideoFrameRef[] = [];
 
 		for (let tl of tls) {
 			for (let e of tl.entities) {
 				if (e.t1 <= t && e.t2 >=t) {
 					//TODO: retrieve the video object from repo, get its FPS
-					let v: VideoDesc = {
-						id: '1',
-						path: '',
-						FPS: 24,
-						length: 123,
-					};
+					let v = videos.get(e.videoID);
 
 					res.push({
 						videoID: e.videoID,
