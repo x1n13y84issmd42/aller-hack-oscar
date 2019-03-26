@@ -8,8 +8,6 @@ export default function (app) {
 
 	return () => {
 		return new Promise((resolve) => {
-			router.get('/*', defaultHandler);
-
 			app.use(router);
 			app.use((err, req: Request, resp: Response, next) => {
 				log('Error handler');
@@ -28,6 +26,7 @@ export default function (app) {
 				next && next();
 			});
 
+			router.get('/*', defaultHandler);
 			resolve();
 		});
 	};
