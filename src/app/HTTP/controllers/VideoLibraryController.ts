@@ -5,8 +5,10 @@ import { VideoDesc } from 'lib/render/Types';
 import { MongoVideos } from 'storage/Video/MongoVideos';
 
 const ctrler =  {
-	index: (req: Request, resp: Response) => {
-		return ctrler.index_mock(req, resp);
+	index: async (req: Request, resp: Response) => {
+		let videos = new MongoVideos();
+		let vids = await videos.all();
+		return resp.status(200).json(vids).end();
 	},
 
 	index_mock: (req: Request, resp: Response) => {
