@@ -6,6 +6,7 @@ import HTTPS from 'system/HTTPS';
 import Router from 'system/Router';
 import Session from 'system/Session';
 import Bye from 'system/Bye';
+import Auth from "system/Auth";
 import * as app from 'app';
 
 import Hello from 'system/cli/Hello';
@@ -18,6 +19,7 @@ bootMgr.define('web', new BootSequence([
 	HTTP,
 	HTTPS,
 	Router,
+	Auth,
 ]));
 
 bootMgr.define('cli', new BootSequence([

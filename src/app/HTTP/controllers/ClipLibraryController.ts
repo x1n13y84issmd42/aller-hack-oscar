@@ -1,4 +1,4 @@
-import {Request, Response} from 'express';
+import { Request, Response } from 'express';
 
 const ctrler = {
 	index: (req: Request, resp: Response) => {
@@ -7,7 +7,7 @@ const ctrler = {
 
 	index_mock: (req: Request, resp: Response) => {
 		let idBase = 2000;
-	
+
 		function mockClip(vID: number) {
 			let t1 = Math.random() * 50;
 			return {
