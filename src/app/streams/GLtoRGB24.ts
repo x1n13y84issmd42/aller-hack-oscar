@@ -1,5 +1,5 @@
 import {TTransform} from 'fw/streams';
-import {GLFrame} from 'lib/render/3';
+import {GLFrame} from 'lib/render/GL';
 import {RGB24Frame} from 'lib/ffmpeg';
 import {FrameType} from 'fw/Frame';
 import * as THREE from 'three.js-node';

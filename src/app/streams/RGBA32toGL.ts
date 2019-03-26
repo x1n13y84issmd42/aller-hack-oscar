@@ -1,5 +1,5 @@
 import {TTransform} from 'fw/TTransform';
-import {GLFrame} from 'lib/render/3';
+import {GLFrame} from 'lib/render/GL';
 import {RGBA32Frame} from 'lib/ffmpeg';
 import {FrameType} from 'fw/Frame';
 import * as THREE from 'three.js-node';

@@ -27,7 +27,7 @@ const ctrler =  {
 	},
 
 	upload: function(req: Request, resp: Response) {
-		
+
 	}
 };
 

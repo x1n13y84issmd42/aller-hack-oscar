@@ -1,5 +1,5 @@
 import {TTransform} from 'fw/streams';
-import {GLFrame} from 'lib/render/3';
+import {GLFrame} from 'lib/render/GL';
 import {FrameType} from 'fw/Frame';
 import {RGBA32Frame} from 'lib/ffmpeg';
 import { TheMachine } from 'lib/render';

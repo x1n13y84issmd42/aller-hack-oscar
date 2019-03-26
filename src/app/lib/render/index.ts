@@ -2,7 +2,7 @@ import gl = require('gl');
 import * as THREE from 'three.js-node';
 import * as dom from 'jsdom-global';
 import { Project } from "lib/render/Project";
-import { GLFrame } from 'lib/render/3';
+import { GLFrame } from 'lib/render/GL';
 import { IFramesRetriever } from 'lib/render/IFrameRetriever';
 
 dom();

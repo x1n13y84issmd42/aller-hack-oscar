@@ -1,4 +1,4 @@
-import { FXDesc } from "lib/render/FX";
+type FXDesc = any;
 
 export type VideoDesc = {
 
