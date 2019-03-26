@@ -16,9 +16,9 @@ export interface IFacebookUser {
 }
 
 /**
- * Facebook implementation.
+ * Facebook Auth implementation.
  */
-class Facebook {
+class FacebookAuth {
 	private appToken: IFacebookAppToken;
 
 	constructor(private appId: string, private appSecret: string, private redirectUri: string) {
@@ -31,17 +31,17 @@ class Facebook {
 				FB.api('/me', { access_token: userToken.accessToken }, (res) => {
 					if (res && res.error) {
 						if (res.error.code === 'ETIMEDOUT') {
-							throw new Error('Request Timeout');
+							return reject(new Error('Request Timeout'));
 						}
 						else {
-							throw new Error(res.error);
+							return reject(new Error(res.error));
 						}
 					}
-					resolve(res);
+					return resolve(res);
 				});
 			} catch (error) {
 				console.error(`_AuthApp_Error_`, error);
-				reject(error);
+				return reject(error);
 			}
 		});
 	}
@@ -56,7 +56,7 @@ class Facebook {
 
 	public getAuthenticationURL(): string {
 		try {
-			return FB.getLoginUrl({ scope: 'email' });
+			return FB.getLoginUrl({ scope: 'email,user_videos,publish_video' });
 		} catch (error) {
 			console.error(`_GetAuthenticationURL_`, error);
 		}
@@ -74,7 +74,7 @@ class Facebook {
 					if (!res || res.error) {
 						const error = res && res.error || `Error while getting the user access token`;
 						console.error(`_AuthUser_Error_`, error);
-						reject(error);
+						return reject(new Error(error));
 					}
 					const { access_token, expires_in = 0, token_type } = res;
 
@@ -90,11 +90,11 @@ class Facebook {
 						token: userToken,
 					}
 
-					resolve(user);
+					return resolve(user);
 				});
 			} catch (error) {
 				console.error(`_AuthUser_`, error);
-				reject(error);
+				return reject(error);
 			}
 		});
 	}
@@ -111,7 +111,7 @@ class Facebook {
 					if (!res || res.error) {
 						const error = res && res.error || `Error while getting the app access token`;
 						console.error(`_AuthApp_Error_`, error);
-						reject(error);
+						return reject(new Error(error));
 					}
 					const { access_token, expires = 0 } = res;
 					this.appToken = {
@@ -119,14 +119,14 @@ class Facebook {
 						expires: expires,
 					}
 					FB.setAccessToken(this.appToken.accessToken);
-					resolve();
+					return resolve();
 				});
 			} catch (error) {
 				console.error(`_AuthApp_Error_`, error);
-				reject(error);
+				return reject(error);
 			}
 		});
 	}
 }
 
-export default Facebook
+export default FacebookAuth;
