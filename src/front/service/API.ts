@@ -7,7 +7,7 @@ interface IOptions {
 };
 
 export const API = axios.create({
-	baseURL: 'localhost',
+	baseURL: '',
 	withCredentials: true,
 });
 

@@ -27,10 +27,7 @@ const ctrler =  {
 	},
 
 	upload: function(req: Request, resp: Response) {
-		console.log(req.body)
 		resp.status(200).end();
-
-		
 	}
 };
 

@@ -2,21 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="65be8d2d-1df0-44b2-89c9-9ff113609423" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/assets/images/clip_mock.jpg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/doc/oscar.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/app/HTTP/controllers/ClipLibraryController.ts" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/app/HTTP/controllers/FXLibraryController.ts" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/app/HTTP/controllers/VideoLibraryController.ts" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/app/lib/render/Preset.ts" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change beforePath="$PROJECT_DIR$/src/app/HTTP/router/api.ts" afterPath="$PROJECT_DIR$/src/app/HTTP/router/api.ts" />
-      <change beforePath="$PROJECT_DIR$/src/app/HTTP/router/static.ts" afterPath="$PROJECT_DIR$/src/app/HTTP/router/static.ts" />
-      <change beforePath="$PROJECT_DIR$/src/app/lib/render/FX.ts" afterPath="$PROJECT_DIR$/src/app/lib/render/FX.ts" />
-      <change beforePath="$PROJECT_DIR$/src/app/system/Router.ts" afterPath="$PROJECT_DIR$/src/app/system/Router.ts" />
+      <change beforePath="$PROJECT_DIR$/src/app/HTTP/controllers/VideoLibraryController.ts" afterPath="$PROJECT_DIR$/src/app/HTTP/controllers/VideoLibraryController.ts" />
       <change beforePath="$PROJECT_DIR$/src/front/actions/actions.tsx" afterPath="$PROJECT_DIR$/src/front/actions/actions.tsx" />
-      <change beforePath="$PROJECT_DIR$/src/front/components/uploader.tsx" afterPath="$PROJECT_DIR$/src/front/components/uploader.tsx" />
       <change beforePath="$PROJECT_DIR$/src/front/service/API.ts" afterPath="$PROJECT_DIR$/src/front/service/API.ts" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -56,11 +43,21 @@
       <file leaf-file-name="actions.tsx" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/front/actions/actions.tsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="332">
-              <caret line="26" column="24" lean-forward="false" selection-start-line="26" selection-start-column="24" selection-end-line="26" selection-end-column="24" />
+            <state relative-caret-position="404">
+              <caret line="30" column="18" lean-forward="false" selection-start-line="30" selection-start-column="18" selection-end-line="30" selection-end-column="18" />
               <folding>
                 <element signature="e#0#51#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="API.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/front/service/API.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="141">
+              <caret line="9" column="14" lean-forward="false" selection-start-line="9" selection-start-column="14" selection-end-line="9" selection-end-column="14" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -78,8 +75,8 @@
       <file leaf-file-name="VideoLibraryController.ts" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/app/HTTP/controllers/VideoLibraryController.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="422">
-              <caret line="30" column="31" lean-forward="false" selection-start-line="30" selection-start-column="31" selection-end-line="30" selection-end-column="31" />
+            <state relative-caret-position="512">
+              <caret line="35" column="0" lean-forward="true" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -122,16 +119,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="378">
               <caret line="21" column="31" lean-forward="false" selection-start-line="18" selection-start-column="8" selection-end-line="21" selection-end-column="31" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="constants.tsx" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/front/constants.tsx">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="72">
-              <caret line="4" column="40" lean-forward="false" selection-start-line="4" selection-start-column="40" selection-end-line="4" selection-end-column="40" />
               <folding />
             </state>
           </provider>
@@ -181,11 +168,11 @@
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/src/front/components/pages/MainPage.tsx" />
         <option value="$PROJECT_DIR$/src/front/constants.tsx" />
-        <option value="$PROJECT_DIR$/src/front/service/API.ts" />
         <option value="$PROJECT_DIR$/src/app/HTTP/router/static.ts" />
         <option value="$PROJECT_DIR$/src/front/components/uploader.tsx" />
         <option value="$PROJECT_DIR$/src/app/system/Router.ts" />
         <option value="$PROJECT_DIR$/src/front/actions/actions.tsx" />
+        <option value="$PROJECT_DIR$/src/front/service/API.ts" />
         <option value="$PROJECT_DIR$/src/app/HTTP/controllers/VideoLibraryController.ts" />
       </list>
     </option>
@@ -356,7 +343,7 @@
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="settings.editor.selected.configurable" value="preferences.customizations" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../lommelegen-ask-a-doctor" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
   </component>
@@ -393,12 +380,12 @@
       <updated>1553503726290</updated>
       <workItem from="1553503727642" duration="3200000" />
       <workItem from="1553507388474" duration="20261000" />
-      <workItem from="1553528192836" duration="5149000" />
+      <workItem from="1553528192836" duration="5437000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="28610000" />
+    <option name="totallyTimeSpent" value="28898000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="93" y="68" width="1827" height="1071" extended-state="0" />
@@ -648,14 +635,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/front/service/API.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="18" column="53" lean-forward="false" selection-start-line="18" selection-start-column="53" selection-end-line="18" selection-end-column="53" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/app/HTTP/router/static.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
@@ -742,18 +721,26 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/front/actions/actions.tsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="332">
-          <caret line="26" column="24" lean-forward="false" selection-start-line="26" selection-start-column="24" selection-end-line="26" selection-end-column="24" />
+        <state relative-caret-position="404">
+          <caret line="30" column="18" lean-forward="false" selection-start-line="30" selection-start-column="18" selection-end-line="30" selection-end-column="18" />
           <folding>
             <element signature="e#0#51#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/front/service/API.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="141">
+          <caret line="9" column="14" lean-forward="false" selection-start-line="9" selection-start-column="14" selection-end-line="9" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/app/HTTP/controllers/VideoLibraryController.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="422">
-          <caret line="30" column="31" lean-forward="false" selection-start-line="30" selection-start-column="31" selection-end-line="30" selection-end-column="31" />
+        <state relative-caret-position="512">
+          <caret line="35" column="0" lean-forward="true" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
           <folding />
         </state>
       </provider>
