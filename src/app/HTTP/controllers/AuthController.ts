@@ -19,6 +19,6 @@ export default {
 
 	confirm: async function (req: Request, res: Response) {
 		await auth.authenticate(req);
-		res.redirect('/dashboard');
+		res.redirect('/');
 	},
 };

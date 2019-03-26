@@ -1,8 +1,8 @@
 import * as express from 'express';
 
-import Facebook, { IFacebookUser } from './Facebook';
+import FacebookAuth, { IFacebookUser } from './FacebookAuth';
 
-let FB: Facebook;
+let FB: FacebookAuth;
 
 const auth = {
 	getAuthenticationURL: function () {
@@ -24,7 +24,7 @@ const auth = {
 	 */
 	bootstrap: async function () {
 		const { FB_APP_ID, FB_APP_SECRET, APP_URL } = process.env;
-		FB = new Facebook(FB_APP_ID, FB_APP_SECRET, `${APP_URL}/api/auth/confirm`);
+		FB = new FacebookAuth(FB_APP_ID, FB_APP_SECRET, `${APP_URL}/api/auth/confirm`);
 		await FB.authApp();
 	},
 
@@ -38,7 +38,7 @@ const auth = {
 			if (user) {
 				resolve(user);
 			} else {
-				reject('No `user` in session');
+				reject(new Error('No `user` in session'));
 			}
 		});
 	},
