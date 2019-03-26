@@ -11,7 +11,8 @@
     "mongo": "mongod --dbpath=./data",
     "postinstall": "npm run build",
     "build-front": "webpack --config webpack-local.config.js",
-    "watch": "webpack --config webpack-local.config.js --watch"
+    "watch": "webpack --config webpack-local.config.js --watch",
+    "dev": "npm run build && npm run watch && npm run run web"
   },
   "author": "",
   "license": "ISC",

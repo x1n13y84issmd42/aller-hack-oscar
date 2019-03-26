@@ -1,6 +1,6 @@
 import * as express from 'express';
 
-import Facebook, { IFacebookAppToken } from './Facebook';
+import Facebook, { IFacebookUser } from './Facebook';
 
 let FB: Facebook;
 
@@ -9,37 +9,23 @@ const auth = {
 		return FB.getAuthenticationURL();
 	},
 
-	getLogoutURL: function () {
-		// TODO: DO THIS
-	},
-
 	authenticate: async function (req: express.Request) {
 		const { code } = req.query;
-		const userToken: IFacebookAppToken = await FB.authUser(code);
-		console.log(`_Authenticate_UserToken_`, userToken);
-		req.session.test = 'test';
-	},
-
-	setUser(request: express.Request) {
-		// TODO: DO THIS
+		const userToken: IFacebookUser = await FB.authUser(code);
+		req.session.user = userToken;
 	},
 
 	logout: function (request: express.Request) {
 		// TODO: logout
 	},
 
-	me: function (req: express.Request) {
-		const { user } = req.session;
-		const facebookUser = FB.me(user.token);
-		console.log(`_facebookUser_`, facebookUser);
-	},
-
 	/**
 	 * Straps the auth service on the app start.
 	 */
-	bootstrap: function () {
+	bootstrap: async function () {
 		const { FB_APP_ID, FB_APP_SECRET, APP_URL } = process.env;
 		FB = new Facebook(FB_APP_ID, FB_APP_SECRET, `${APP_URL}/api/auth/confirm`);
+		await FB.authApp();
 	},
 
 	/**
@@ -63,8 +49,11 @@ const auth = {
 	 * @param res Express Response instance.
 	 * @param next A closure to continue execution after the middleware.
 	 */
-	middleware: function (req: express.Request, res: express.Response, next) {
-		// TODO: DO THIS
+	middleware: function(req: express.Request, res: express.Response, next) {
+		if (!req.session || !req.session.user) {
+			res.redirect('/api/auth/login'); // TODO: Check expired token
+		}
+		next();
 	},
 };
 

@@ -15,11 +15,11 @@ const bootMgr = new BootManager();
 
 bootMgr.define('web', new BootSequence([
 	Env,
+	Auth,
 	Session,
 	HTTP,
 	HTTPS,
 	Router,
-	Auth,
 ]));
 
 bootMgr.define('cli', new BootSequence([

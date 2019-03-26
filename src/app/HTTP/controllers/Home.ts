@@ -8,4 +8,10 @@ export default {
 			.status(200)
 			.sendFile(path.join(app.root, 'out/dist/index.html'));
 	},
+
+	dashboard: function(req: Request, resp: Response) {
+		resp.set('Content-Type', 'text/html')
+			.status(200)
+			.sendFile(path.join(app.root, 'out/dist/index.html'));
+	},
 };
