@@ -6,7 +6,10 @@ import staticRouter from './static';
 let router: Router = Router();
 
 router.use('/static', staticRouter);
+
 router.use('/api', apiRouter);
+
 router.get('/', Home.index);
+router.get('/', Home.dashboard);
 
 export default router;
