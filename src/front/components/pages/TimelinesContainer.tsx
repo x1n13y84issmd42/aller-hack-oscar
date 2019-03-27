@@ -6,6 +6,7 @@ import TimelineVideo from 'front/components/pages/TimelineVideo';
 import { getTimeline } from "front/actions/actions";
 
 import Card from '@material-ui/core/Card';
+import Typography from '@material-ui/core/Typography';
 
 class TimelinesContainer extends React.Component<any, any> {
 	onDragOver = (event) => {
@@ -28,7 +29,11 @@ class TimelinesContainer extends React.Component<any, any> {
 			<div className="timelines-container" onDrop={this.onFileDrop} onDragOver={this.onDragOver}>
 				{(!timelines || !timelines.length) ?
 					(
-						<h4 className="timelines-empty">Dude, I want some video item... Drag to me.</h4>
+						<Card  className="timelines-empty">
+							<Typography component="h5" variant="h5">
+								Dude, I want some video item... Drag to me.
+							</Typography>
+						</Card>
 					)
 					: (
 						<Card>
@@ -36,6 +41,9 @@ class TimelinesContainer extends React.Component<any, any> {
 						</Card>
 					)
 				}
+				<Card>
+					<TimelineVideo/>
+				</Card>
 			</div>
 		);
 	}

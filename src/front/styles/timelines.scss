@@ -1,11 +1,10 @@
 .timelines-container {
   margin: 10px;
   min-height: 100px;
-  outline: 1px solid cornflowerblue;
 }
 
 .timelines-item {
-  border: 1px solid pink;
+  //border: 1px solid pink;
   margin: 10px;
 }
 
@@ -32,9 +31,9 @@
 .timelines-empty {
   text-align: center;
   display: block;
-  margin: 0;
+  margin-bottom: 50px ;
   width: 100%;
-  height: 100%;
+  height: 60px;
   position: relative;
   top: 38px;
 }
