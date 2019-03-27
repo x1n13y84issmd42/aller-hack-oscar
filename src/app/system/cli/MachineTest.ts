@@ -2,10 +2,12 @@ import {Express} from 'express';
 import * as debug from 'debug';
 import * as fs from 'fs';
 import * as path from 'path';
+import {GLFrame} from 'lib/render/GL'
 import args from 'fw/args';
 
 import {
 	decoder,
+	metaDecoder,
 	RGB24toGL,
 	RGBA32toGL,
 	Renderer,
@@ -15,30 +17,26 @@ import {
 	Encoder,
 	encoder,
 	FrameUnwrapper,
-} from 'streams';
+} from 'lib/streams';
 
 import { TheMachine } from 'lib/render';
 import { Project } from 'lib/render/Project';
 import { RGB24Frame } from 'lib/ffmpeg';
-import { TimestampFramesRetriever } from 'lib/render/TimestampFramesRetriever';
+import { IFramesExtractor } from 'lib/render/IFramesExtractor';
 
-const log = debug('rendertest');
+const log = debug('machinetest');
 
 export default function (app: Express) {
 	return function() {
 		return new Promise((resolve, reject) => {
-			let videoFilePath = args[1];
-			let op = args[2];
+			let op = args[1];
+			let videoFilePath = args[2];
 			let name = op + '/' + path.basename(videoFilePath);
 
-			log(`Working with ${videoFilePath}, performing the ${op} operation.`, args);
-
-			let theProject = undefined;
-			let theRetriever = new TimestampFramesRetriever();
-			let machine = new TheMachine(theProject, theRetriever);
+			log(`Working with ${videoFilePath}, performing the ${op} operation.`);
 
 			if (ops[op]) {
-				ops[op](videoFilePath, name, machine);
+				ops[op](videoFilePath, name);
 			} else {
 				log(`Operation "${op}" is not defined.`);
 				process.exit(0);
@@ -49,19 +47,30 @@ export default function (app: Express) {
 	}
 }
 
-const ops: {[k:string]: (fn: string, name: string, machine: TheMachine) => void} = {
-	pass: (vfp: string, name: string, machine: TheMachine) => {
-		let frameN = (args[3] !== undefined) ? args[3] : 5;
-		let frames = (args[4] !== undefined) ? args[4] : 1;
-		log(`Rendering ${frames} frames from #${frameN}`);
+const ops = {
+	pass: (f: string, name: string) => {
+		let projectFile = args[3] || (log('Please specify a project file to use') || process.exit(-1));
+		let project = JSON.parse(fs.readFileSync(projectFile, {encoding:'string'})) as Project;
 
-		decoder(vfp, {
-			from: frameN / 25,
-			frames: frames,
-		})
-			.pipe(new RGB24toGL())
-			.pipe(new Renderer(machine))
-			.pipe(new GLtoRGB24())
-			;
+		let machine = new TheMachine(project, new StreamFramesExtractor());
 	}
 };
+
+/**
+ * Extracts frames right from video files on demand.
+ * This one is meant for rendering of videos, so it starts few decoding streams
+ * and accumulates frames, then serves frames at the specified time `t`.
+ */
+class StreamFramesExtractor implements IFramesExtractor {
+	private started: boolean = false;
+
+	private start(project: Project) {
+		if (! this.started) {
+			//TODO: start streams
+		}
+	}
+
+	async get(project: Project, t: number): Promise<GLFrame[]> {
+		return [];
+	}
+}

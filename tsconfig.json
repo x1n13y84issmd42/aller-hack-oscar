@@ -16,6 +16,7 @@
 			"HTTP/*": ["app/HTTP/*"],
 			"lib/*": ["app/lib/*"],
 			"main/*": ["app/main/*"],
+			"storage/*": ["app/storage/*"],
 			"streams/*": ["app/streams/*"],
 			"streams": ["app/streams/index"],
 			"system/*": ["app/system/*"],

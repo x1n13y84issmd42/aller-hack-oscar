@@ -1,6 +1,6 @@
 import gl = require('gl');
 import * as Types from 'lib/render/Types';
-import { IVideos } from 'app/storage/Video/IVideos';
+import { IVideos } from 'storage/Video/IVideos';
 import { EffectsRepo } from 'lib/render/EffectsRepo';
 import { FrameExtractor } from 'lib/render/FrameExtractor';
 import { FrameBlender } from 'lib/render/FrameBlender';
@@ -22,17 +22,17 @@ export class FrameRenderMachine<V, F> {
     });
   }
 
-  render(timestamp: number): F {
+  async render(timestamp: number): Promise<F> {
     // RenderMachine treat last timeline as most important,
     // but in project first timeline is most important,
     // so we must revers timelines array.
     let timelines = this.project.timelines.reverse();
 
     let targetVideoIdsWithOffsetsAndEffects =
-      this.getVideoIdWithOffsetAndEffects(timelines, timestamp);
+      await this.getVideoIdWithOffsetAndEffects(timelines, timestamp);
 
     let targetFramesWithEffects =
-      this.getFramesWithEffects(targetVideoIdsWithOffsetsAndEffects);
+      await this.getFramesWithEffects(targetVideoIdsWithOffsetsAndEffects);
 
     let processedFrames: F[] = [];
 
@@ -85,18 +85,18 @@ export class FrameRenderMachine<V, F> {
     return result;
   }
 
-  getFramesWithEffects(
+  async getFramesWithEffects(
     vofs: VideoWithOffsetAndEffects[]
   ):
-    FrameWithEffects<F>[]
+    Promise<FrameWithEffects<F>[]>
   {
     let result: FrameWithEffects<F>[] = [];
 
     for (let vof of vofs) {
       result.push({
-        frame:
-          this.frameExtractor.extractFrame(
-            this.videosRepo.get(vof.videoId), vof.offset),
+        frame: this.frameExtractor.extractFrame(
+          await this.videosRepo.get(vof.videoId),
+          vof.offset),
         effects: vof.effects
       } as FrameWithEffects<F>);
     }

@@ -8,10 +8,10 @@ ffmpeg.setFfmpegPath(ffmpegPath);
 import * as _ from 'underscore';
 import { Buffer } from 'buffer';
 import { FrameType } from 'fw/Frame';
-import { FrameWrapper } from 'streams/FrameWrapper';
+import { FrameWrapper } from 'lib/streams/framewrapper';
 import { encode } from 'punycode';
 import * as debug from 'debug';
-import { Sink } from 'streams/Sink';
+import { Sink } from 'lib/streams/sink';
 
 const log = debug(`decoder`);
 
@@ -27,7 +27,8 @@ const DefaultDecoderOptions: DecoderOptions = {
 interface CodecData {
 	width: number;
 	height: number;
-	fps: number;
+	FPS: number;
+	duration: number;
 }
 
 let CodecDataParsers = [
@@ -48,7 +49,7 @@ let CodecDataParsers = [
 		rx: /\d+(\.\d+)? fps/,
 		parse: (v: string, cdata: CodecData) => {
 			let fps = v.split(' ');
-			cdata.fps = parseFloat(fps[0]);
+			cdata.FPS = parseFloat(fps[0]);
 		}
 	}
 ];
@@ -111,7 +112,7 @@ export function decoder(input?: any, options?: any): FrameWrapper {
 
 		maker.configure({
 			frameSize: frameSize,
-			frameT: 1 / encoding.fps,
+			frameT: 1 / encoding.FPS,
 			width: encoding.width,
 			height: encoding.height
 		});
@@ -131,10 +132,7 @@ export function decoder(input?: any, options?: any): FrameWrapper {
 }
 
 
-export function metaDecoder(input?: string | Readable, options?: DecoderOptions): Promise<CodecData>;
-export function metaDecoder(options?: DecoderOptions): Promise<CodecData>;
-export function metaDecoder(input?: any, options?: any): Promise<CodecData> {
-
+export function metaDecoder(input?: string | Readable, options?: DecoderOptions): Promise<CodecData> {
 	return new Promise<CodecData>((resolve) => {
 		let ff = ffmpeg(input).format('image2pipe');
 

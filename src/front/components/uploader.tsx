@@ -1,7 +1,7 @@
 import {Component} from 'react';
 import * as React from 'react';
 import Dropzone from 'react-dropzone';
-import { sendVideo } from 'front/actions/actions';
+import { sendVideo } from '../actions/actions';
 
 
 class VideoUploader extends React.Component<any, any> {

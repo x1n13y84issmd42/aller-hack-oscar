@@ -3,7 +3,7 @@ import * as THREE from 'three.js-node';
 import * as dom from 'jsdom-global';
 import { Project } from "lib/render/Project";
 import { GLFrame } from 'lib/render/GL';
-import { IFramesRetriever } from 'lib/render/IFrameRetriever';
+import { IFramesExtractor } from 'lib/render/IFramesExtractor';
 
 dom();
 
@@ -17,8 +17,7 @@ export class TheMachine {
 	/**
 	 * @param webgl A WebGLRenderingContext instance. Use it in browser to hook The Machine to your canvas.
 	 */
-	constructor(private project: Project, private frameRetriever: IFramesRetriever, webgl?: WebGLRenderingContext) {
-		CanvasRenderingContext2D
+	constructor(private project: Project, private frameRetriever: IFramesExtractor, webgl?: WebGLRenderingContext) {
 		this.gl = webgl || gl(project.settings.width, project.settings.height, {
 			preserveDrawingBuffer: true
 		});

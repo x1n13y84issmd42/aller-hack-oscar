@@ -3,9 +3,9 @@ import './index.html';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import Router from 'front/routes/Router';
+import Router from './routes/Router';
 import Store, { history } from './stores/Main';
-import Layout from 'front/components/layout/Main';
+import Layout from './components/layout/Main';
 import { ConnectedRouter } from 'connected-react-router'
 
 class Main extends React.Component {

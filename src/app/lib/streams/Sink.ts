@@ -1,13 +1,10 @@
-import {RGB24Frame} from 'lib/ffmpeg';
-import {FrameType} from 'fw/Frame';
 import {TTransform} from 'fw/streams';
 import * as FrameStream from 'fw/FrameStream';
 
 /**
- * FrameWrapper expects a stream of binary RGB pixel data (likely coming from ffmpeg),
- * and emits a stream of RGB24 frames.
+ * It's like /dev/null for frames.
  */
-export class Sink extends TTransform<Buffer, RGB24Frame>
+export class Sink extends TTransform<Buffer, void>
 {
 	constructor() {
 		super({
