@@ -34,7 +34,7 @@ export class RGB24toJPEG extends TTransform<RGB24Frame, Buffer> {
 		if (this.transpose) {
 			xpixels = xpixels.transpose(1, 0);
 		}
-		
+
 		savepixels(xpixels, 'JPEG').pipe(fs.createWriteStream(fn));
 
 		callback();
