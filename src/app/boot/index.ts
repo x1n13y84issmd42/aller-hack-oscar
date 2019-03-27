@@ -14,6 +14,7 @@ import FrameRenderMachineTest from 'system/cli/FrameRenderMachineTest';
 import FromDecoderStreamFrameExtractorTest
   from 'system/cli/FromDecoderStreamFrameExtractorTest';
 import BlackWhiteEffectTest from 'system/cli/BlackWhiteEffectTest';
+import BoxBlurEffectTest from 'system/cli/BoxBlurEffectTest';
 import FFTest from "system/cli/FFTest";
 import MachineTest from "system/cli/MachineTest";
 
@@ -64,4 +65,11 @@ bootMgr.define('black_and_white_test', new BootSequence([
   BlackWhiteEffectTest,
   Bye,
 ]));
+
+bootMgr.define('box_blure_test', new BootSequence([
+  Env,
+  BoxBlurEffectTest,
+  Bye,
+]));
+
 export const boot = bootMgr;
