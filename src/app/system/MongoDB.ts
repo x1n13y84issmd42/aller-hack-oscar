@@ -7,8 +7,8 @@ const log = debug('mongo');
 
 export default function (app: Express) {
 	return function() {
-		return new Promise((resolve, reject) => {
-			mongo.connect(process.env.MONGODB_URI);
+		return new Promise(async (resolve) => {
+			await mongo.connect(process.env.MONGODB_URI);
 			log('Connected');
 			resolve();
 		});

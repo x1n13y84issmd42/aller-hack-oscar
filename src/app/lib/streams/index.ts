@@ -3,7 +3,6 @@ export {metaDecoder} from 'lib/streams/decoder';
 export {Encoder, encoder} from 'lib/streams/encoder';
 export {FrameWrapper} from 'lib/streams/framewrapper';
 export {JSONEncoder} from 'lib/streams/jsonencoder';
-export {Renderer} from 'lib/streams/renderer';
 export {RGB24toGL} from 'lib/streams/rgb24togl';
 export {RGBA32toGL} from 'lib/streams/rgba32togl';
 export {GLtoRGB24} from 'lib/streams/gltorgb24';

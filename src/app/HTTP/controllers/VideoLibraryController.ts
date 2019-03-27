@@ -33,7 +33,6 @@ const ctrler =  {
 	},	
 
 	upload: async function(req: Request, resp: Response) {
-		console.log('Uploaded file', req.files);
 		let video = req.files.video;
 
 		if (video) {
@@ -53,16 +52,17 @@ const ctrler =  {
 			let videos = new MongoVideos();
 			//	First save to get the ID
 			await videos.put(vd);
-			let path = `storage/${vd.id}`;
+			let path = `storage/videos/${vd.id}`;
 			
 			video.mv(path, (err) => {
 				if (err) {
-					//	Resaving to update the path.
-					videos.put(vd).then(() => {
-						resp.status(500).json(err).end();
-					});
+					resp.status(500).json(err).end();
 				} else {
-					resp.status(200).json(vd).end();
+					//	Resaving to update the path.
+					vd.path = path;
+					videos.put(vd).then(() => {
+						resp.status(200).json(vd).end();
+					});
 				}
 			});
 

@@ -1,54 +1,64 @@
-import gl = require('gl');
-import * as THREE from 'three.js-node';
-import * as dom from 'jsdom-global';
-import { Project } from "lib/render/Project";
+import { Project } from "lib/render/Types";
 import { GLFrame } from 'lib/render/GL';
 import { IFramesExtractor } from 'lib/render/IFramesExtractor';
 import { TReadable } from 'fw/TReadable';
+import { RGBA32Frame } from 'lib/ffmpeg';
+import { FrameType } from 'fw/Frame';
+import { API } from './API/API';
+import * as debug from 'debug';
 
-dom();
+const log = debug('TheMachine');
 
 /**
  * The Render Machine
  * Renders Projects.
  */
 export class TheMachine {
-	private gl: WebGLRenderingContext;
-	private theStream: TReadable<GLFrame> = new TReadable<GLFrame>();
+	private theStream: TReadable<RGBA32Frame> = new TReadable<RGBA32Frame>();
+	private frameStash: RGBA32Frame[] = [];
 
-	/**
-	 * @param webgl A WebGLRenderingContext instance. Use it in browser to hook The Machine to your canvas.
-	 */
-	constructor(private project: Project, private frameRetriever: IFramesExtractor, webgl?: WebGLRenderingContext) {
-		this.gl = webgl || gl(project.settings.width, project.settings.height, {
-			preserveDrawingBuffer: true
-		});
+	constructor(
+		private project: Project,
+		private frames: IFramesExtractor,
+		private api?: API<RGBA32Frame>
+	) {
+		let that = this;
+
+		this.stream._read = function (s?) {	}
 	}
 
-	render(timestamp?: number) {
+	async render(timestamp?: number) {
 
 		if (timestamp) {
-			this.renderFrame(timestamp);
+			this.renderFrame(0, timestamp);
 		} else {
-			let frameFrom = 0, frameTo = this.project.settings.length * this.project.settings.FPS;
+			let frameFrom = 0;
+			let frameTo = this.project.settings.length * this.project.settings.FPS;
+
 			for (let i = frameFrom; i<frameTo; i++) {
-			//	this.stream.push(this.renderFrame(i));
+				let t = i / this.project.settings.FPS;
+
+				//	Potentially this can be parallelized like crazy
+				await this.renderFrame(i, t);
 			}
 		}
 	}
 
-	renderFrame(t: number) {
-		//TODO: rendering
-		return this.getFramePixels();
-	}
+	async renderFrame(i: number, t: number) {
+		let inputFrames = await this.frames.get(i);
 
-	getFramePixels() {
-		var pixels = new Uint8Array(this.project.settings.width * this.project.settings.height * 4);
-		this.gl.readPixels(0, 0, this.project.settings.width, this.project.settings.height, this.gl.RGBA, this.gl.UNSIGNED_BYTE, pixels);
+		//TODO: render the shit
+		this.api.renderFrames(inputFrames);
 
-		//	This copies entire pixels and is inefficient from both performance & memory perspective.
-		//TODO: optimize this.
-		return new Buffer(pixels);
+		log(`Emitting a frame ${i} @ ${t}`);
+
+		this.theStream.push(new RGBA32Frame(
+			this.project.settings.width,
+			this.project.settings.height,
+			t,
+			FrameType.pixels,
+			this.api.getFramePixels(),
+		));
 	}
 
 	getFramesFromAllTheTimelines(frameIndex: number): GLFrame[] {

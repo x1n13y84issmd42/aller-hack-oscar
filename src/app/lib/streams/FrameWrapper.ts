@@ -15,8 +15,6 @@ export class FrameWrapper extends TTransform<Buffer, RGB24Frame>
 	private bufOffset = 0;
 	private T = 0;
 
-	private statsTotalBytes = 0;
-
 	constructor() {
 		super({
 			objectMode: true,
@@ -43,7 +41,7 @@ export class FrameWrapper extends TTransform<Buffer, RGB24Frame>
 
 			this.framesEmitted++;
 
-			this.log(` ++ ${this.T.toFixed(2)} Emitting a frame #${this.framesEmitted}, ${this.statsTotalBytes} bytes so far.`);
+			this.log(`${this.T.toFixed(2)} Emitting a frame #${this.framesEmitted}`);
 
 			this.push(new RGB24Frame(
 				this.cfg.width,

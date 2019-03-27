@@ -37,7 +37,7 @@ bootMgr.define('ff', new BootSequence([
 	FFTest,
 ]));
 
-bootMgr.define('rt', new BootSequence([
+bootMgr.define('machine', new BootSequence([
 	Env,
 	MongoDB,
 	MachineTest,

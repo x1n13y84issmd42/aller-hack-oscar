@@ -1,23 +1,6 @@
-import { VideoDesc } from "lib/render/Types";
+import { VideoDesc, FrameTimestamp } from "lib/render/Types";
 import { IVideos } from "../../../storage/Video";
-
-//	Potentially this can become more than a single number
-export type FrameTimestamp = number;
-
-export type ClipDesc = {
-	id: number,
-	videoID: string,
-	t1: FrameTimestamp,
-	t2: FrameTimestamp,
-	URL: string,
-};
-
-export type TimelineEntity = ClipDesc;
-
-export type TimelineDesc = {
-	z: number;
-	entities: TimelineEntity[];
-}
+import { Timeline } from "../Types";
 
 /**
  * A reference to the 
@@ -35,23 +18,23 @@ export namespace Timeline {
 	 * it assumes that `t` is a numeric timestamp ★ IN ★ CLIP ★ TIME ★ SPACE ★, and calculates exact frame timestamp
 	 * from it and the referenced video FPS.
 	 */
-	export async function selectFramesAt<VT extends VideoDesc>(tls: TimelineDesc[], t: FrameTimestamp, videos: IVideos<VT>): Promise<VideoFrameRef[]> {
+	/* export async function selectFramesAt<VT extends VideoDesc>(tls: Timeline[], t: FrameTimestamp, videos: IVideos<VT>): Promise<VideoFrameRef[]> {
 		let res: VideoFrameRef[] = [];
 
 		for (let tl of tls) {
 			for (let e of tl.entities) {
-				if (e.t1 <= t && e.t2 >=t) {
+				if (e.clipping.start <= t && e.clipping.end >=t) {
 					//TODO: retrieve the video object from repo, get its FPS
-					let v = await videos.get(e.videoID);
+					let v = await videos.get(e.videoId);
 
 					res.push({
-						videoID: e.videoID,
-						frameT: t * v.FPS / (e.t1 - e.t2)
+						videoID: e.videoId,
+						frameT: t * v.FPS / (e.clipping.start - e.clipping.end)
 					});
 				}
 			}
 		}
 
 		return res;
-	}
+	} */
 }
