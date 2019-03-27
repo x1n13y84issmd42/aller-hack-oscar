@@ -1,6 +1,7 @@
 export type ClipDesc = {
 	id: number,
-	videoID: number,
+	videoID: string,
+	timelineT: number;
 	t1: number,
 	t2: number,
 	URL: string,
@@ -17,6 +18,7 @@ export type ProjectSettings = {
 	FPS: number,
 	width: number,
 	height: number,
+	length: number,
 };
 
 export type Project = {

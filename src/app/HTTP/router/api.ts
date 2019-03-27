@@ -19,7 +19,7 @@ router.get('/lib/clips', ClipLibraryController.index);
 router.get('/lib/effects', FXLibraryController.index);
 
 const uplRouter: Router = Router();
-uplRouter.use(fileupload());
+uplRouter.use(fileupload({createParentPath: true}));
 uplRouter.post('/video', VideoLibraryController.upload);
 router.use('/upload', uplRouter)
 

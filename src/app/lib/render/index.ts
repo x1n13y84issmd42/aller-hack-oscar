@@ -4,6 +4,7 @@ import * as dom from 'jsdom-global';
 import { Project } from "lib/render/Project";
 import { GLFrame } from 'lib/render/GL';
 import { IFramesExtractor } from 'lib/render/IFramesExtractor';
+import { TReadable } from 'fw/TReadable';
 
 dom();
 
@@ -13,6 +14,7 @@ dom();
  */
 export class TheMachine {
 	private gl: WebGLRenderingContext;
+	private theStream: TReadable<GLFrame> = new TReadable<GLFrame>();
 
 	/**
 	 * @param webgl A WebGLRenderingContext instance. Use it in browser to hook The Machine to your canvas.
@@ -28,9 +30,9 @@ export class TheMachine {
 		if (timestamp) {
 			this.renderFrame(timestamp);
 		} else {
-			let frameFrom = 0, frameTo = 1000;
+			let frameFrom = 0, frameTo = this.project.settings.length * this.project.settings.FPS;
 			for (let i = frameFrom; i<frameTo; i++) {
-				this.renderFrame(i);
+			//	this.stream.push(this.renderFrame(i));
 			}
 		}
 	}
@@ -41,7 +43,7 @@ export class TheMachine {
 	}
 
 	getFramePixels() {
-		var pixels = new Uint8Array(this.project.settings.width * this.project.settings.height * 4)
+		var pixels = new Uint8Array(this.project.settings.width * this.project.settings.height * 4);
 		this.gl.readPixels(0, 0, this.project.settings.width, this.project.settings.height, this.gl.RGBA, this.gl.UNSIGNED_BYTE, pixels);
 
 		//	This copies entire pixels and is inefficient from both performance & memory perspective.
@@ -51,5 +53,9 @@ export class TheMachine {
 
 	getFramesFromAllTheTimelines(frameIndex: number): GLFrame[] {
 		return [];
+	}
+
+	get stream() {
+		return this.theStream;
 	}
 }

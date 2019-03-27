@@ -1,0 +1,15 @@
+{
+	"settings": {},
+	"timelines": [
+		{
+			"entities": [
+				{
+					"videoID": "",
+					"t1": 0,
+					"t2": 1,
+					"timelineT": 0
+				}
+			]
+		}
+	]
+}
