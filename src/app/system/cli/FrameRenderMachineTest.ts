@@ -3,7 +3,6 @@ import {Express} from 'express';
 import * as Types from 'lib/render/Types';
 import { IVideos } from 'app/storage/Video/IVideos';
 import { FrameRenderMachine } from 'lib/render/FrameRenderMachine';
-import { VideosRepo } from 'lib/render/VideosRepo';
 import { Effect } from 'lib/render/effects/Effect';
 import { EffectsRepo } from 'lib/render/EffectsRepo';
 import { FrameExtractor } from 'lib/render/FrameExtractor';
@@ -14,12 +13,23 @@ class OneVideoAsNumArrayMock implements IVideos<number[][]> {
 
   constructor(private id: string, private video: number[][]) {}
 
-  get(id: string): number[][] {
+  async get(id: string): Promise<number[][]> {
     if (id == this.id) {
-      return this.video;
+      let result = this.video;
+
+      return await new Promise(function (resolve, reject) {
+        resolve(result);
+      });
     } else {
       throw new ReferenceError(`record with id [${id}] do not exist`);
     }
+  }
+
+  put(v: number[][]) {
+  }
+
+  all(): Promise<number[][][]> {
+    return null;
   }
 }
 
@@ -65,7 +75,7 @@ class SaveOnlySecondFrameBlender implements FrameBlender<number[]> {
 }
 
 
-function main() {
+async function main() {
   let videoId = 'TestVideoId';
   let video = [[1, 2, 3], [2, 3, 4]];
 
@@ -120,15 +130,15 @@ function main() {
       new SaveOnlySecondFrameBlender());
 
 
-  let renderResult = renderMachine.render(0);
+  let renderResult = await renderMachine.render(0);
   assert.deepEqual([0.5, 1, 1.5], renderResult);
 }
 
 
 export default function (app: Express) {
 	return function() {
-		return new Promise((resolve, reject) => {
-      main();
+		return new Promise(async (resolve, reject) => {
+      await main();
 			resolve();
 		});
 	}
