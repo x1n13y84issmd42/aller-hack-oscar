@@ -2,6 +2,7 @@ import * as React from "react";
 import { connect } from 'react-redux';
 import ImageContainer from 'front/components/pages/ImageContainer'
 import {getClips} from "../../actions/actions";
+const vis = require('vis');
 
 class Timeline extends React.Component<any, any> {
 	componentDidMount(){
@@ -26,6 +27,8 @@ class Timeline extends React.Component<any, any> {
 		})
 	}
 	render(): JSX.Element {
+		console.log(vis)
+		console.log('hhh')
 
 		return (
 			<div className="timelines-item">
@@ -36,7 +39,7 @@ class Timeline extends React.Component<any, any> {
 	}
 }
 
-const mapStateToProps = ({ PersonalData, UI }) => ({});
+const mapStateToProps = ({  }) => ({});
 
 const mapDispatchToProps = () => ({});
 

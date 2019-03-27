@@ -37,7 +37,7 @@ const ctrler =  {
 		let video = req.files.video;
 
 		if (video) {
-			var videoFileStream = new stream.PassThrough();
+			let videoFileStream = new stream.PassThrough();
 			videoFileStream.end(video.data);
 			let codecData = await metaDecoder(videoFileStream);
 

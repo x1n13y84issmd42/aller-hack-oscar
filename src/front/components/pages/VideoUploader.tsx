@@ -17,7 +17,7 @@ class VideoUploader extends React.Component<any, any> {
 		//this.setState({files});
 		let formData = new FormData();
 		files.forEach(file => {
-			formData.append(file.name, file)
+			formData.append('video', file, file.name)
 		});
 		addVideo(formData);
 	};
@@ -35,8 +35,8 @@ class VideoUploader extends React.Component<any, any> {
 				{({getRootProps, getInputProps, isDragActive}) => (
 					<section >
 						<div className={'uploader ' + (isDragActive ? 'active' : 'inactive')} {...getRootProps()}>
-							<input {...getInputProps()} />
-							<p>Drag 'n' drop some files here, or click to select files</p>
+							<input name="video" {...getInputProps()} />
+							<p className="text-center">Drag 'n' drop some files here, or click to select files</p>
 						</div>
 					</section>
 				)}

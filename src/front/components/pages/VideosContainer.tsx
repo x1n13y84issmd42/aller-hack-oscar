@@ -1,32 +1,23 @@
 import * as React from "react";
 import { connect } from 'react-redux';
 import { getVideos } from 'front/actions/actions';
+import VideosList from 'front/components/pages/VideosList';
+import Typography from '@material-ui/core/Typography';
 
 class VideosContainer extends React.Component<any, any> {
 	componentDidMount(){
 		getVideos();
 	}
 
-	renderVideosList (videos){
-			return videos.map ((video, key) => {
-				if (video){
-					return (
-						<li key={video.id} data-id={video.id}>
-							<span><i className="far fa-file-video large-fa-file-video"></i></span>
-							<span>{video.title}</span> <span> {video.length}</span>
-						</li>
-					)
-				}
-			})
-	}
 
 	render(): JSX.Element {
+		const {videos} = this.props;
 		return (
-			<div>
-				<h3> Uploaded videos </h3>
-				<ul>
-					{this.renderVideosList(this.props.videos)}
-				</ul>
+			<div className="videos-list">
+				<Typography component="h5" variant="h5" className="text-center">
+					Uploaded video
+				</Typography>
+				<VideosList videos={videos}/>
 			</div>
 		);
 	}

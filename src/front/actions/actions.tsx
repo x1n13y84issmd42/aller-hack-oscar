@@ -45,7 +45,7 @@ export const getEffects = async () => {
 
 export const addVideo = async (params) => {
 	try {
-		const {data} = await APIPost(`/api/lib/videos`, params, {headers: {'Content-Type': 'multipart/form-data'}});
+		const {data} = await APIPost(`/api/upload/video`, params, {headers: {'Content-Type': 'multipart/form-data'}});
 		Store.dispatch(addVideoAction(data));
 	} catch (err) {
 		Store.dispatch(addVideoErrorAction());
