@@ -20,11 +20,11 @@ class VideosList extends React.Component<any, any> {
 		return videos.map((video, key) => {
 			if (video) {
 				return (
-					<ListItem key={video.id} alignItems="flex-start">
+					<ListItem key={video._id} alignItems="flex-start">
 						<Avatar>
 							<ImageIcon/>
 						</Avatar>
-						<ListItemText primary={video.title} secondary={video.length}/>
+						<ListItemText primary={video.name} secondary={video.length}/>
 					</ListItem>
 				)
 			}
