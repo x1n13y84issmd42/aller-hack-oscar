@@ -9,38 +9,43 @@ export type VideoDesc = {
 };
 
 export type EffectSetting = {
-  [k: string]: any
+	[k: string]: any
 };
 
 export type EffectDesc = {
-  id: string,
-  name: string,
-  settings: EffectSetting[]
+	id: string,
+	name: string,
+	settings: EffectSetting[]
 }
 
+//	Potentially this can become more than a single number
+export type FrameTimestamp = number;
+
 export type Position = {
-  start: number,
-  end: number
+	start: FrameTimestamp,
+	end: FrameTimestamp
 }
 
 export type ClipDesc = {
-  videoId: string,
-  timelinePosition: Position,
-  videoPosition: Position,
-  effects: EffectDesc[]
+	videoId: string,
+	timelinePosition: Position,
+	clipping: Position,
+	effects: EffectDesc[]
 };
 
 export type Timeline = {
-  entities: ClipDesc[]
+	entities: ClipDesc[]
 };
 
 export type ProjectSettings = {
-  FPS: number,
-  width: number,
-  height: number
+	title: string;
+	FPS: number,
+	width: number,
+	height: number
+	length: number,
 };
 
 export type Project = {
-  timelines: Timeline[],
-  settings: ProjectSettings
+	timelines: Timeline[],
+	settings: ProjectSettings
 };

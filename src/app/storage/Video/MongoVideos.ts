@@ -11,24 +11,30 @@ const log = debug('MongoVideos');
 
 export class MongoVideos implements IVideos<VideoDesc> {
 	async put(v: VideoDesc) {
-		//	Destructing it so insertOne() won't put an _id in v.
-		let res = await mongo.db.collection('videos').insertOne({ ...v });
-		v.id = res.insertedId.toString();
+		if (v.id) {
+			log(`Updating the ${v.id} with `, {$set: {...v, id: undefined}});
+			log(`Query `, {_id: v.id});
+
+			await mongo.videos.updateOne(
+				{ _id: new ObjectId(v.id) },
+				{ $set: {...v, id: undefined} },
+				{ upsert: true }
+			);
+		} else {
+			log(`Inserting`);
+			//	Destructuring it so insertOne() won't put an _id in v.
+			let res = await mongo.videos.insertOne({...v});
+			v.id = res.insertedId.toString();
+		}
 	}
 
 	async get(id: string): Promise<VideoDesc> {
-		try {
-			const video = await mongo.db.collection('videos').findOne({ _id: new ObjectId(id) }) as VideoDesc
-			return video;
-		} catch (error) {
-			console.error(`_MongoVideos_Get_`, error);
-			throw error;
-		}
+		return await mongo.videos.findOne({_id: new ObjectId(id)});
 	}
 
 	async all(): Promise<VideoDesc[]> {
 		let res: VideoDesc[] = [];
-		let cursor = await mongo.db.collection('videos').find({});
+		let cursor = await mongo.videos.find({});
 
 		await cursor.forEach((v) => {
 			res.push(v);

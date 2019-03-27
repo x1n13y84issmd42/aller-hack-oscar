@@ -12,7 +12,7 @@ import {
 } from 'lib/streams';
 
 import { TheMachine } from 'lib/render';
-import { Project } from 'lib/render/Project';
+import { Project } from 'lib/render/Types';
 import { RGB24Frame } from 'lib/ffmpeg';
 
 const log = debug('rendertest');

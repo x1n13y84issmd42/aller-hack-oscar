@@ -12,7 +12,7 @@ export class RGBA32toJPEG extends TTransform<RGBA32Frame, Buffer> {
 
 	constructor(
 		private name: string,
-		private transpose = false
+		private transpose = true
 	) {
 		super();
 

@@ -70,7 +70,7 @@ export class FrameRenderMachine<V extends Types.VideoDesc, F> {
 
           result.push({
             videoId: clip.videoId,
-            offset: clip.videoPosition.start + fromTimelineStartOffset,
+            offset: clip.clipping.start + fromTimelineStartOffset,
             effects: clip.effects
           } as VideoWithOffsetAndEffects);
         }

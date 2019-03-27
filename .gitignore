@@ -1,5 +1,10 @@
 node_modules
 out
 .vscode
+
 .idea
 .env
+
+storage/out
+storage/videos
+
