@@ -8,7 +8,7 @@ class Layout extends React.Component<any, any> {
 	render(): JSX.Element {
 		return (
 			<>
-				{ this.props.children }
+				{this.props.children}
 			</>
 		)
 	};
@@ -16,6 +16,6 @@ class Layout extends React.Component<any, any> {
 
 const mapStateToProps = state => ({});
 
-const mapDispatchToProps = () => ({ });
+const mapDispatchToProps = () => ({});
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Layout));

@@ -51,9 +51,21 @@ const ctrler =  {
 			};
 
 			let videos = new MongoVideos();
+			//	First save to get the ID
 			await videos.put(vd);
-			//TODO: move the file somewhere
-			resp.status(200).json(vd).end();
+			let path = `storage/${vd.id}`;
+			
+			video.mv(path, (err) => {
+				if (err) {
+					//	Resaving to update the path.
+					videos.put(vd).then(() => {
+						resp.status(500).json(err).end();
+					});
+				} else {
+					resp.status(200).json(vd).end();
+				}
+			});
+
 		} else {
 			resp.status(400).json({error: `Please provide a file as 'video'.`});
 		}

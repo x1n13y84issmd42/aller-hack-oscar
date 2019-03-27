@@ -30,7 +30,7 @@ router.use(bodyParser.json({
 
 
 const uplRouter: Router = Router();
-uplRouter.use(fileupload());
+uplRouter.use(fileupload({createParentPath: true}));
 uplRouter.post('/video', VideoLibraryController.upload);
 router.use('/upload', uplRouter);
 

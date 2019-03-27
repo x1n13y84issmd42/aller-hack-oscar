@@ -1,5 +1,7 @@
 .timelines-container {
- margin: 10px;
+  margin: 10px;
+  min-height: 100px;
+  outline: 1px solid cornflowerblue;
 }
 
 .timelines-item {
@@ -25,4 +27,14 @@
   //background-repeat: no-repeat;
   //background-position: center;
   width: 5px;
+}
+
+.timelines-empty {
+  text-align: center;
+  display: block;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  top: 38px;
 }

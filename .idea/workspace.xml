@@ -2,15 +2,44 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="65be8d2d-1df0-44b2-89c9-9ff113609423" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/app/lib/render/IFramesExtractor.ts" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/app/lib/streams/Reflector.ts" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/front/reducers/TimelinesReducer.ts" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/storage/plain.json" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" afterPath="$PROJECT_DIR$/package-lock.json" />
-      <change beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
-      <change beforePath="$PROJECT_DIR$/src/app/HTTP/controllers/ClipLibraryController.ts" afterPath="$PROJECT_DIR$/src/app/HTTP/controllers/ClipLibraryController.ts" />
+      <change beforePath="$PROJECT_DIR$/src/app/HTTP/controllers/VideoLibraryController.ts" afterPath="$PROJECT_DIR$/src/app/HTTP/controllers/VideoLibraryController.ts" />
       <change beforePath="$PROJECT_DIR$/src/app/HTTP/router/api.ts" afterPath="$PROJECT_DIR$/src/app/HTTP/router/api.ts" />
-      <change beforePath="$PROJECT_DIR$/src/front/actions/actions.tsx" afterPath="$PROJECT_DIR$/src/front/actions/actions.tsx" />
-      <change beforePath="$PROJECT_DIR$/src/front/components/pages/Timeline.tsx" afterPath="$PROJECT_DIR$/src/front/components/pages/Timeline.tsx" />
-      <change beforePath="$PROJECT_DIR$/src/front/constants.tsx" afterPath="$PROJECT_DIR$/src/front/constants.tsx" />
+      <change beforePath="$PROJECT_DIR$/src/app/boot/index.ts" afterPath="$PROJECT_DIR$/src/app/boot/index.ts" />
+      <change beforePath="$PROJECT_DIR$/src/app/lib/render/FrameRenderMachine.ts" afterPath="$PROJECT_DIR$/src/app/lib/render/FrameRenderMachine.ts" />
+      <change beforePath="$PROJECT_DIR$/src/app/lib/render/IFrameRetriever.ts" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/app/lib/render/Project.ts" afterPath="$PROJECT_DIR$/src/app/lib/render/Project.ts" />
+      <change beforePath="$PROJECT_DIR$/src/app/lib/render/Timeline/index.ts" afterPath="$PROJECT_DIR$/src/app/lib/render/Timeline/index.ts" />
+      <change beforePath="$PROJECT_DIR$/src/app/lib/render/TimestampFramesRetriever.ts" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/app/lib/render/index.ts" afterPath="$PROJECT_DIR$/src/app/lib/render/index.ts" />
+      <change beforePath="$PROJECT_DIR$/src/app/storage/Video/IVideos.ts" afterPath="$PROJECT_DIR$/src/app/storage/Video/IVideos.ts" />
+      <change beforePath="$PROJECT_DIR$/src/app/storage/Video/MockVideos.ts" afterPath="$PROJECT_DIR$/src/app/storage/Video/MockVideos.ts" />
+      <change beforePath="$PROJECT_DIR$/src/app/storage/Video/MongoVideos.ts" afterPath="$PROJECT_DIR$/src/app/storage/Video/MongoVideos.ts" />
+      <change beforePath="$PROJECT_DIR$/src/app/system/HTTP.ts" afterPath="$PROJECT_DIR$/src/app/system/HTTP.ts" />
+      <change beforePath="$PROJECT_DIR$/src/app/system/cli/MachineTest.ts" afterPath="$PROJECT_DIR$/src/app/system/cli/MachineTest.ts" />
+      <change beforePath="$PROJECT_DIR$/src/app/system/cli/RenderTest.ts" afterPath="$PROJECT_DIR$/src/app/system/cli/FFTest.ts" />
+      <change beforePath="$PROJECT_DIR$/src/front/App.tsx" afterPath="$PROJECT_DIR$/src/front/App.tsx" />
+      <change beforePath="$PROJECT_DIR$/src/front/actions/actions.tsx" afterPath="$PROJECT_DIR$/src/front/actions/actions.ts" />
+      <change beforePath="$PROJECT_DIR$/src/front/components/layout/Main.tsx" afterPath="$PROJECT_DIR$/src/front/components/layout/Main.tsx" />
+      <change beforePath="$PROJECT_DIR$/src/front/components/pages/MainPage.tsx" afterPath="$PROJECT_DIR$/src/front/components/pages/MainPage.tsx" />
+      <change beforePath="$PROJECT_DIR$/src/front/components/pages/Timeline.tsx" afterPath="$PROJECT_DIR$/src/front/components/pages/TimelineVideo.tsx" />
+      <change beforePath="$PROJECT_DIR$/src/front/components/pages/TimelinesContainer.tsx" afterPath="$PROJECT_DIR$/src/front/components/pages/TimelinesContainer.tsx" />
+      <change beforePath="$PROJECT_DIR$/src/front/components/pages/VideoUploader.tsx" afterPath="$PROJECT_DIR$/src/front/components/pages/VideoUploader.tsx" />
+      <change beforePath="$PROJECT_DIR$/src/front/components/pages/VideosList.tsx" afterPath="$PROJECT_DIR$/src/front/components/pages/VideosList.tsx" />
+      <change beforePath="$PROJECT_DIR$/src/front/constants.ts" afterPath="$PROJECT_DIR$/src/front/constants.ts" />
+      <change beforePath="$PROJECT_DIR$/src/front/constants.tsx" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/front/index.html" afterPath="$PROJECT_DIR$/src/front/index.html" />
+      <change beforePath="$PROJECT_DIR$/src/front/reducers/ClipsReducer.tsx" afterPath="$PROJECT_DIR$/src/front/reducers/ClipsReducer.ts" />
+      <change beforePath="$PROJECT_DIR$/src/front/reducers/EffectsReducer.tsx" afterPath="$PROJECT_DIR$/src/front/reducers/EffectsReducer.ts" />
+      <change beforePath="$PROJECT_DIR$/src/front/reducers/Main.tsx" afterPath="$PROJECT_DIR$/src/front/reducers/Main.ts" />
+      <change beforePath="$PROJECT_DIR$/src/front/reducers/VideosReducer.tsx" afterPath="$PROJECT_DIR$/src/front/reducers/VideosReducer.ts" />
+      <change beforePath="$PROJECT_DIR$/src/front/stores/Main.tsx" afterPath="$PROJECT_DIR$/src/front/stores/Main.ts" />
       <change beforePath="$PROJECT_DIR$/src/front/styles/timelines.scss" afterPath="$PROJECT_DIR$/src/front/styles/timelines.scss" />
+      <change beforePath="$PROJECT_DIR$/src/front/styles/videos.scss" afterPath="$PROJECT_DIR$/src/front/styles/videos.scss" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -27,20 +56,40 @@
       <file leaf-file-name="TimelinesContainer.tsx" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/front/components/pages/TimelinesContainer.tsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="342">
-              <caret line="19" column="27" lean-forward="false" selection-start-line="19" selection-start-column="27" selection-end-line="19" selection-end-column="27" />
+            <state relative-caret-position="90">
+              <caret line="5" column="45" lean-forward="false" selection-start-line="5" selection-start-column="45" selection-end-line="5" selection-end-column="45" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="actions.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/front/actions/actions.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="222">
+              <caret line="26" column="67" lean-forward="false" selection-start-line="26" selection-start-column="67" selection-end-line="26" selection-end-column="67" />
               <folding>
-                <element signature="e#0#31#0" expanded="true" />
+                <element signature="e#0#53#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Timeline.tsx" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/front/components/pages/Timeline.tsx">
+      <file leaf-file-name="HTTP.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/app/system/HTTP.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1062">
-              <caret line="31" column="10" lean-forward="false" selection-start-line="31" selection-start-column="10" selection-end-line="31" selection-end-column="10" />
+            <state relative-caret-position="-318">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TimelineVideo.tsx" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/front/components/pages/TimelineVideo.tsx">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1782">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
               </folding>
@@ -51,8 +100,18 @@
       <file leaf-file-name="timelines.scss" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/front/styles/timelines.scss">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="13" column="4" lean-forward="false" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="4" />
+            <state relative-caret-position="522">
+              <caret line="29" column="1" lean-forward="false" selection-start-line="29" selection-start-column="1" selection-end-line="29" selection-end-column="1" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="constants.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/front/constants.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="270">
+              <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -71,29 +130,21 @@
       <file leaf-file-name="api.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app/HTTP/router/api.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="20" column="14" lean-forward="false" selection-start-line="20" selection-start-column="14" selection-end-line="20" selection-end-column="22" />
+            <state relative-caret-position="450">
+              <caret line="37" column="0" lean-forward="false" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="VideoLibraryController.ts" pinned="false" current-in-tab="false">
+      <file leaf-file-name="VideoLibraryController.ts" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/app/HTTP/controllers/VideoLibraryController.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="355">
-              <caret line="34" column="58" lean-forward="false" selection-start-line="34" selection-start-column="4" selection-end-line="34" selection-end-column="58" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="constants.tsx" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/front/constants.tsx">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="108">
-              <caret line="6" column="29" lean-forward="false" selection-start-line="6" selection-start-column="29" selection-end-line="6" selection-end-column="29" />
-              <folding />
+            <state relative-caret-position="612">
+              <caret line="34" column="32" lean-forward="true" selection-start-line="34" selection-start-column="32" selection-end-line="34" selection-end-column="32" />
+              <folding>
+                <element signature="e#0#42#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -103,26 +154,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="432">
               <caret line="26" column="5" lean-forward="false" selection-start-line="26" selection-start-column="5" selection-end-line="26" selection-end-column="5" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MainFrameContainer.tsx" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/front/components/pages/MainFrameContainer.tsx">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="342">
-              <caret line="21" column="27" lean-forward="false" selection-start-line="21" selection-start-column="27" selection-end-line="21" selection-end-column="27" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MainPage.tsx" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/front/components/pages/MainPage.tsx">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="28" column="41" lean-forward="false" selection-start-line="28" selection-start-column="41" selection-end-line="28" selection-end-column="41" />
               <folding />
             </state>
           </provider>
@@ -153,6 +184,8 @@
       <find>node-sass</find>
       <find>finalhandler</find>
       <find>ffmpeg</find>
+      <find>TimelineVideo</find>
+      <find>TimelineVideo</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -161,8 +194,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/front/index.tsx" />
-        <option value="$PROJECT_DIR$/src/front/Routes/Router.tsx" />
         <option value="$PROJECT_DIR$/src/front/utils/polyfills.tsx" />
         <option value="$PROJECT_DIR$/src/front/App.tsx" />
         <option value="$PROJECT_DIR$/run/web" />
@@ -204,14 +235,16 @@
         <option value="$PROJECT_DIR$/src/front/reducers/VideosReducer.tsx" />
         <option value="$PROJECT_DIR$/src/front/components/pages/VideosList.tsx" />
         <option value="$PROJECT_DIR$/webpack-local.config.js" />
-        <option value="$PROJECT_DIR$/src/front/components/pages/TimelinesContainer.tsx" />
         <option value="$PROJECT_DIR$/src/front/components/pages/MainPage.tsx" />
         <option value="$PROJECT_DIR$/src/app/HTTP/controllers/ClipLibraryController.ts" />
         <option value="$PROJECT_DIR$/src/app/HTTP/router/api.ts" />
         <option value="$PROJECT_DIR$/src/front/actions/actions.tsx" />
         <option value="$PROJECT_DIR$/src/front/constants.tsx" />
-        <option value="$PROJECT_DIR$/src/front/styles/timelines.scss" />
         <option value="$PROJECT_DIR$/src/front/components/pages/Timeline.tsx" />
+        <option value="$PROJECT_DIR$/src/front/constants.ts" />
+        <option value="$PROJECT_DIR$/src/front/styles/timelines.scss" />
+        <option value="$PROJECT_DIR$/src/front/components/pages/TimelinesContainer.tsx" />
+        <option value="$PROJECT_DIR$/src/front/actions/actions.ts" />
       </list>
     </option>
   </component>
@@ -465,12 +498,12 @@
       <workItem from="1553503727642" duration="3200000" />
       <workItem from="1553507388474" duration="20261000" />
       <workItem from="1553528192836" duration="16139000" />
-      <workItem from="1553606743002" duration="52946000" />
+      <workItem from="1553606743002" duration="54328000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="92573000" />
+    <option name="totallyTimeSpent" value="93955000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -525,32 +558,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/front/stores/Main.tsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-54">
-          <caret line="0" column="69" lean-forward="false" selection-start-line="0" selection-start-column="69" selection-end-line="0" selection-end-column="69" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.env">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/lib/streams/FrameUnwrapper.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#43#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/app/lib/streams/Renderer.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="18">
@@ -652,16 +659,6 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/system/HTTP.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-160">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#29#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -847,18 +844,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/front/components/pages/MainPage.tsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="28" column="41" lean-forward="false" selection-start-line="28" selection-start-column="41" selection-end-line="28" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/front/components/pages/TimelinesContainer.tsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="19" column="27" lean-forward="false" selection-start-line="19" selection-start-column="27" selection-end-line="19" selection-end-column="27" />
+        <state relative-caret-position="486">
+          <caret line="29" column="41" lean-forward="false" selection-start-line="29" selection-start-column="41" selection-end-line="29" selection-end-column="41" />
           <folding>
-            <element signature="e#0#31#0" expanded="true" />
+            <marker date="1553706573263" expanded="true" signature="1008:1014" ph="&lt;xml/&gt;" />
           </folding>
         </state>
       </provider>
@@ -897,26 +886,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/HTTP/controllers/VideoLibraryController.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="355">
-          <caret line="34" column="58" lean-forward="false" selection-start-line="34" selection-start-column="4" selection-end-line="34" selection-end-column="58" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/app/HTTP/controllers/ClipLibraryController.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="366">
           <caret line="26" column="17" lean-forward="false" selection-start-line="26" selection-start-column="17" selection-end-line="26" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/HTTP/router/api.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="20" column="14" lean-forward="false" selection-start-line="20" selection-start-column="14" selection-end-line="20" selection-end-column="22" />
           <folding />
         </state>
       </provider>
@@ -937,20 +910,80 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/front/styles/timelines.scss">
+    <entry file="file://$PROJECT_DIR$/src/front/components/pages/Timeline.tsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="13" column="4" lean-forward="false" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="4" />
+        <state relative-caret-position="-414">
+          <caret line="31" column="10" lean-forward="false" selection-start-line="31" selection-start-column="10" selection-end-line="31" selection-end-column="10" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/front/components/pages/Timeline.tsx">
+    <entry file="file://$PROJECT_DIR$/src/front/constants.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1062">
-          <caret line="31" column="10" lean-forward="false" selection-start-line="31" selection-start-column="10" selection-end-line="31" selection-end-column="10" />
+        <state relative-caret-position="270">
+          <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/front/styles/timelines.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="522">
+          <caret line="29" column="1" lean-forward="false" selection-start-line="29" selection-start-column="1" selection-end-line="29" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/front/components/pages/TimelineVideo.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1782">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/front/components/pages/TimelinesContainer.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="5" column="45" lean-forward="false" selection-start-line="5" selection-start-column="45" selection-end-line="5" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/front/actions/actions.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="222">
+          <caret line="26" column="67" lean-forward="false" selection-start-line="26" selection-start-column="67" selection-end-line="26" selection-end-column="67" />
+          <folding>
+            <element signature="e#0#53#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/system/HTTP.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-318">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/HTTP/router/api.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="37" column="0" lean-forward="false" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/HTTP/controllers/VideoLibraryController.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="612">
+          <caret line="34" column="32" lean-forward="true" selection-start-line="34" selection-start-column="32" selection-end-line="34" selection-end-column="32" />
+          <folding>
+            <element signature="e#0#42#0" expanded="true" />
           </folding>
         </state>
       </provider>

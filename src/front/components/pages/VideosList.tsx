@@ -15,16 +15,26 @@ const styles = theme => createStyles({
 });
 
 class VideosList extends React.Component<any, any> {
+	onVideoItemDragStart = (event, videoItem) => {
+		const jsonVideoItem = JSON.stringify(videoItem);
+		event.dataTransfer.setData('DraggedVideoItem', jsonVideoItem);
+	}
 
-	renderVideosList(videos) {
-		return videos.map((video, key) => {
+	renderVideosList = (videos) => {
+		return videos.map((video) => {
 			if (video) {
 				return (
-					<ListItem data-id={video._id} key={video._id} alignItems="flex-start">
+					<ListItem
+						data-id={video._id}
+						key={video._id}
+						alignItems="flex-start"
+						onDragStart={(e) => this.onVideoItemDragStart(e, video)}
+						draggable
+						className="video-item">
 						<Avatar>
-							<ImageIcon/>
+							<ImageIcon />
 						</Avatar>
-						<ListItemText primary={video.name} secondary={video.length}/>
+						<ListItemText primary={video.name} secondary={video.length} />
 					</ListItem>
 				)
 			}
@@ -32,7 +42,7 @@ class VideosList extends React.Component<any, any> {
 	}
 
 	render(): JSX.Element {
-		const {classes, videos} = this.props;
+		const { classes, videos } = this.props;
 		return (
 			<List className={classes.root}>
 				{this.renderVideosList(videos)}
