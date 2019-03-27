@@ -10,6 +10,8 @@ import * as app from 'app';
 
 import Hello from 'system/cli/Hello';
 import FrameRenderMachineTest from 'system/cli/FrameRenderMachineTest';
+import FromDecoderStreamFrameExtractorTest
+  from 'system/cli/FromDecoderStreamFrameExtractorTest';
 import RenderTest from "system/cli/RenderTest";
 
 const bootMgr = new BootManager();
@@ -37,6 +39,12 @@ bootMgr.define('rt', new BootSequence([
 bootMgr.define('frame_render_machine_test', new BootSequence([
   Env,
   FrameRenderMachineTest,
+  Bye,
+]));
+
+bootMgr.define('frame_extractor_test', new BootSequence([
+  Env,
+  FromDecoderStreamFrameExtractorTest,
   Bye,
 ]));
 

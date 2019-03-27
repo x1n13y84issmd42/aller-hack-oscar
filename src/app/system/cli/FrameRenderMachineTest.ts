@@ -1,6 +1,7 @@
 var assert = require('assert');
 import {Express} from 'express';
 import * as Types from 'lib/render/Types';
+import { IVideos } from 'app/storage/Video/IVideos';
 import { FrameRenderMachine } from 'lib/render/FrameRenderMachine';
 import { VideosRepo } from 'lib/render/VideosRepo';
 import { Effect } from 'lib/render/effects/Effect';
@@ -9,11 +10,11 @@ import { FrameExtractor } from 'lib/render/FrameExtractor';
 import { FrameBlender } from 'lib/render/FrameBlender';
 
 
-class OneVideoAsNumArrayMock implements VideosRepo<number[][]> {
+class OneVideoAsNumArrayMock implements IVideos<number[][]> {
 
   constructor(private id: string, private video: number[][]) {}
 
-  getVideo(id: string): number[][] {
+  get(id: string): number[][] {
     if (id == this.id) {
       return this.video;
     } else {
