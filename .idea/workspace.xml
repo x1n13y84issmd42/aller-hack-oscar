@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="65be8d2d-1df0-44b2-89c9-9ff113609423" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/src/app/HTTP/controllers/VideoLibraryController.ts" afterPath="$PROJECT_DIR$/src/app/HTTP/controllers/VideoLibraryController.ts" />
       <change beforePath="$PROJECT_DIR$/src/front/components/pages/TimelineVideo.tsx" afterPath="$PROJECT_DIR$/src/front/components/pages/TimelineVideo.tsx" />
-      <change beforePath="$PROJECT_DIR$/src/front/components/pages/TimelinesContainer.tsx" afterPath="$PROJECT_DIR$/src/front/components/pages/TimelinesContainer.tsx" />
-      <change beforePath="$PROJECT_DIR$/src/front/styles/timelines.scss" afterPath="$PROJECT_DIR$/src/front/styles/timelines.scss" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -22,7 +19,7 @@
       <file leaf-file-name="TimelinesContainer.tsx" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/front/components/pages/TimelinesContainer.tsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="366">
+            <state relative-caret-position="702">
               <caret line="39" column="36" lean-forward="false" selection-start-line="39" selection-start-column="36" selection-end-line="39" selection-end-column="36" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
@@ -31,12 +28,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TimelineVideo.tsx" pinned="false" current-in-tab="true">
+      <file leaf-file-name="TimelineVideo.tsx" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/front/components/pages/TimelineVideo.tsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="82" column="14" lean-forward="false" selection-start-line="82" selection-start-column="14" selection-end-line="82" selection-end-column="14" />
-              <folding />
+            <state relative-caret-position="89">
+              <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#31#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -51,10 +50,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MainFrame.tsx" pinned="false" current-in-tab="false">
+      <file leaf-file-name="MainFrame.tsx" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/front/components/pages/MainFrame.tsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
+            <state relative-caret-position="-822">
               <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="54" />
               <folding />
             </state>
@@ -401,12 +400,12 @@
       <workItem from="1553503727642" duration="3200000" />
       <workItem from="1553507388474" duration="20261000" />
       <workItem from="1553528192836" duration="16139000" />
-      <workItem from="1553606743002" duration="61268000" />
+      <workItem from="1553606743002" duration="61416000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="100895000" />
+    <option name="totallyTimeSpent" value="101043000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -859,11 +858,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/front/components/pages/MainFrame.tsx">
+    <entry file="file://$PROJECT_DIR$/src/front/components/pages/TimelinesContainer.tsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="54" />
-          <folding />
+        <state relative-caret-position="702">
+          <caret line="39" column="36" lean-forward="false" selection-start-line="39" selection-start-column="36" selection-end-line="39" selection-end-column="36" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/front/components/pages/TimelineVideo.tsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="89">
+          <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -875,20 +886,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/front/components/pages/TimelinesContainer.tsx">
+    <entry file="file://$PROJECT_DIR$/src/front/components/pages/MainFrame.tsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="366">
-          <caret line="39" column="36" lean-forward="false" selection-start-line="39" selection-start-column="36" selection-end-line="39" selection-end-column="36" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/front/components/pages/TimelineVideo.tsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="82" column="14" lean-forward="false" selection-start-line="82" selection-start-column="14" selection-end-line="82" selection-end-column="14" />
+        <state relative-caret-position="-822">
+          <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="54" />
           <folding />
         </state>
       </provider>

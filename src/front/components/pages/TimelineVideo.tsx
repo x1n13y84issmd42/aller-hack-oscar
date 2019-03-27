@@ -1,7 +1,6 @@
 import * as React from "react";
 import { connect } from 'react-redux';
 import Timeline from 'react-visjs-timeline';
-import * as moment from 'moment';
 
 class TimelineVideo extends React.Component<any, any> {
 
@@ -17,21 +16,12 @@ class TimelineVideo extends React.Component<any, any> {
 
 
 	clickHandler = (props) => {
-		//console.log(props)
 	}
 
 	rangeChangeHandler = (props)=>{
-		//console.log(props)
-		//console.log(this)
-		//Timeline.setSelection('e678daa4-7fec-4bbc-92b9-76d042cb2df3')
-		//this.timelineWrapperRef.current.$el.fit();
-		//console.log(this.timelineWrapperRef.current);
-		//this.timelineWrapperRef.current.$el.focus(id);
 	}
 
 	timechangeHandler= (props) => {
-		//console.log(this)
-		//console.log(props)
 	}
 
 	timechangedHandler = (props)=> {
@@ -46,14 +36,9 @@ class TimelineVideo extends React.Component<any, any> {
 		const v = this.timelineWrapperRef.current;
 		const items = v['$el'].itemsData._data;
 		const selectedItems = [];
-		console.log(items)
 		Object.keys(items).forEach((key, index) => {
 			let itemStart = new Date(items[key].start).getTime();
 			let itemEnd = new Date(items[key].end).getTime();
-			console.log(key)
-			console.log(itemStart)
-			console.log(itemEnd)
-			console.log(items[key])
 			if ( ((itemStart<=time1 && itemEnd>=time1) || (itemStart>=time1 && itemEnd>=time1))
 				&& ((itemStart<=time2 && itemEnd>=time2) || (itemStart<=time2 && itemEnd<=time2)) ){
 				selectedItems.push(key)
@@ -62,11 +47,8 @@ class TimelineVideo extends React.Component<any, any> {
 		console.log(selectedItems);
 
 		selectedItems.forEach((id)=> {
-			const el =document.querySelectorAll("[data-id='" + id +"']")
-			console.log(el[0]);
+			const el =document.querySelectorAll("[data-id='" + id +"']");
 			if ( (' ' + el[0].className + ' ').indexOf(' ' + 'vis-selected'+' ') < 0 ) {
-
-				// add class
 				el[0].className += ' ' + 'vis-selected';
 			}
 		})
