@@ -7,14 +7,7 @@ import args from 'fw/args';
 import {
 	decoder,
 	metaDecoder,
-	RGB24toGL,
-	RGBA32toGL,
-	Renderer,
-	GLtoRGB24,
 	RGB24toJPEG,
-	RGBA32toJPEG,
-	Encoder,
-	encoder,
 	FrameUnwrapper,
 } from 'lib/streams';
 
@@ -27,11 +20,11 @@ const log = debug('rendertest');
 export default function (app: Express) {
 	return function() {
 		return new Promise((resolve, reject) => {
-			let videoFilePath = args[1];
-			let op = args[2];
+			let op = args[1];
+			let videoFilePath = args[2];
 			let name = op + '/' + path.basename(videoFilePath);
 
-			log(`Working with ${videoFilePath}, performing the ${op} operation.`, args);
+			log(`Working with ${videoFilePath}, performing the '${op}' operation.`, args);
 
 			if (ops[op]) {
 				ops[op](videoFilePath, name);

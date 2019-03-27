@@ -8,6 +8,7 @@ declare global {
 			name: string;
 			mimetype: string;
 			data: Buffer;
+			mv: (fn: string, cb: (err) => void) => void;
 		};
 
 		export interface Request {
