@@ -18,7 +18,7 @@ const VideosReducer = handleActions({
 		state.set('videos', action.payload),
 
 	[Constants.ADD_VIDEO]: (state, action) => {
-		const video = action.payload[0];
+		const video = action.payload;
 		console.log(action.payload)
 		const videos = state.getIn(['videos']);
 		return state.set('videos', [video, ...videos]);

@@ -28,7 +28,6 @@ class MainPage extends React.Component<any, any> {
 				</div>
 				<div>
 					<TimelinesContainer/>
-					<VideoClipsContainer/>
 				</div>
 			</>
 		);

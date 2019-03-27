@@ -16,7 +16,7 @@ const router: Router = Router();
 
 router.use('/auth', adminRoute);
 
-router.get('/lib/videos', VideoLibraryController.index_mock); //auth.middleware,
+router.get('/lib/videos', VideoLibraryController.index); //auth.middleware,
 router.get('/lib/clips', ClipLibraryController.index); //auth.middleware,
 router.get('/lib/effects', FXLibraryController.index); //auth.middleware,
 

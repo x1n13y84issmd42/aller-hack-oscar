@@ -25,7 +25,8 @@ class VideosList extends React.Component<any, any> {
 			if (video) {
 				return (
 					<ListItem
-						key={video.id}
+						data-id={video._id}
+						key={video._id}
 						alignItems="flex-start"
 						onDragStart={(e) => this.onVideoItemDragStart(e, video)}
 						draggable
@@ -33,7 +34,7 @@ class VideosList extends React.Component<any, any> {
 						<Avatar>
 							<ImageIcon />
 						</Avatar>
-						<ListItemText primary={video.title} secondary={video.length} />
+						<ListItemText primary={video.name} secondary={video.length} />
 					</ListItem>
 				)
 			}

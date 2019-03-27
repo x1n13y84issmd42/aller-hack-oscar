@@ -1,10 +1,11 @@
 import * as React from "react";
 import { connect } from 'react-redux';
-import Card from '@material-ui/core/Card';
 
-import Timeline from 'front/components/pages/Timeline';
+import TimelineVideo from 'front/components/pages/TimelineVideoVideo';
 
 import { getTimeline } from "front/actions/actions";
+
+import Card from '@material-ui/core/Card';
 
 class TimelinesContainer extends React.Component<any, any> {
 	onDragOver = (event) => {
@@ -18,7 +19,7 @@ class TimelinesContainer extends React.Component<any, any> {
 	}
 
 	renderTimelines = (timelines) => {
-		return timelines.map((tl) => <Timeline video={tl.video} frames={tl.frames} />)
+		return timelines.map((tl) => <TimelineVideo video={tl.video} frames={tl.frames} />)
 	};
 
 	render(): JSX.Element {

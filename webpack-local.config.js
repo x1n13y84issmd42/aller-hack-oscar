@@ -64,6 +64,22 @@ module.exports = {
                 test: /\.(jpe?g|gif|png|svg|woff|ttf|wav|mp3|ico)$/,
                 loader: 'file-loader?name=[name].[ext]',
             },
+			{
+				test: /\.css$/,
+				use: [
+					{
+						loader: 'style-loader'
+					},
+					{
+						loader: 'css-loader',
+						options: {
+							importLoaders: 1
+                        }
+
+					},
+				]
+			},
+			{ test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000' },
 
             // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
             {
