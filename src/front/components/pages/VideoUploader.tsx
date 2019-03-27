@@ -1,18 +1,15 @@
-import {Component} from 'react';
+import { Component } from 'react';
 import * as React from 'react';
 import Dropzone from 'react-dropzone';
 
 import { addVideo } from 'front/actions/actions';
 
 class VideoUploader extends React.Component<any, any> {
-	constructor(props) {
-		super(props);
-		this.state = {
-			files: [],
-			filesToUpload: [],
+	state = {
+		files: [],
+		filesToUpload: [],
+	};
 
-		};
-	}
 	onDrop = (files) => {
 		//this.setState({files});
 		let formData = new FormData();
@@ -31,17 +28,17 @@ class VideoUploader extends React.Component<any, any> {
 
 		return (
 			<>
-			<Dropzone onDrop={this.onDrop}>
-				{({getRootProps, getInputProps, isDragActive}) => (
-					<section >
-						<div className={'uploader ' + (isDragActive ? 'active' : 'inactive')} {...getRootProps()}>
-							<input name="video" {...getInputProps()} />
-							<p className="text-center">Drag 'n' drop some files here, or click to select files</p>
-						</div>
-					</section>
-				)}
-			</Dropzone>
-				</>
+				<Dropzone onDrop={this.onDrop}>
+					{({ getRootProps, getInputProps, isDragActive }) => (
+						<section >
+							<div className={'uploader ' + (isDragActive ? 'active' : 'inactive')} {...getRootProps()}>
+								<input name="video" {...getInputProps()} />
+								<p className="text-center">Drag 'n' drop some files here, or click to select files</p>
+							</div>
+						</section>
+					)}
+				</Dropzone>
+			</>
 		);
 	}
 }

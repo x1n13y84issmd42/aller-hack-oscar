@@ -7,3 +7,24 @@
   height: 400px;
   overflow: overlay;
 }
+
+.video-item {
+  transition: all 0.3s ease-out;
+
+  &:hover {
+    cursor: -webkit-grab;
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Safari */
+  -khtml-user-select: none;
+  /* Konqueror HTML */
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+  user-select: none;
+}
