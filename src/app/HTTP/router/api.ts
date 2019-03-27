@@ -1,3 +1,6 @@
+import * as bodyParser from 'body-parser';
+import * as fileupload from 'express-fileupload';
+
 import { Router } from 'express';
 
 import VideoLibraryController from 'HTTP/controllers/VideoLibraryController';
@@ -19,6 +22,16 @@ router.get('/lib/clips', ClipLibraryController.index); //auth.middleware,
 router.get('/lib/effects', FXLibraryController.index); //auth.middleware,
 
 router.use('/facebook', facebookRoute);
+router.use(bodyParser.json({
+	inflate: true,
+	limit: '512kb',
+	strict: true,
+}));
 
+
+const uplRouter: Router = Router();
+uplRouter.use(fileupload());
+uplRouter.post('/video', VideoLibraryController.upload);
+router.use('/upload', uplRouter);
 
 export default router;

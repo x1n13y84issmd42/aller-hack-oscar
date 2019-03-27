@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import Home from 'HTTP/controllers/Home';
-import apiRouter from './api';
-import staticRouter from './static';
+import apiRouter from 'HTTP/router/api';
+import staticRouter from 'HTTP/router/static';
 
 let router: Router = Router();
 

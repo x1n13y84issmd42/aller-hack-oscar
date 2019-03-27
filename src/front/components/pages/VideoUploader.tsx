@@ -1,8 +1,8 @@
 import {Component} from 'react';
 import * as React from 'react';
 import Dropzone from 'react-dropzone';
-import { addVideo } from 'front/actions/actions';
 
+import { addVideo } from 'front/actions/actions';
 
 class VideoUploader extends React.Component<any, any> {
 	constructor(props) {

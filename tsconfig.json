@@ -13,16 +13,18 @@
 
 		"paths": {
 			"fw/*": ["app/fw/*"],
-			"lib/*": ["app/lib/*"],
-			"streams/*": ["app/streams/*"],
 			"HTTP/*": ["app/HTTP/*"],
+			"lib/*": ["app/lib/*"],
 			"main/*": ["app/main/*"],
+			"storage/*": ["app/storage/*"],
+			"streams/*": ["app/lib/streams/*"],
+			"streams": ["app/lib/streams/index"],
 			"system/*": ["app/system/*"],
 			"app": ["app/app"],
 			"main": ["app/main"],
 			"migrate": ["app/migrate"],
 			"tasks": ["app/tasks"],
-			"boot": ["app/boot/index"],
+			"boot": ["app/boot/index"]
 		},
 
 		"module": "commonjs",

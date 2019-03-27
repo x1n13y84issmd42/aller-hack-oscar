@@ -1,8 +1,14 @@
 import {Request, Response} from 'express';
+import {metaDecoder} from 'lib/streams';
+import * as stream from 'stream';
+import { VideoDesc } from 'lib/render/Types';
+import { MongoVideos } from 'storage/Video/MongoVideos';
 
 const ctrler =  {
-	index: (req: Request, resp: Response) => {
-		return ctrler.index_mock(req, resp);
+	index: async (req: Request, resp: Response) => {
+		let videos = new MongoVideos();
+		let vids = await videos.all();
+		return resp.status(200).json(vids).end();
 	},
 
 	index_mock: (req: Request, resp: Response) => {
@@ -24,12 +30,33 @@ const ctrler =  {
 			mockVideo('DCIM-0004'),
 			mockVideo('DCIM-0008'),
 		]).end();
-	},
+	},	
 
-	upload: function(req: Request, resp: Response) {
-		resp.status(200).json([
-			{id: 100, title: "uploaded video", length: Math.random() * 60 * 5}
-		]).end();
+	upload: async function(req: Request, resp: Response) {
+		console.log('Uploaded file', req.files);
+		let video = req.files.video;
+
+		if (video) {
+			var videoFileStream = new stream.PassThrough();
+			videoFileStream.end(video.data);
+			let codecData = await metaDecoder(videoFileStream);
+
+			let vd: VideoDesc = {
+				FPS: codecData.FPS,
+				width: codecData.width,
+				height: codecData.height,
+				length: codecData.duration,
+				path: '',
+				name: video.name,
+			};
+
+			let videos = new MongoVideos();
+			await videos.put(vd);
+			//TODO: move the file somewhere
+			resp.status(200).json(vd).end();
+		} else {
+			resp.status(400).json({error: `Please provide a file as 'video'.`});
+		}
 	}
 };
 
