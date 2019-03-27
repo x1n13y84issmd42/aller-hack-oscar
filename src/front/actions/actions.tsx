@@ -11,6 +11,8 @@ const getClipsErrorAction: Action = createAction(Constants.GET_CLIPS_ERROR);
 const getEffectsErrorAction: Action = createAction(Constants.GET_EFFECTS_ERROR);
 const addVideoAction: Action = createAction(Constants.ADD_VIDEO);
 const addVideoErrorAction: Action = createAction(Constants.ADD_VIDEO_ERROR);
+const addClipAction: Action = createAction(Constants.ADD_CLIP);
+const addClipErrorAction: Action = createAction(Constants.ADD_CLIP_ERROR);
 
 
 export const getVideos = async () => {
@@ -46,6 +48,15 @@ export const getEffects = async () => {
 export const addVideo = async (params) => {
 	try {
 		const {data} = await APIPost(`/api/upload/video`, params, {headers: {'Content-Type': 'multipart/form-data'}});
+		Store.dispatch(addVideoAction(data));
+	} catch (err) {
+		Store.dispatch(addVideoErrorAction());
+	}
+}
+
+export const addClip = async (params) => {
+	try {
+		const {data} = await APIPost(`/api/lib/clip`, params);
 		Store.dispatch(addVideoAction(data));
 	} catch (err) {
 		Store.dispatch(addVideoErrorAction());

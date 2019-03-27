@@ -51,6 +51,8 @@
     "jsdom": "^14.0.0",
     "jsdom-global": "^3.0.2",
     "minimist": "^1.2.0",
+    "moment": "^2.24.0",
+    "moment-timezone": "^0.5.23",
     "mongodb": "^3.2.2",
     "ndarray": "^1.0.18",
     "node-sass": "^4.11.0",

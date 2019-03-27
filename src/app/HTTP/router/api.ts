@@ -18,6 +18,7 @@ router.use('/auth', adminRoute);
 
 router.get('/lib/videos', VideoLibraryController.index); //auth.middleware,
 router.get('/lib/clips', ClipLibraryController.index); //auth.middleware,
+router.post('/lib/clip', ClipLibraryController.add); //auth.middleware,
 router.get('/lib/effects', FXLibraryController.index); //auth.middleware,
 
 router.use('/facebook', facebookRoute);

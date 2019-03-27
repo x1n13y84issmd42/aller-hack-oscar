@@ -6,3 +6,23 @@
   border: 1px solid pink;
   margin: 10px;
 }
+
+.vis-custom-time.time2 {
+  //background-image: url(/static/images/transparent-arrows-right-2.png);
+  z-index: 1000;
+  background-color: red;
+  width: 5px;
+  //background-repeat: no-repeat;
+  //background-position: center;
+  //background-image: url(/static/images/transparent-arrows-left-2-1.png);
+}
+
+.vis-custom-time.time1 {
+  //background-image: url(/static/images/transparent-arrows-left-2-1.png);
+  z-index: 1000;
+  background-color: red;
+  //background-color: transparent;
+  //background-repeat: no-repeat;
+  //background-position: center;
+  width: 5px;
+}
