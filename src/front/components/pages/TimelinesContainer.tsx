@@ -1,6 +1,6 @@
 import * as React from "react";
 import { connect } from 'react-redux';
-import Timeline from 'front/components/pages/Timeline';
+import TimelineVideo from 'front/components/pages/Timeline';
 import Card from '@material-ui/core/Card';
 
 class TimelinesContainer extends React.Component<any, any> {
@@ -10,16 +10,14 @@ class TimelinesContainer extends React.Component<any, any> {
 
 			<div className="timelines-container">
 				<Card>
-				<Timeline/>
-				<Timeline/>
-				<Timeline/>
+				<TimelineVideo/>
 				</Card>
 			</div>
 		);
 	}
 }
 
-const mapStateToProps = ({ PersonalData, UI }) => ({});
+const mapStateToProps = ({ }) => ({});
 
 const mapDispatchToProps = () => ({});
 
