@@ -14,6 +14,8 @@ const libRouter: Router = Router();
 libRouter.get('/frames/:videoId', FrameController.getFramesByVideoId);
 libRouter.get('/videos', VideoLibraryController.index);
 libRouter.get('/clips', ClipLibraryController.index);
+libRouter.post('/lib/clip', ClipLibraryController.add);
 libRouter.get('/effects', FXLibraryController.index);
+
 
 export default libRouter;

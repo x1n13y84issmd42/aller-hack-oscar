@@ -26,6 +26,10 @@ const ctrler = {
 			mockClip(1003),
 		]).end();
 	},
+
+	add: (req: Request, resp: Response) => {
+		resp.status(200).end();
+	}
 };
 
 export default ctrler;

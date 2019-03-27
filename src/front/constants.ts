@@ -13,6 +13,10 @@ const constants = {
 
 	ADD_VIDEO: 'ADD_VIDEO',
 	ADD_VIDEO_ERROR: 'ADD_VIDEO_ERROR',
-}
+
+	ADD_CLIP: 'ADD_CLIP',
+	ADD_CLIP_ERROR: 'ADD_CLIP_ERROR'
+};
+
 
 export default constants;
