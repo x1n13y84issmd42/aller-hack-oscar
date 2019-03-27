@@ -35,14 +35,14 @@ export namespace Timeline {
 	 * it assumes that `t` is a numeric timestamp ★ IN ★ CLIP ★ TIME ★ SPACE ★, and calculates exact frame timestamp
 	 * from it and the referenced video FPS.
 	 */
-	export function selectFramesAt<VT extends VideoDesc>(tls: TimelineDesc[], t: FrameTimestamp, videos: IVideos<VT>): VideoFrameRef[] {
+	export async function selectFramesAt<VT extends VideoDesc>(tls: TimelineDesc[], t: FrameTimestamp, videos: IVideos<VT>): Promise<VideoFrameRef[]> {
 		let res: VideoFrameRef[] = [];
 
 		for (let tl of tls) {
 			for (let e of tl.entities) {
 				if (e.t1 <= t && e.t2 >=t) {
 					//TODO: retrieve the video object from repo, get its FPS
-					let v = videos.get(e.videoID);
+					let v = await videos.get(e.videoID);
 
 					res.push({
 						videoID: e.videoID,

@@ -10,7 +10,8 @@ import Bye from 'system/Bye';
 import * as app from 'app';
 
 import Hello from 'system/cli/Hello';
-import RenderTest from "system/cli/RenderTest";
+import FFTest from "system/cli/FFTest";
+import MachineTest from "system/cli/MachineTest";
 
 const bootMgr = new BootManager();
 
@@ -30,11 +31,16 @@ bootMgr.define('cli', new BootSequence([
 	Bye,
 ]));
 
+bootMgr.define('ff', new BootSequence([
+	Env,
+	MongoDB,
+	FFTest,
+]));
+
 bootMgr.define('rt', new BootSequence([
 	Env,
 	MongoDB,
-	RenderTest,
-//	Bye,
+	MachineTest,
 ]));
 
 export const boot = bootMgr;

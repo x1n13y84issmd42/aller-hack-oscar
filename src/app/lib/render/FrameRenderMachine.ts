@@ -22,12 +22,12 @@ export class FrameRenderMachine<V extends Types.VideoDesc, F> {
     });
   }
 
-  render(timestamp: number): F {
+  async render(timestamp: number): Promise<F> {
     let targetVideoIdsWithOffsetsAndEffects =
-      this.getVideoIdWithOffsetAndEffects(this.project.timelines, timestamp);
+      await this.getVideoIdWithOffsetAndEffects(this.project.timelines, timestamp);
 
     let targetFramesWithEffects =
-      this.getFramesWithEffects(targetVideoIdsWithOffsetsAndEffects);
+      await this.getFramesWithEffects(targetVideoIdsWithOffsetsAndEffects);
 
     let processedFrames: F[];
 
@@ -80,17 +80,17 @@ export class FrameRenderMachine<V extends Types.VideoDesc, F> {
     return result;
   }
 
-  getFramesWithEffects(
+  async getFramesWithEffects(
     vofs: VideoWithOffsetAndEffects[]
   ):
-    FrameWithEffects<F>[]
+    Promise<FrameWithEffects<F>[]>
   {
     let result: FrameWithEffects<F>[];
 
     for (let vof of vofs) {
       result.push({
         frame: this.frameExtractor.extractFrame(
-          this.videosRepo.get(vof.videoId),
+          await this.videosRepo.get(vof.videoId),
           vof.offset),
         effects: vof.effects
       } as FrameWithEffects<F>);
