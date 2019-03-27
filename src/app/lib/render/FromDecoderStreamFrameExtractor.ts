@@ -2,7 +2,7 @@ import { FrameExtractor } from 'lib/render/FrameExtractor';
 import * as Types from 'lib/render/Types';
 import { RGB24Frame } from 'lib/ffmpeg';
 import { decoder, metaDecoder } from 'lib/streams/Decoder';
-import { Writable } from 'stream'
+import { Writable } from 'stream';
 
 
 export class FromDecoderStreamFrameExtractor implements FrameExtractor<Types.VideoDesc, Promise<RGB24Frame>> {
@@ -11,7 +11,7 @@ export class FromDecoderStreamFrameExtractor implements FrameExtractor<Types.Vid
 
     let result = new Promise(function (resolve, reject) {
       ws._write = function (chunk, enc, next) {
-          resolve(chunk);
+        resolve(chunk);
       };
     });
 
