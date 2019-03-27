@@ -1,7 +1,7 @@
 import * as React from "react";
 import { connect } from 'react-redux';
 
-import TimelineVideo from 'front/components/pages/TimelineVideoVideo';
+import TimelineVideo from 'front/components/pages/TimelineVideo';
 
 import { getTimeline } from "front/actions/actions";
 
