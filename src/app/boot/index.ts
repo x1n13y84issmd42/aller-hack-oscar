@@ -13,6 +13,7 @@ import Hello from 'system/cli/Hello';
 import FrameRenderMachineTest from 'system/cli/FrameRenderMachineTest';
 import FromDecoderStreamFrameExtractorTest
   from 'system/cli/FromDecoderStreamFrameExtractorTest';
+import BlackWhiteEffectTest from 'system/cli/BlackWhiteEffectTest';
 import FFTest from "system/cli/FFTest";
 import MachineTest from "system/cli/MachineTest";
 
@@ -58,4 +59,9 @@ bootMgr.define('frame_extractor_test', new BootSequence([
   Bye,
 ]));
 
+bootMgr.define('black_and_white_test', new BootSequence([
+  Env,
+  BlackWhiteEffectTest,
+  Bye,
+]));
 export const boot = bootMgr;
