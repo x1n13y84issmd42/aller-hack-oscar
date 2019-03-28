@@ -50,11 +50,12 @@ const ctrler =  {
 			};
 
 			let videos = new MongoVideos();
+
 			//	First save to get the ID
 			await videos.put(vd);
 			let path = `storage/videos/${vd.id}`;
 			
-			videos.mv(path, (err) => { //videos ?????
+			video.mv(path, (err) => {
 				if (err) {
 					resp.status(500).json(err).end();
 				} else {

@@ -19,7 +19,7 @@ const convertFramesToImages = async (videoId: string): Promise<any[]> => {
 			let counter = 0;
 
 			const outDirName = `${app.root}/storage/out/frames/${videoId}`;
-			const filePath = `${app.root}/storage/${videoId}`;
+			const filePath = `${app.root}/storage/videos/${videoId}`;
 
 			const dec = decoder(filePath, {
 				from: 0,
