@@ -1,11 +1,8 @@
 import { Action, createAction } from 'redux-actions';
 
-import { APIGet, APIPost } from '../service/API';
-import Constants from '../constants';
-import Store from '../stores/Main';
-
-const getTimelineAction: Action = createAction(Constants.GET_TIMELINE);
-const getTimelineErrorAction: Action = createAction(Constants.GET_TIMELINE_ERROR);
+import { APIGet, APIPost } from 'front/service/API';
+import Constants from 'front/constants';
+import Store from 'front/stores/Main';
 
 const getVideosAction: Action = createAction(Constants.GET_VIDEOS);
 const getVideosErrorAction: Action = createAction(Constants.GET_VIDEOS_ERROR);
@@ -16,22 +13,78 @@ const getClipsErrorAction: Action = createAction(Constants.GET_CLIPS_ERROR);
 const getEffectsAction: Action = createAction(Constants.GET_EFFECTS);
 const getEffectsErrorAction: Action = createAction(Constants.GET_EFFECTS_ERROR);
 
+const selectProjectAction: Action = createAction(Constants.SELECT_PROJECT);
+const selectProjectErrorAction: Action = createAction(Constants.SELECT_PROJECT_ERROR);
+
 const addVideoAction: Action = createAction(Constants.ADD_VIDEO);
 const addVideoErrorAction: Action = createAction(Constants.ADD_VIDEO_ERROR);
-const addClipAction: Action = createAction(Constants.ADD_CLIP);
-const addClipErrorAction: Action = createAction(Constants.ADD_CLIP_ERROR);
 
-export const getTimeline = async (rawVideo) => {
-	console.log(rawVideo)
+const addEffectAction: Action = createAction(Constants.ADD_EFFECT);
+const addEffectErrorAction: Action = createAction(Constants.ADD_EFFECT_ERROR);
+
+const addProjectAction: Action = createAction(Constants.ADD_PROJECT);
+const addProjectErrorAction: Action = createAction(Constants.ADD_PROJECT_ERROR);
+
+const addTimelineAction: Action = createAction(Constants.ADD_TIMELINE);
+const addTimelineErrorAction: Action = createAction(Constants.ADD_TIMELINE_ERROR);
+
+export const selectProject = (projectIndex) => {
 	try {
-		const { data } = await APIGet(`/api/lib/frames/${rawVideo._id}`);
-		const timeline = {
-			frames: data,
-			video: rawVideo,
-		};
-		return Store.dispatch(getTimelineAction(timeline))
+		return Store.dispatch(selectProjectAction(projectIndex))
 	} catch (err) {
-		Store.dispatch(getTimelineErrorAction());
+		Store.dispatch(selectProjectErrorAction());
+		throw err;
+	}
+};
+
+export const addProject = (projectName: string) => {
+	try {
+		const options = {
+			id: `${Date.now()}`,
+			title: projectName,
+			FPS: 25,
+			width: 800,
+			height: 600,
+			length: 1,
+			timelines: [],
+		};
+		return Store.dispatch(addProjectAction(options))
+	} catch (err) {
+		Store.dispatch(addProjectErrorAction());
+		throw err;
+	}
+};
+
+export const addEffect = (videoIndex, effect) => {
+	try {
+		const payload = {
+			videoIndex,
+			effect,
+		};
+		return Store.dispatch(addEffectAction(payload))
+	} catch (err) {
+		Store.dispatch(addEffectErrorAction());
+		throw err;
+	}
+};
+
+export const addTimeline = async (rawVideo) => {
+	try {
+		const videoId = rawVideo._id || rawVideo.id;
+		const payload = {
+			id: `${Date.now()}`,
+			videoId,
+			clipping: {
+				start: 0,
+				end: 1,
+			},
+			position: {
+				start: 0,
+			},
+		};
+		return Store.dispatch(addTimelineAction(payload))
+	} catch (err) {
+		Store.dispatch(addTimelineErrorAction());
 		throw err;
 	}
 };
@@ -78,7 +131,7 @@ export const addVideo = async (params) => {
 
 export const addClip = async (params) => {
 	try {
-		const {data} = await APIPost(`/api/lib/clip`, params);
+		const { data } = await APIPost(`/api/lib/clip`, params);
 		Store.dispatch(addVideoAction(data));
 	} catch (err) {
 		Store.dispatch(addVideoErrorAction());
