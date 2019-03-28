@@ -55,7 +55,7 @@ const ctrler =  {
 			await videos.put(vd);
 			let path = `storage/${vd.id}`;
 			
-			videos.mv(path, (err) => { //videos ?????
+			video.mv(path, (err) => { //videos ?????
 				if (err) {
 					//	Resaving to update the path.
 					videos.put(vd).then(() => {
