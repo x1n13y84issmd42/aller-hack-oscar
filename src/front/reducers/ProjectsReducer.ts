@@ -30,7 +30,7 @@ const ProjectsReducer = handleActions({
 		const selectedProject = state.getIn(['selectedProject']) as Project;
 		const mutableArray = Immutable.asMutable(selectedProject, {deep: true});
 		mutableArray.timelines.push(action.payload);
-		return state.set('selectedProject',mutableArray);
+		return state.set('selectedProject', mutableArray);
 	},
 
 	[Constants.ADD_EFFECT]: (state, action) => {
@@ -43,6 +43,11 @@ const ProjectsReducer = handleActions({
 	[Constants.SELECT_PROJECT]: (state, action) => {
 		const project = { ...action.payload };
 		return state.set('selectedProject', project);
+	},
+
+	[Constants.GET_IMAGE]: (state, action) => {
+		const image = { ...action.payload };
+		return state.set('currentImage', image);
 	},
 }, initialStateProjects);
 

@@ -29,6 +29,9 @@ const addProjectErrorAction: Action = createAction(Constants.ADD_PROJECT_ERROR);
 const addTimelineAction: Action = createAction(Constants.ADD_TIMELINE);
 const addTimelineErrorAction: Action = createAction(Constants.ADD_TIMELINE_ERROR);
 
+const getImageAction: Action = createAction(Constants.GET_IMAGE);
+const getImageErrorAction: Action = createAction(Constants.GET_IMAGE_ERROR);
+
 export const selectProject = (projectIndex) => {
 	try {
 		return Store.dispatch(selectProjectAction(projectIndex))
@@ -121,7 +124,7 @@ export const getClips = async () => {
 export const getEffects = async () => {
 	try {
 		let { data } = await APIGet(`/api/lib/effects`);
-		return Store.dispatch(getEffectsAction(data))
+		Store.dispatch(getEffectsAction(data));
 	} catch (err) {
 		Store.dispatch(getEffectsErrorAction());
 		throw err;
@@ -145,3 +148,17 @@ export const addClip = async (params) => {
 		Store.dispatch(addVideoErrorAction());
 	}
 }
+
+
+export const getCurrentImage = async (params) => {
+	try {
+		let { data } = await APIGet(`/api/frames`, params);
+		while (data) {
+			Store.dispatch(getImageAction(data));
+			data  = await APIGet(`/api/frames`);
+		}
+	} catch (err) {
+		Store.dispatch(getImageErrorAction());
+		throw err;
+	}
+};

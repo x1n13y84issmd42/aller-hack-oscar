@@ -8,6 +8,7 @@ import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import SkipNextIcon from '@material-ui/icons/SkipNext';
 import * as React from "react";
+import {  getCurrentImage } from "front/actions/actions";
 
 const styles = theme => createStyles({
 	card: {
@@ -39,7 +40,13 @@ const styles = theme => createStyles({
 
 
 class MainFrame extends React.Component<any, any> {
+	onClick = () =>{
+		console.log(this.props.project)
+		getCurrentImage(this.props.project);
+	};
+
 	render(): JSX.Element {
+		console.log(this.props);
 		const { classes, theme, url } = this.props;
 		return (
 			<Card className={classes.card}>
@@ -60,7 +67,7 @@ class MainFrame extends React.Component<any, any> {
 						<IconButton aria-label="Previous">
 							{theme.direction === 'rtl' ? <SkipNextIcon /> : <SkipPreviousIcon />}
 						</IconButton>
-						<IconButton aria-label="Play/pause">
+						<IconButton aria-label="Play/pause" onClick={this.onClick}>
 							<PlayArrowIcon className={classes.playIcon} />
 						</IconButton>
 						<IconButton aria-label="Next">
