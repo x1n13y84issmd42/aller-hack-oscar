@@ -28,9 +28,9 @@ const ProjectsReducer = handleActions({
 	},*/
 	[Constants.ADD_TIMELINE]: (state, action) => {
 		const selectedProject = state.getIn(['selectedProject']) as Project;
-		const mutableArray = Immutable.asMutable(selectedProject.timelines);
-		mutableArray.push(action.payload);
-		return state.set('selectedProject', {timelines: mutableArray});
+		const mutableArray = Immutable.asMutable(selectedProject, {deep: true});
+		mutableArray.timelines.push(action.payload);
+		return state.set('selectedProject',mutableArray);
 	},
 
 	[Constants.ADD_EFFECT]: (state, action) => {

@@ -11,7 +11,7 @@ import Typography from '@material-ui/core/Typography';
 class TimelinesContainer extends React.Component<any, any> {
 	onDragOver = (event) => {
 		event.preventDefault();
-	}
+	};
 
 	onFileDrop = (event) => {
 		try {
@@ -29,14 +29,14 @@ class TimelinesContainer extends React.Component<any, any> {
 		return timelines.map((tl, index) =>
 			<TimelineVideo
 				key={index}
-				video={tl.video}
-				frames={tl.frames}
+				entities={tl.entities}
 			/>
 		)
 	};
 
 	render(): JSX.Element {
-		const { timelines } = this.props;
+		const { timelines } = this.props.project;
+		console.log(timelines)
 		return (
 			<div className="timelines-container" onDrop={this.onFileDrop} onDragOver={this.onDragOver}>
 				<Card  className="timelines-empty">
@@ -45,8 +45,7 @@ class TimelinesContainer extends React.Component<any, any> {
 					</Typography>
 				</Card>
 				{timelines && timelines.length &&
-
-				<Card className="timelines-empty">
+				<Card>
 					{this.renderTimelines(timelines)}
 				</Card>
 				}
@@ -55,11 +54,11 @@ class TimelinesContainer extends React.Component<any, any> {
 	}
 }
 
-const mapStateToProps = (state) => {
-	return {
-		//
-	};
-}
+
+const mapStateToProps = state =>
+	({
+		project: state.projects.getIn(['selectedProject'], [])
+	});
 
 const mapDispatchToProps = () => ({});
 
