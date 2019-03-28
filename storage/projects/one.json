@@ -23,7 +23,10 @@
 					},
 
 					"effects": [{
-						"id": "rotating_box"
+						"id": "rotating_box",
+						"settings": [{
+							"size": 3
+						}]
 					}]
 				}
 			]

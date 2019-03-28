@@ -23,6 +23,8 @@ import { RGBA32Frame } from 'lib/ffmpeg';
 import { Effect } from 'lib/render/effects/Effect';
 import { RotatingCube } from 'lib/render/effects/RotatingCube';
 import { BlackWhite } from 'lib/render/effects/BlackWhite';
+import { Blur } from 'lib/render/effects/Blur';
+
 
 const log = debug('machinetest');
 
@@ -73,7 +75,7 @@ class TempEffectsRepo implements EffectsRepo<RGBA32Frame> {
 
 	getEffectById(id: string): Effect<RGBA32Frame> {
 		if (id === 'rotating_box') {
-			return new BlackWhite();
+			return new Blur();
 		} else {
 			throw "No effect with such id";
 		}
