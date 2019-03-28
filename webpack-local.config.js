@@ -4,6 +4,16 @@ const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+
+// Plugins
+const TypeScriptPathsPlugin = new TsconfigPathsPlugin({
+    configFile: "./tsconfig.json",
+    logLevel: "info",
+    extensions: [".ts", ".tsx"],
+    mainFields: ["browser", "main"],
+})
+
 module.exports = {
     entry: ['./src/front/utils/polyfills.ts', './src/front/App.tsx', './src/front/styles/index.scss'],
     watchOptions: {
@@ -24,6 +34,9 @@ module.exports = {
         // Add '.ts' and '.tsx' as resolvable extensions.
         extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
         modules: [path.resolve('./src/'), path.resolve('./node_modules'), 'node_modules'],
+        plugins: [
+            TypeScriptPathsPlugin
+        ]
     },
 
     module: {
@@ -99,5 +112,14 @@ module.exports = {
         // analyze webpack chunks
         // new BundleAnalyzerPlugin()
     ],
+    node: {
+        fs: 'empty',
+        child_process: 'empty',
+        dgram: 'empty',
+        dns: 'empty',
+        net: 'empty',
+        cluster: 'empty',
+        repl: 'empty'
+    }
     // Other options...
 };

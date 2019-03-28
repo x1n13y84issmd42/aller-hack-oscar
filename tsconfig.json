@@ -3,14 +3,19 @@
 		"./src/**/*"
 	],
 	"exclude": [
+		"./assets",
+		"./doc",
+		"./kubefiles",
 		"./node_modules",
 		"./out",
-		"./src/front"
+		"./resources",
+		"./run",
+		"./tmp"
 	],
 	"compilerOptions": {
 		"outDir": "./out",
+
 		"baseUrl": "./src",
-		"rootDir": "./src",
 
 		"paths": {
 			"fw/*": ["app/fw/*"],
@@ -28,24 +33,21 @@
 			"boot": ["app/boot/index"]
 		},
 
-		"module": "commonjs",
-		"moduleResolution": "node",
-
 		"allowJs": false,
 		"declaration": true,
 		"experimentalDecorators": true,
+		"lib": [
+			"dom",
+			"es2017"
+		],
+		"jsx": "react",
+		"module": "commonjs",
+		"moduleResolution": "node",
 		"noImplicitAny": false,
 		"preserveConstEnums": true,
 		"removeComments": true,
 		"sourceMap": true,
 		"suppressImplicitAnyIndexErrors": true,
-        
-		"target": "es6",
-		"jsx": "react",
-
-		"lib": [
-			"dom",
-			"es2017"
-		]
+		"target": "es6"
 	}
 }
