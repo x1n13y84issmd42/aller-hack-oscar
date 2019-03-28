@@ -26,9 +26,8 @@ class TimelineVideo extends React.Component<any, any> {
 		try {
 			const jsonDraggedEffectItem = event.dataTransfer.getData('DraggedEffectItem');
 			if (jsonDraggedEffectItem) {
-				const { position } = this.props;
 				const draggedEffectItem = JSON.parse(jsonDraggedEffectItem);
-				addEffect(position, draggedEffectItem);
+				addEffect(0, 0, draggedEffectItem);
 			}
 		} catch (error) {
 			console.error(`_OnEffectDrop_Error_`, error);

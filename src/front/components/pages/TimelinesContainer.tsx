@@ -26,12 +26,12 @@ class TimelinesContainer extends React.Component<any, any> {
 	}
 
 	renderTimelines = (timelines) => {
-		return timelines.map((tl, index) => <TimelineVideo
-			key={index}
-			position={index}
-			video={tl.video}
-			frames={tl.frames}
-		/>)
+		return timelines.map((tl) =>
+			<TimelineVideo
+				video={tl.video}
+				frames={tl.frames}
+			/>
+		)
 	};
 
 	render(): JSX.Element {
@@ -64,4 +64,4 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = () => ({});
 
-export default connect(mapStateToProps,mapDispatchToProps)(TimelinesContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(TimelinesContainer)

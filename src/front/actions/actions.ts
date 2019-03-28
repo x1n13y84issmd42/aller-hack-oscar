@@ -56,11 +56,15 @@ export const addProject = (projectName: string) => {
 	}
 };
 
-export const addEffect = (videoIndex, effect) => {
+export const addEffect = (entityIndex, timelineIndex, effect) => {
 	try {
 		const payload = {
-			videoIndex,
-			effect,
+			entityIndex,
+			timelineIndex,
+			effect: {
+				...effect,
+				id: `${Date.now()}`
+			}
 		};
 		return Store.dispatch(addEffectAction(payload))
 	} catch (err) {
@@ -73,15 +77,18 @@ export const addTimeline = async (rawVideo) => {
 	try {
 		const videoId = rawVideo._id || rawVideo.id;
 		const payload = {
-			id: `${Date.now()}`,
-			videoId,
-			clipping: {
-				start: 0,
-				end: 1,
-			},
-			position: {
-				start: 0,
-			},
+			entities: [{
+				id: `${Date.now()}`,
+				videoId,
+				clipping: {
+					start: 0,
+					end: 1,
+				},
+				position: {
+					start: 0,
+				},
+				effects: [],
+			}],
 		};
 		return Store.dispatch(addTimelineAction(payload))
 	} catch (err) {

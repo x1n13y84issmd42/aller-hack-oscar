@@ -30,18 +30,15 @@ const ProjectsReducer = handleActions({
 	},
 	[Constants.ADD_TIMELINE]: (state, action) => {
 		const selectedProject = state.getIn(['selectedProject']) as Project;
-		selectedProject.timelines.push({
-			entities: [action.payload]
-		});
+		selectedProject.timelines.push(action.payload);
 
 		return state.set('selectedProject', selectedProject);
 	},
 	[Constants.ADD_EFFECT]: (state, action) => {
-		const projects = state.getIn(['projects']);
-
-		const payload = action.payload;
-
-		return state.set('timelines', [...projects, payload]);
+		const selectedProject = state.getIn(['selectedProject']) as Project;
+		const { effect, entityIndex, timelineIndex } = action.payload;
+		selectedProject.timelines[timelineIndex].entities[entityIndex].effects.push(effect);
+		return state.set('selectedProject', selectedProject);
 	},
 	[Constants.SELECT_PROJECT]: (state, action) => {
 		const project = { ...action.payload };
