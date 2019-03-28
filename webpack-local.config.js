@@ -1,103 +1,157 @@
-const Dotenv = require('dotenv-webpack');
 const path = require('path');
+const webpack = require('webpack');
 
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
-module.exports = {
-    entry: ['./src/front/utils/polyfills.ts', './src/front/App.tsx', './src/front/styles/index.scss'],
-    watchOptions: {
-        aggregateTimeout: 300,
-        poll: 1000,
+// Load environment vars from .env
+require('dotenv').config();
+
+const isProduction = process.env.ENV === 'production';
+
+// Loaders
+
+const BabelLoader = {
+    loader: 'babel-loader',
+    options: {
+        presets: ['es2015', 'react'],
+        // plugins: [ 'lodash' ],
+    },
+};
+
+const TypeScriptLoader = {
+    loader: 'awesome-typescript-loader?silent=true',
+    options: {
+        configFileName: __dirname + '/tsconfig.json',
+    },
+};
+
+// Plugins
+const TypeScriptPathsPlugin = new TsconfigPathsPlugin({
+    configFile: "./tsconfig.json",
+    logLevel: "info",
+    extensions: [".ts", ".tsx"],
+    mainFields: ["browser", "main"],
+    // baseUrl: "/foo"
+})
+
+const OrderPlugin = new webpack.optimize.OccurrenceOrderPlugin();
+
+const ExtractSassPlugin = new ExtractTextPlugin({
+    filename: 'style.css',
+});
+
+// Main config, see other (sometimes environment depending) settings below
+
+const webpackConfig = {
+    entry: {
+        'app': [
+            'babel-polyfill',
+            __dirname + '/src/front/App.tsx',
+        ]
     },
     output: {
         filename: 'app.js',
-        path: __dirname + '/out/dist',
+        path: path.join(__dirname, 'out/dist', 'bundle'),
         publicPath: '/',
     },
-    mode: 'development',
-    // Enable sourcemaps for debugging webpack's output.
-    devtool: 'source-map',
-    target: 'web',
 
     resolve: {
         // Add '.ts' and '.tsx' as resolvable extensions.
-        extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
-        modules: [path.resolve('./src/'), path.resolve('./node_modules'), 'node_modules'],
+        extensions: [
+            '.ts',
+            '.tsx',
+            '.js',
+            '.json',
+        ],
+        modules: [
+            path.join(__dirname, 'src'),
+            'node_modules',
+        ],
+        plugins: [
+            TypeScriptPathsPlugin
+        ]
     },
 
     module: {
-        rules: [
-            // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
-            {
+        rules: [{
                 test: /\.tsx?$/,
-                use: 'awesome-typescript-loader',
-            },
-
-            {
-                test: /\.(jsx)$/,
+                // Mind that these loaders get executed in right-to-left order:
+                use: [
+                    BabelLoader,
+                    TypeScriptLoader,
+                ],
                 exclude: /node_modules/,
-                use: ['babel-loader'],
             },
-
             {
                 test: /\.scss$/,
-                use: ExtractTextPlugin.extract({
+                use: ExtractSassPlugin.extract({
+                    use: [{
+                        loader: 'css-loader?-url',
+                        options: {
+                            minimize: true
+                        },
+                    }, {
+                        loader: 'sass-loader',
+                    }],
+                    // use style-loader in development
                     fallback: 'style-loader',
-                    use: ['css-loader', 'sass-loader'],
                 }),
             },
-
             {
-                test: /\.html/,
-                use: [
-                    {
-                        loader: 'file-loader',
-                        options: {
-                            name: '[name].[ext]',
-                        },
-                    },
-                ],
+                test: /\.css$/,
+                loader: 'style-loader!css-loader',
             },
-
             {
-                test: /\.(jpe?g|gif|png|svg|woff|ttf|wav|mp3|ico)$/,
-                loader: 'file-loader?name=[name].[ext]',
-            },
-			{
-				test: /\.css$/,
-				use: [
-					{
-						loader: 'style-loader'
-					},
-					{
-						loader: 'css-loader',
-						options: {
-							importLoaders: 1
-                        }
-
-					},
-				]
-			},
-			{ test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000' },
-
-            // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
-            {
-                enforce: 'pre',
-                exclude: [/node_modules\/react-paginate/],
                 test: /\.js$/,
-                loader: 'source-map-loader',
+                loaders: ['babel-loader'],
+                exclude: /node_modules/,
             },
         ],
     },
 
     plugins: [
-        new ExtractTextPlugin('style.css'),
-        new CopyWebpackPlugin([{ from: './assets', to: 'assets' }]),
-        new Dotenv(),
-
-        // analyze webpack chunks
-        // new BundleAnalyzerPlugin()
+        OrderPlugin,
+        ExtractSassPlugin,
     ],
-    // Other options...
+
+    // When importing a module whose path matches one of the following, just
+    // assume a corresponding global variable exists and use that instead.
+    // This is important because it allows us to avoid bundling all of our
+    // dependencies, which allows browsers to cache those libraries between builds.
+    externals: {
+        'react': 'React',
+        'react-dom': 'ReactDOM',
+    },
+
+    node: {
+        fs: 'empty',
+        child_process: 'empty',
+        dgram: 'empty',
+        dns: 'empty',
+        net: 'empty',
+        cluster: 'empty',
+        repl: 'empty'
+    }
 };
+
+// Enable source maps in development
+
+if (!isProduction) {
+    webpackConfig.devtool = 'source-map';
+}
+
+// Production Plugins
+
+if (isProduction) {
+    console.log('Production build');
+    webpackConfig.plugins.push(
+        new webpack.DefinePlugin({
+            'process.env.NODE_ENV': JSON.stringify('production'),
+        }),
+    );
+}
+
+// All good
+
+module.exports = webpackConfig;

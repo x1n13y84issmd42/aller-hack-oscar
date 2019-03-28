@@ -1,12 +1,13 @@
 import { Request, Response } from 'express';
 
-import auth from 'lib/auth';
+import { BootSequence } from 'fw/BootSequence';
 
 export default {
 	login: function (req: Request, res: Response) {
 		try {
-			const authUrl = auth.getAuthenticationURL();
-			res.redirect(authUrl);
+			console.log(`__BootSequence__`, BootSequence);
+			// const authUrl = auth.getAuthenticationURL();
+			res.redirect('/');
 		} catch (error) {
 			console.error(`_login_`, error);
 		}
@@ -18,7 +19,7 @@ export default {
 	},
 
 	confirm: async function (req: Request, res: Response) {
-		await auth.authenticate(req);
+		// await auth.authenticate(req);
 		res.redirect('/');
 	},
 };

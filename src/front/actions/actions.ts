@@ -4,9 +4,6 @@ import { APIGet, APIPost } from '../service/API';
 import Constants from '../constants';
 import Store from '../stores/Main';
 
-const getTimelineAction: Action = createAction(Constants.GET_TIMELINE);
-const getTimelineErrorAction: Action = createAction(Constants.GET_TIMELINE_ERROR);
-
 const getVideosAction: Action = createAction(Constants.GET_VIDEOS);
 const getVideosErrorAction: Action = createAction(Constants.GET_VIDEOS_ERROR);
 
@@ -18,10 +15,30 @@ const getEffectsErrorAction: Action = createAction(Constants.GET_EFFECTS_ERROR);
 
 const addVideoAction: Action = createAction(Constants.ADD_VIDEO);
 const addVideoErrorAction: Action = createAction(Constants.ADD_VIDEO_ERROR);
-const addClipAction: Action = createAction(Constants.ADD_CLIP);
-const addClipErrorAction: Action = createAction(Constants.ADD_CLIP_ERROR);
 
-export const getTimeline = async (rawVideo) => {
+const addEffectAction: Action = createAction(Constants.ADD_EFFECT);
+const addEffectErrorAction: Action = createAction(Constants.ADD_EFFECT_ERROR);
+
+const addProjectAction: Action = createAction(Constants.ADD_PROJECT);
+const addProjectErrorAction: Action = createAction(Constants.ADD_PROJECT_ERROR);
+
+const addTimelineAction: Action = createAction(Constants.ADD_TIMELINE);
+const addTimelineErrorAction: Action = createAction(Constants.ADD_TIMELINE_ERROR);
+
+export const addEffect = (videoPosition, effect) => {
+	try {
+		const payload = {
+			videoPosition,
+			effect,
+		};
+		return Store.dispatch(addEffectAction(payload))
+	} catch (err) {
+		Store.dispatch(addEffectErrorAction());
+		throw err;
+	}
+};
+
+export const addTimeline = async (rawVideo) => {
 	console.log(rawVideo)
 	try {
 		const { data } = await APIGet(`/api/lib/frames/${rawVideo._id}`);
@@ -29,9 +46,9 @@ export const getTimeline = async (rawVideo) => {
 			frames: data,
 			video: rawVideo,
 		};
-		return Store.dispatch(getTimelineAction(timeline))
+		return Store.dispatch(addTimelineAction(timeline))
 	} catch (err) {
-		Store.dispatch(getTimelineErrorAction());
+		Store.dispatch(addTimelineErrorAction());
 		throw err;
 	}
 };
