@@ -102,7 +102,7 @@ export function decoder(input?: any, options?: any): FrameWrapper {
 	let frameSize;
 
 	ff.on('codecData', function(cdata) {
-		log(cdata);
+	//	log(cdata);
 
 		encoding = parseCodecData(cdata);
 		frameSize = encoding.width * encoding.height * 3;

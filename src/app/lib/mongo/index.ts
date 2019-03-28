@@ -1,10 +1,12 @@
 import * as mongodb from 'mongodb';
 
-export let db: mongodb.Db;
+export let videos: mongodb.Collection;
 
 export function connect(uri: string) {
-	mongodb.connect(uri)
-		.then((clnt) => {
-			db = clnt.db();
+	return new Promise((resolve) => {
+		mongodb.connect(uri, {useNewUrlParser: true}, (err, cli) => {
+			videos = cli.db().collection('videos');
+			resolve();
 		});
+	});
 }
