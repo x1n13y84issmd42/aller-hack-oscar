@@ -34,12 +34,11 @@ class VideoEffectsContainer extends React.Component<any, any> {
 		})
 	}
 	render(): JSX.Element {
-
 		return (
 			<div>
 				<h3>Effects</h3>
 				<ul>
-					{this.effectList}
+					{this.effectList()}
 				</ul>
 			</div>
 		);

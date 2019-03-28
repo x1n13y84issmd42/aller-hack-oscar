@@ -1,4 +1,4 @@
-import { handleActions } from 'redux-actions';
+/*import { handleActions } from 'redux-actions';
 import * as Immutable from 'seamless-immutable';
 
 import Constants from 'front/constants';
@@ -15,4 +15,4 @@ const TimelinesReducer = handleActions({
 	},
 }, InitialState);
 
-export default TimelinesReducer;
+export default TimelinesReducer;*/

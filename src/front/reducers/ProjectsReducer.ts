@@ -21,24 +21,24 @@ const ProjectsReducer = handleActions({
 		const project = action.payload as Project;
 		return state.set('projects', [...projects, project]);
 	},
-	[Constants.ADD_VIDEO]: (state, action) => {
+	/*[Constants.ADD_VIDEO]: (state, action) => { ???
 		const projects = state.getIn(['projects']);
-
 		const project = action.payload;
-
 		return state.set('timelines', [...projects, project]);
-	},
+	},*/
 	[Constants.ADD_TIMELINE]: (state, action) => {
 		const selectedProject = state.getIn(['selectedProject']) as Project;
-		selectedProject.timelines.push(action.payload);
-
-		return state.set('selectedProject', selectedProject);
+		const mutableArray = Immutable.asMutable(selectedProject.timelines);
+		mutableArray.push(action.payload);
+		return state.set('selectedProject', {timelines: mutableArray});
 	},
+
 	[Constants.ADD_EFFECT]: (state, action) => {
 		const selectedProject = state.getIn(['selectedProject']) as Project;
 		const { effect, entityIndex, timelineIndex } = action.payload;
-		selectedProject.timelines[timelineIndex].entities[entityIndex].effects.push(effect);
-		return state.set('selectedProject', selectedProject);
+		const mutableArray = Immutable.asMutable(selectedProject, {deep: true});
+		mutableArray.timelines[timelineIndex].entities[entityIndex].effects.push(effect);
+		return state.set('selectedProject', mutableArray);
 	},
 	[Constants.SELECT_PROJECT]: (state, action) => {
 		const project = { ...action.payload };

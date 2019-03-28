@@ -26,8 +26,9 @@ class TimelinesContainer extends React.Component<any, any> {
 	}
 
 	renderTimelines = (timelines) => {
-		return timelines.map((tl) =>
+		return timelines.map((tl, index) =>
 			<TimelineVideo
+				key={index}
 				video={tl.video}
 				frames={tl.frames}
 			/>
@@ -46,9 +47,7 @@ class TimelinesContainer extends React.Component<any, any> {
 				{timelines && timelines.length &&
 
 				<Card className="timelines-empty">
-					<Typography component="h5" variant="h5">
-						Dude, I want some video item... Drag to me.
-					</Typography>
+					{this.renderTimelines(timelines)}
 				</Card>
 				}
 			</div>
