@@ -22,9 +22,8 @@ const addClipAction: Action = createAction(Constants.ADD_CLIP);
 const addClipErrorAction: Action = createAction(Constants.ADD_CLIP_ERROR);
 
 export const getTimeline = async (rawVideo) => {
-	console.log(rawVideo)
 	try {
-		const { data } = await APIGet(`/api/lib/frames/${rawVideo._id}`);
+		const { data } = await APIGet(`/api/lib/frames/${rawVideo._id || rawVideo.id }`);
 		const timeline = {
 			frames: data,
 			video: rawVideo,

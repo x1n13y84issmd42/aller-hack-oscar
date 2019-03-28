@@ -8,10 +8,11 @@ import TimelinesContainer from 'front/components/pages/TimelinesContainer';
 import VideoEffectsContainer from 'front/components/pages/VideoEffectsContainer';
 import VideosContainer from 'front/components/pages/VideosContainer';
 import VideoClipsContainer from 'front/components/pages/VideoClipsContainer';
+import {Sink} from 'lib/streams/Sink';
 
 class MainPage extends React.Component<any, any> {
 	render(): JSX.Element {
-
+console.log(Sink)
 		return (
 			<>
 				<div className="main-container">

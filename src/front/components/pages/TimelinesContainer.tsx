@@ -20,30 +20,23 @@ class TimelinesContainer extends React.Component<any, any> {
 	}
 
 	renderTimelines = (timelines) => {
-		return timelines.map((tl) => <TimelineVideo video={tl.video} frames={tl.frames} />)
+		return timelines.map((tl, index) => <TimelineVideo key={index} video={tl.video} frames={tl.frames} />)
 	};
 
 	render(): JSX.Element {
 		const { timelines } = this.props;
 		return (
 			<div className="timelines-container" onDrop={this.onFileDrop} onDragOver={this.onDragOver}>
-				{(!timelines || !timelines.length) ?
-					(
-						<Card  className="timelines-empty">
-							<Typography component="h5" variant="h5">
-								Dude, I want some video item... Drag to me.
-							</Typography>
-						</Card>
-					)
-					: (
+				<Card  className="timelines-empty">
+					<Typography component="h5" variant="h5">
+						Dude, I want some video item... Drag to me.
+					</Typography>
+				</Card>
+				{ timelines && timelines.length &&
 						<Card>
 							{this.renderTimelines(timelines)}
 						</Card>
-					)
 				}
-				<Card>
-					<TimelineVideo/>
-				</Card>
 			</div>
 		);
 	}

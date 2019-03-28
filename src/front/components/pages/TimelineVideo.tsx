@@ -8,18 +8,59 @@ class TimelineVideo extends React.Component<any, any> {
 
 	constructor(props) {
 		super(props);
+		//const start = Date.now();
+		//const start = new Date(0);
+		const start = new Date(Date.UTC(0,0,0));
 		this.state = {
-			time1: new Date(2010, 7, 15, 1, 1, 16).getTime(),
-			time2: new Date(2010, 7, 15, 1, 1, 22).getTime(),
+			time1: 0 -7200000,
+			//time2: start+80,
+			start: new Date(0).getTime() -7200000
 		};
 	}
 
+	frameGenerator = ()=> {
+		const { start } = this.state;
+		//const { video } = this.props;
+		let video = 1000;
+		/*const { video, frames } = this.props;
+		const { start } = this.state;
+		let i=0;
+		//frameDuration is counted like 25 frame oer second, 1 sec = 1000 msec
+		const frameDuration = 1000/25;
+		const framesOfTimeline = [];
+		frames.forEach((frame) => {
+			const item = {
+				start: start + frameDuration * i,
+				end: start + frameDuration *(i+1),
+				content: '',
+				id: i};
+			i++;
+			framesOfTimeline.push(item)
+		})
+		console.log(framesOfTimeline)
+		return framesOfTimeline;*/
+		//}
+		const items =[];
+		const item = {
+			start: start,
+			end: start + video,
+			content: '',
+			id: 0};
+
+		//}
+		items.push(item);
+		return items;
+	}
+
+
 
 	clickHandler = (props) => {
-	}
+		console.log(this)
+		console.log(props)
+	};
 
 	rangeChangeHandler = (props)=>{
-	}
+	};
 
 	timechangeHandler= (props) => {
 	}
@@ -55,6 +96,7 @@ class TimelineVideo extends React.Component<any, any> {
 	};
 
 	render(): JSX.Element {
+		const {start} = this.state;
 		const options = {
 			width: '100%',
 			height: '200px',
@@ -72,22 +114,26 @@ class TimelineVideo extends React.Component<any, any> {
 					minute: 'mm'
 				}
 			},
-			start: new Date(2010, 7, 15, 1, 1, 16),
-			end: new Date(2010, 7, 15,1,1,22),
-			dataAttributes: 'all'
+			start: start,
+			end: start + 1000,
+			dataAttributes: 'all',
+			editable: true
 		};
 		const customTimes = {
-			time1: new Date(2010, 7, 15, 1, 1, 16),
-			time2: new Date(2010, 7, 15,1,1,22,)
+			time1: start,
+			//time2: start + 80
 		};
-		const items = [
-		{
-			start: new Date(2010, 7, 15, 1, 1, 16),
-			end: new Date(2010, 7, 15,1,1,17,),  // end is optional
-			content: '<img src="/static/images/clip_mock.jpg" width=100 height=100/>',
-			id: 0
-		},
-		{
+		const items = this.frameGenerator();
+		console.log(items);
+		//const items = [
+		//{
+		//	start: new Date(2010, 7, 15, 1, 1, 16),
+		//	end: new Date(2010, 7, 15,1,1,17,),  // end is optional
+		//	content: '',
+		//	id: 0
+		//},
+	//]
+	/*	{
 			start: new Date(2010, 7, 15, 1, 1, 17),
 			end: new Date(2010, 7, 15,1,1,18),  // end is optional
 			content: '<img src="/static/images/clip_mock.jpg" width=100 height=100/>',
@@ -117,9 +163,10 @@ class TimelineVideo extends React.Component<any, any> {
 			content: '<img src="/static/images/clip_mock.jpg" width=100 height=100/>',
 			id: 5
 		}
-		];
+		];*/
+
 		customTimes.time1 = this.state.time1;
-		customTimes.time2 = this.state.time2;
+		//customTimes.time2 = this.state.time2;
 		return (
 			<div className="timelines-item">
 				<Timeline

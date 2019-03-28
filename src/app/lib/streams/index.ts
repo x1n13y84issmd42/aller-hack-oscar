@@ -9,4 +9,4 @@ export { GLtoRGB24 } from 'lib/streams/GLtoRGB24';
 export { RGB24toJPEG } from 'lib/streams/RGB24toJPEG';
 export { RGBA32toJPEG } from 'lib/streams/RGBA32toJPEG';
 export { FrameUnwrapper } from 'lib/streams/FrameUnwrapper';
-export { Sink } from 'lib/streams/sink';
+export { Sink } from 'lib/streams/Sink';

@@ -48,6 +48,21 @@ let CodecDataParsers = [
 			let fps = v.split(' ');
 			cdata.FPS = parseFloat(fps[0]);
 		}
+	},
+	{
+		rx: /^  Duration: ([0-9][0-9]:[0-9][0-9]:[0-9][0-9].[0-9][0-9]), start:.*$/,
+		parse: (v: string, cdata: CodecData) => {
+			let parts = v.split(':');
+			let h = parts[0];
+			let m = parts[1];
+			let s = parts[2].split('.')[0];
+			let ms = parts[2].split('.')[1];
+			cdata.duration =
+				parseInt(h) * 3600000 +
+				parseInt(m) * 60000 +
+				parseInt(s) * 60 +
+				parseInt(ms);
+		}
 	}
 ];
 
