@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import Card from '@material-ui/core/Card';
+
+import { Project } from 'lib/render/Types';
 
 import VideoUploader from 'front/components/pages/VideoUploader';
 import MainFrameContainer from 'front/components/pages/MainFrameContainer';
@@ -8,11 +9,17 @@ import TimelinesContainer from 'front/components/pages/TimelinesContainer';
 import VideoEffectsContainer from 'front/components/pages/VideoEffectsContainer';
 import VideosContainer from 'front/components/pages/VideosContainer';
 import VideoClipsContainer from 'front/components/pages/VideoClipsContainer';
-import {Sink} from 'lib/streams/Sink';
 
-class MainPage extends React.Component<any, any> {
+class EditorPage extends React.Component<any, any> {
 	render(): JSX.Element {
-console.log(Sink)
+		const { selectedProject } = this.props;
+
+		if (!selectedProject) {
+			<h6>Loading...</h6>
+		}
+
+		const { timelines } = (selectedProject as Project);
+
 		return (
 			<>
 				<div className="main-container">
@@ -28,18 +35,19 @@ console.log(Sink)
 					</div>
 				</div>
 				<div>
-					<TimelinesContainer/>
+					<TimelinesContainer timelines={timelines} />
 				</div>
 			</>
 		);
 	}
 }
 
-const mapStateToProps = ({ PersonalData, UI }) => ({});
+const mapStateToProps = (state) => {
+	return {
+		selectedProject: state.projects.getIn(['selectedProject'], null),
+	};
+}
 
 const mapDispatchToProps = () => ({});
 
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(MainPage);
+export default connect(mapStateToProps, mapDispatchToProps)(EditorPage);

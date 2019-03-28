@@ -8,7 +8,7 @@ export const InitialState = Immutable.from({
 });
 
 const TimelinesReducer = handleActions({
-	[Constants.GET_TIMELINE]: (state, action) => {
+	[Constants.ADD_TIMELINE]: (state, action) => {
 		const timelines = state.getIn(['timelines']);
 		const timeline = action.payload;
 		return state.set('timelines', [...timelines, timeline]);
