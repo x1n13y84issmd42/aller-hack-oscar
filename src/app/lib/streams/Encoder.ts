@@ -1,13 +1,16 @@
 
 import * as stream from 'stream';
-import * as ffmpeg from 'fluent-ffmpeg';
+const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
+const ffmpeg = require('fluent-ffmpeg');
+ffmpeg.setFfmpegPath(ffmpegPath);
 import * as fs from 'fs';
 import * as FrameStream from 'fw/FrameStream';
 import {TWritable} from 'fw/TWritable';
 import {RGBA32Frame} from 'lib/ffmpeg';
 
 export class Encoder extends TWritable<Buffer> {
-	private ffmpeg: ffmpeg.FfmpegCommand;
+	// private ffmpeg: ffmpeg.FfmpegCommand;
+	private ffmpeg;
 	private src: stream.PassThrough;
 	private ws: fs.WriteStream;
 
@@ -17,12 +20,12 @@ export class Encoder extends TWritable<Buffer> {
 		this.on('pipe', (src) => {
 			console.log(`+ Piped ${src.constructor.name}`);
 		});
-		
+
 		this.on('unpipe', (src) => {
 			console.log(`- Unpiped ${src.constructor.name}`);
 		});
 
-		
+
 		this.src = new stream.PassThrough({
 			write: function(chunk: Buffer, enc: string, cb: Function) {
 				console.log(`Encoder PT write ${chunk.length} bytes.`);
@@ -32,23 +35,23 @@ export class Encoder extends TWritable<Buffer> {
 
 			highWaterMark: 1024 * 1024 * 10
 		});
-		
+
 		this.src.on('cork', function () {
 			console.log(`Encoder PT corked.`);
 		});
-		
+
 		this.src.on('uncork', function () {
 			console.log(`Encoder PT uncorked.`);
 		});
-		
+
 		/*
 		this.src.on('data', function (chunk: Buffer) {
 			console.log(`Encoder PT data of ${chunk.length} bytes.`);
 		});
 		*/
-	
+
 	//	this.ws = fs.createWriteStream('pipe:0');
-	//	this.src.pipe(this.ws);		
+	//	this.src.pipe(this.ws);
 		this.src.cork();
 	}
 

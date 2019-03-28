@@ -18,6 +18,10 @@ import { VideoDesc, ClipDesc } from 'lib/render/Types';
 import { MongoVideos } from 'storage/Video/MongoVideos';
 import { Reflector } from 'lib/streams/Reflector';
 import { Three } from 'lib/render/API/3';
+import { EffectsRepo } from 'lib/render/EffectsRepo';
+import { RGBA32Frame } from 'lib/ffmpeg';
+import { Effect } from 'lib/render/effects/Effect';
+import { RotatingCube } from 'lib/render/effects/RotatingCube';
 
 const log = debug('machinetest');
 
@@ -50,7 +54,8 @@ const ops = {
 		let machine = new TheMachine(
 			project,
 			new StreamFramesExtractor(project, new MongoVideos),
-			new Three(project)
+			new Three(project),
+			new TempEffectsRepo()
 		);
 
 		machine.stream.pipe(new RGBA32toJPEG(project.settings.title));
@@ -62,3 +67,14 @@ const ops = {
 		log(await videos.get('5c9b84e10479733facf2a181'))
 	}
 };
+
+class TempEffectsRepo implements EffectsRepo<RGBA32Frame> {
+
+	getEffectById(id: string): Effect<RGBA32Frame> {
+		if (id === 'rotating_box') {
+			return new RotatingCube();
+		} else {
+			throw "No effect with such id";
+		}
+	}
+}

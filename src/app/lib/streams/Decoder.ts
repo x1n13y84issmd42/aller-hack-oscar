@@ -1,7 +1,9 @@
 import {TTransform} from 'fw/TTransform';
 import {Readable, Writable, PassThrough} from 'stream';
 import {RGB24Frame} from 'lib/ffmpeg';
-import * as ffmpeg from 'fluent-ffmpeg';
+const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
+const ffmpeg = require('fluent-ffmpeg');
+ffmpeg.setFfmpegPath(ffmpegPath);
 import * as _ from 'underscore';
 import { Buffer } from 'buffer';
 import { FrameType } from 'fw/Frame';
@@ -60,7 +62,7 @@ function parseCodecData(cdata:any): CodecData {
 		for (let vd in cdata.video_details) {
 
 			let d = cdata.video_details[vd];
-			
+
 			for (let cdpI in CodecDataParsers) {
 				let parser = CodecDataParsers[cdpI];
 				let m = d.match(parser.rx);
@@ -82,14 +84,14 @@ export function decoder(input?: any, options?: any): FrameWrapper {
 
 	options = _.extend({}, DefaultDecoderOptions, options);
 	let frames
-	
+
 	let ff = ffmpeg(input).format('image2pipe');
 
 	if (options.frames) {
 		log(`frames`, options.frames);
 		ff = ff.frames(options.frames);
 	}
-	
+
 	ff.videoCodec('rawvideo')
 		.addOption(['-pix_fmt', 'rgb24']);
 
@@ -106,7 +108,7 @@ export function decoder(input?: any, options?: any): FrameWrapper {
 
 		encoding = parseCodecData(cdata);
 		frameSize = encoding.width * encoding.height * 3;
-		
+
 		maker.configure({
 			frameSize: frameSize,
 			frameT: 1 / encoding.FPS,
@@ -114,7 +116,7 @@ export function decoder(input?: any, options?: any): FrameWrapper {
 			height: encoding.height
 		});
 	});
-	
+
 	let maker = new FrameWrapper();
 
 	ff.on('start', function(cmd) {
@@ -132,7 +134,7 @@ export function decoder(input?: any, options?: any): FrameWrapper {
 export function metaDecoder(input?: string | Readable, options?: DecoderOptions): Promise<CodecData> {
 	return new Promise<CodecData>((resolve) => {
 		let ff = ffmpeg(input).format('image2pipe');
-	
+
 		ff.on('codecData', function(cdata) {
 			resolve(parseCodecData(cdata));
 		});
