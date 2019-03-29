@@ -58,7 +58,8 @@ export class Blur implements Effect<RGB24Frame> {
     }
 
     if (!boxSize) {
-      throw '"size" setting is not provided';
+      boxSize = 3;
+      // throw '"size" setting is not provided';
     }
 
     let result = new ndarray(frame.data['image'].data, [frame.height, frame.width, 3]);
