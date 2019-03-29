@@ -43,10 +43,10 @@ async function frameCtrl(req: Request, resp: Response) {
     new TempEffectsRepo()
   );
 
-  machine.stream.pipe(new RGBA32toJPEG(project.settings.title));
+  machine.stream.pipe(new RGBA32toJPEG(`${project.settings.title}/${millis}`));
   let result = await machine.renderFrame(millis / 40, millis / 40 / 25);
 
-  resp.send(`${project.settings.title}/1.jpg`);
+  resp.send(`${project.settings.title}/${millis}.jpg`);
   resp.end();
 }
 

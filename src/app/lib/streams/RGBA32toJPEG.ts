@@ -26,7 +26,7 @@ export class RGBA32toJPEG extends TTransform<RGBA32Frame, Buffer> {
 	_transform(rgbFrame: RGBA32Frame, encoding: string, callback: Function): void {
 		this.c++;
     // let fn = `storage/out/${this.name}/${this.c}.jpg`;
-		let fn = `assets/images/${this.name}/${this.c}.jpg`;
+		let fn = `assets/images/${this.name}.jpg`;
 
     let dirName = `assets/images/${this.name}`;
 
