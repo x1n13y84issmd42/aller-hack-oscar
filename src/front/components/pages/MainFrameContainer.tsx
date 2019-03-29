@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import MainFrame from 'front/components/pages/MainFrame'
 
 class MainFrameContainer extends React.Component<any, any> {
-
 	render(): JSX.Element {
+		const { currentImage, project } = this.props;
 		return (
 			<div>
 				<div className="main-frame-container">
-					<MainFrame url={this.props.currentImage} project={this.props.project}/>
+					<MainFrame url={currentImage} project={project} />
 				</div>
 			</div>
 		);
@@ -18,13 +18,10 @@ class MainFrameContainer extends React.Component<any, any> {
 
 const mapStateToProps = state =>
 	({
-		currentImage: state.projects.getIn(['currentImage'], '',),
-		project: state.projects.getIn(['selectedProject'], [])
+		currentImage: state.projects.getIn(['currentImage'], ''),
+		project: state.projects.getIn(['selectedProject'], null)
 	});
 
 const mapDispatchToProps = () => ({});
 
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(MainFrameContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(MainFrameContainer);

@@ -39,26 +39,28 @@ class TimelinesContainer extends React.Component<any, any> {
 		console.log(timelines)
 		return (
 			<div className="timelines-container" onDrop={this.onFileDrop} onDragOver={this.onDragOver}>
-				<Card  className="timelines-empty">
+				<Card className="timelines-empty">
 					<Typography component="h5" variant="h5">
 						Dude, I want some video item... Drag to me.
 					</Typography>
 				</Card>
 				{timelines && timelines.length &&
-				<Card>
-					{this.renderTimelines(timelines)}
-				</Card>
+					<Card>
+						{this.renderTimelines(timelines)}
+					</Card>
 				}
 			</div>
 		);
 	}
 }
 
-
-const mapStateToProps = state =>
-	({
-		project: state.projects.getIn(['selectedProject'], [])
-	});
+const mapStateToProps = (state) => {
+	let project = state.projects.getIn(['selectedProject'], null);
+	project = project && project.asMutable ? project.asMutable({ deep: true }) : null;
+	return {
+		project,
+	};
+}
 
 const mapDispatchToProps = () => ({});
 

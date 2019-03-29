@@ -96,9 +96,11 @@ class ProjectContainer extends React.Component<any, any> {
 }
 
 const mapStateToProps = (state) => {
+	let selectedProject = state.projects.getIn(['selectedProject'], null);
+	selectedProject = selectedProject && selectedProject.asMutable ? selectedProject.asMutable({ deep: true }) : null;
 	return {
 		projects: state.projects.getIn(['projects'], []),
-		selectedProject: state.projects.getIn(['selectedProject'], null),
+		selectedProject,
 	};
 }
 

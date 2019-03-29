@@ -66,7 +66,6 @@ export const addEffect = (entityIndex, timelineIndex, effect) => {
 			timelineIndex,
 			effect: {
 				...effect,
-				id: `${Date.now()}`
 			}
 		};
 		return Store.dispatch(addEffectAction(payload))
@@ -149,13 +148,23 @@ export const addClip = async (params) => {
 	}
 }
 
-
-export const getCurrentImage = async (params) => {
+export const getCurrentImage = async (project) => {
 	try {
-		let { data } = await APIGet(`/api/frames`, params);
+		const payload: any = {
+			project: {
+				settings: {
+					...project,
+				},
+				timelines: [
+					...project.timelines
+				]
+			},
+			millis: 40,
+		}
+		let { data } = await APIGet(`/api/frames`, payload);
 		while (data) {
 			Store.dispatch(getImageAction(data));
-			data  = await APIGet(`/api/frames`);
+			data = await APIGet(`/api/frames`);
 		}
 	} catch (err) {
 		Store.dispatch(getImageErrorAction());

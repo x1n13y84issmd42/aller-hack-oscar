@@ -14,6 +14,7 @@ class EditorPage extends React.Component<any, any> {
 	render(): JSX.Element {
 		const { selectedProject } = this.props;
 
+		console.log(`_selectedProject_`, selectedProject);
 		if (!selectedProject) {
 			<h6>Loading...</h6>
 		}
@@ -43,8 +44,10 @@ class EditorPage extends React.Component<any, any> {
 }
 
 const mapStateToProps = (state) => {
+	let selectedProject = state.projects.getIn(['selectedProject'], null);
+	selectedProject = selectedProject && selectedProject.asMutable ? selectedProject.asMutable({ deep: true }) : null;
 	return {
-		selectedProject: state.projects.getIn(['selectedProject'], null),
+		selectedProject,
 	};
 }
 

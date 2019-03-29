@@ -1,4 +1,4 @@
-import {Request, Response} from 'express';
+import { Request, Response } from 'express';
 
 const ctrler = {
 	index: (req: Request, resp: Response) => {
@@ -6,20 +6,20 @@ const ctrler = {
 	},
 
 	index_mock: (req: Request, resp: Response) => {
-		let idBase = 3000;
-	
-		function mockFX(name: string) {
-			return {
-				id: idBase++,
-				name: name,
-			}
-		};
 
 		resp.status(200).json([
-			mockFX('Color Grading'),
-			mockFX('Blur'),
-			mockFX('Pixelate'),
-			mockFX('Vignette'),
+			{
+				id: 'rotating_box',
+				name: 'Rotating box',
+			},
+			{
+				id: 'blur',
+				name: 'Blur',
+			},
+			{
+				id: 'bw',
+				name: 'Black White',
+			}
 		]).end();
 	},
 };

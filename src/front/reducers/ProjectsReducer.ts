@@ -28,7 +28,7 @@ const ProjectsReducer = handleActions({
 	},*/
 	[Constants.ADD_TIMELINE]: (state, action) => {
 		const selectedProject = state.getIn(['selectedProject']) as Project;
-		const mutableArray = Immutable.asMutable(selectedProject, {deep: true});
+		const mutableArray = Immutable.asMutable(selectedProject, { deep: true });
 		mutableArray.timelines.push(action.payload);
 		return state.set('selectedProject', mutableArray);
 	},
@@ -36,7 +36,7 @@ const ProjectsReducer = handleActions({
 	[Constants.ADD_EFFECT]: (state, action) => {
 		const selectedProject = state.getIn(['selectedProject']) as Project;
 		const { effect, entityIndex, timelineIndex } = action.payload;
-		const mutableArray = Immutable.asMutable(selectedProject, {deep: true});
+		const mutableArray = Immutable.asMutable(selectedProject, { deep: true });
 		mutableArray.timelines[timelineIndex].entities[entityIndex].effects.push(effect);
 		return state.set('selectedProject', mutableArray);
 	},
