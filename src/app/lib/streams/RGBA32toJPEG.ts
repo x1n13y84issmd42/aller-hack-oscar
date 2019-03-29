@@ -25,16 +25,17 @@ export class RGBA32toJPEG extends TTransform<RGBA32Frame, Buffer> {
 
 	_transform(rgbFrame: RGBA32Frame, encoding: string, callback: Function): void {
 		this.c++;
-		let fn = `storage/out/${this.name}/${this.c}.jpg`;
+    // let fn = `storage/out/${this.name}/${this.c}.jpg`;
+		let fn = `assets/images/${this.name}/${this.c}.jpg`;
 
 		this.log(`${rgbFrame.t.toFixed(2)} => ${fn}`);
-		
+
 		let xpixels = new ndarray(rgbFrame.data, [rgbFrame.height, rgbFrame.width, 4]);
 
 		if (this.transpose) {
 			xpixels = xpixels.transpose(1, 0);
 		}
-		
+
 		savepixels(xpixels, 'JPEG').pipe(fs.createWriteStream(fn));
 
 		callback();

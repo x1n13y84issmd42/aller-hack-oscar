@@ -44,8 +44,8 @@ async function frameCtrl(req: Request, resp: Response) {
   machine.stream.pipe(new RGBA32toJPEG(project.settings.title));
   let result = await machine.renderFrame(millis / 40, millis / 40);
 
-  var path = require('path');
-  resp.sendFile(path.resolve(`storage/out/${project.settings.title}/1.jpg`));
+  resp.send(`${project.settings.title}/1.jpg`);
+  resp.end();
 }
 
 class TempEffectsRepo implements EffectsRepo<RGBA32Frame> {
