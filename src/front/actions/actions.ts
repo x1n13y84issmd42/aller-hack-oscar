@@ -86,8 +86,9 @@ export const addTimeline = async (rawVideo) => {
 					start: 0,
 					end: 1,
 				},
-				position: {
+				timelinePosition: {
 					start: 0,
+					end: 1,
 				},
 				effects: [],
 			}],
