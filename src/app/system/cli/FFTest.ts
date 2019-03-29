@@ -8,12 +8,19 @@ import {
 	decoder,
 	metaDecoder,
 	RGB24toJPEG,
+	RGB24toJPEGFiles,
 	FrameUnwrapper,
+	RGB24toGL,
+	GLtoRGB24,
+	Sink,
 } from 'lib/streams';
 
 import { TheMachine } from 'lib/render';
 import { Project } from 'lib/render/Types';
 import { RGB24Frame } from 'lib/ffmpeg';
+import { GLFrame } from 'lib/render/GL';
+import { Files } from 'lib/streams/Files';
+import { JPEGFrame } from 'lib/streams/RGB24toJPEG';
 
 const log = debug('rendertest');
 
@@ -54,7 +61,9 @@ const ops = {
 			from: frameN / 25,
 			frames: frames,
 		})
-			.pipe(new RGB24toJPEG(name))
+		//	.pipe(new RGB24toJPEGFiles(path.basename(vfp)))
+			.pipe(new RGB24toJPEG())
+			.pipe(new Files<JPEGFrame>(path.basename(vfp) + '_2step', 'jpg'))
 			;
 	},
 

@@ -14,7 +14,7 @@ export class RGBA32toGL extends TTransform<RGBA32Frame, GLFrame> {
 			THREE.UnsignedByteType,
 			THREE.UVMapping,
 			THREE.ClampToEdgeWrapping, THREE.ClampToEdgeWrapping,
-			THREE.LinearFilter, THREE.LinearMipMapLinearFilte
+			THREE.LinearFilter, THREE.LinearMipMapLinearFilter
 		);
 
 		texture.needsUpdate = true;

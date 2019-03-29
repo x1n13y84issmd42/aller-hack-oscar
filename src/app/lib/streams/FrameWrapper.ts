@@ -39,9 +39,7 @@ export class FrameWrapper extends TTransform<Buffer, RGB24Frame>
 			this.totalBytes -= this.cfg.frameSize;
 			this.bufOffset = 0;
 
-			this.framesEmitted++;
-
-			this.log(`${this.T.toFixed(2)} Emitting a frame #${this.framesEmitted}`);
+			this.log(`Emitting a frame #${this.framesEmitted++} @ ${this.T.toFixed(2)}`);
 
 			this.push(new RGB24Frame(
 				this.cfg.width,

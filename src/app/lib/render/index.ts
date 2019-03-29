@@ -1,8 +1,8 @@
-import { Project } from "lib/render/Types";
-import { GLFrame } from 'lib/render/GL';
 import { IFramesExtractor } from 'lib/render/IFramesExtractor';
+import { Project } from "lib/render/Types";
 import { TReadable } from 'fw/TReadable';
 import { RGBA32Frame } from 'lib/ffmpeg';
+import { GLFrame } from 'lib/render/GL';
 import { FrameType } from 'fw/Frame';
 import { API } from './API/API';
 import * as debug from 'debug';
@@ -19,12 +19,10 @@ export class TheMachine {
 
 	constructor(
 		private project: Project,
-		private frames: IFramesExtractor,
+		private frames: IFramesExtractor<GLFrame>,
 		private api?: API<RGBA32Frame>
 	) {
-		let that = this;
-
-		this.stream._read = function (s?) {	}
+		this.stream._read = function () {}
 	}
 
 	async render(timestamp?: number) {
@@ -50,7 +48,7 @@ export class TheMachine {
 		//TODO: render the shit
 		this.api.renderFrames(inputFrames);
 
-		log(`Emitting a frame ${i} @ ${t}`);
+		log(`Emitting a frame #${i} @${t}`);
 
 		this.theStream.push(new RGBA32Frame(
 			this.project.settings.width,

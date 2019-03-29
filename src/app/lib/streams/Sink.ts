@@ -1,10 +1,11 @@
 import {TTransform} from 'fw/streams';
 import * as FrameStream from 'fw/FrameStream';
+import { FrameBase } from 'fw/Frame';
 
 /**
  * It's like /dev/null for frames.
  */
-export class Sink extends TTransform<Buffer, void>
+export class Sink<FT extends FrameBase> extends TTransform<FT, void>
 {
 	constructor() {
 		super({
@@ -19,7 +20,8 @@ export class Sink extends TTransform<Buffer, void>
 		super.configure(cfg);
 	}
 
-	_transform(chunk: Buffer, enc: string, callback: Function) {
+	_transform(frame: FT, enc: string, callback: Function) {
+		this.log(`${frame.t.toFixed(2)}`);
 		callback();
 	}
 }

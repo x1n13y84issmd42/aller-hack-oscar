@@ -3,7 +3,18 @@ export enum FrameType {
 	GL
 }
 
-export class Frame<T> {
+export class FrameBase {
+	constructor(
+		public width: number,
+		public height: number,
+		public t: number,
+		public type: FrameType,
+	) {
+		//
+	}
+}
+
+export class Frame<T> extends FrameBase {
 
 	constructor(
 		public width: number,
@@ -12,7 +23,7 @@ export class Frame<T> {
 		public type: FrameType,
 		public data: T,
 	) {
-		//
+		super(width, height, t, type);
 	}
 }
 

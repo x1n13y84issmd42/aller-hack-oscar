@@ -1,24 +1,26 @@
-import { IFramesExtractor } from "./IFramesExtractor";
-import { GLFrame } from "./GL";
 import { Project, VideoDesc, ClipDesc } from "./Types";
-import { IVideos } from "storage/Video";
-import { decoder, RGB24toGL } from "lib/streams";
+import { IFramesExtractor } from "./IFramesExtractor";
 import { Reflector } from "lib/streams/Reflector";
+import { decoder, RGB24toGL, FrameWrapper, RGB24toJPEG } from "lib/streams";
+import { IVideos } from "storage/Video";
+import { GLFrame } from "./GL";
 import * as debug from 'debug';
+import { FrameBase } from "fw/Frame";
+import { TReadable, TTransform } from "fw/streams";
+import { RGB24Frame } from "lib/ffmpeg";
+import { JPEGFrame } from "lib/streams/RGB24toJPEG";
 
 const _log = debug(`StreamFramesExtractor`);
-
-type Frameline = Array<GLFrame>;
 
 /**
  * Extracts frames right from video files on demand.
  * This one is meant for rendering of videos, so it starts few decoding streams
  * and accumulates frames, then serves frames at the specified time `t`.
  */
-export class StreamFramesExtractor implements IFramesExtractor {
+export abstract class StreamFramesExtractor<FT extends FrameBase> implements IFramesExtractor<FT> {
 	private started: boolean = false;
-	private timelines: Frameline[] = [];
-	private requests: FrameRequest<GLFrame>[] = [];
+	private timelines: Array<FT>[] = [];
+	private requests: FrameRequest<FT>[] = [];
 
 	constructor(private project: Project, private videos: IVideos<VideoDesc>) {}
 
@@ -26,7 +28,7 @@ export class StreamFramesExtractor implements IFramesExtractor {
 	 * Returns all the frames from all the timelines that happen to be at the given index.
 	 * @param pfi A 0-based frame index of the entire project.
 	 */
-	async get(pfi: number): Promise<GLFrame[]> {
+	async get(pfi: number): Promise<FT[]> {
 
 		_log(`Getting frames @ ${pfi}`);
 		await this.start();
@@ -37,8 +39,8 @@ export class StreamFramesExtractor implements IFramesExtractor {
 			Otherwise create a FrameRequest for it, get a promise and await it.
 		*/
 
-		return new Promise<GLFrame[]>(async (resolve) => {
-			let result: Promise<GLFrame>[] = [];
+		return new Promise<FT[]>(async (resolve) => {
+			let result: Promise<FT>[] = [];
 	
 			for (let tI = 0; tI < this.timelines.length; tI++) {
 				let tl = this.timelines[tI];
@@ -48,7 +50,7 @@ export class StreamFramesExtractor implements IFramesExtractor {
 					result.push(Promise.resolve(frame));
 				} else {
 					_log(`Creating a request for frame #${pfi} on TL${tI}`);
-					let req = new FrameRequest<GLFrame>(tI, pfi);
+					let req = new FrameRequest<FT>(tI, pfi);
 					result.push(req.promise);
 					this.requests.push(req);
 				}
@@ -107,7 +109,7 @@ export class StreamFramesExtractor implements IFramesExtractor {
 			frames: video.FPS * (clip.clipping.end - clip.clipping.start)
 		});
 
-		dec.pipe(new RGB24toGL).pipe(new Reflector<GLFrame>((frame: GLFrame) => {
+		this.convertFrameStream(dec).pipe(new Reflector<FT>((frame: FT) => {
 			/*
 				Sooo, we have a frame now...
 				Someone may be waiting for it - means, there is a FrameRequest for that timestamp. Those must be served.
@@ -128,6 +130,8 @@ export class StreamFramesExtractor implements IFramesExtractor {
 			frameCounter++;
 		}));
 	}
+
+	abstract convertFrameStream(decoder: FrameWrapper): TTransform<RGB24Frame, FT>;
 
 	private getRequest(ti: number, t: number) {
 		for (let req of this.requests) {
@@ -156,3 +160,15 @@ class FrameRequest<FT> {
 		this.resolver(frame);
 	}
 };
+
+export class StreamFramesExtractorGL extends StreamFramesExtractor<GLFrame> {
+	convertFrameStream(decoder: FrameWrapper): RGB24toGL {
+		return decoder.pipe(new RGB24toGL)
+	}
+}
+
+export class StreamFramesExtractorJPEG extends StreamFramesExtractor<JPEGFrame> {
+	convertFrameStream(decoder: FrameWrapper): RGB24toJPEG {
+		return decoder.pipe(new RGB24toJPEG)
+	}
+}

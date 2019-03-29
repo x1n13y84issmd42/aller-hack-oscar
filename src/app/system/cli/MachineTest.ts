@@ -12,7 +12,7 @@ import {
 import { TheMachine } from 'lib/render';
 import { Project } from 'lib/render/Types';
 import { RGB24Frame } from 'lib/ffmpeg';
-import { StreamFramesExtractor } from 'lib/render/StreamFramesExtractor';
+import { StreamFramesExtractor, StreamFramesExtractorGL } from 'lib/render/StreamFramesExtractor';
 import { IVideos } from 'storage/Video/IVideos';
 import { VideoDesc, ClipDesc } from 'lib/render/Types';
 import { MongoVideos } from 'storage/Video/MongoVideos';
@@ -49,7 +49,7 @@ const ops = {
 
 		let machine = new TheMachine(
 			project,
-			new StreamFramesExtractor(project, new MongoVideos),
+			new StreamFramesExtractorGL(project, new MongoVideos),
 			new Three(project)
 		);
 

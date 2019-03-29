@@ -1,42 +1,44 @@
 import {TTransform} from 'fw/TTransform';
 import {RGB24Frame} from 'lib/ffmpeg';
-import {FrameType} from 'fw/Frame';
-import * as fs from 'fs';
-import * as mkdirp from 'mkdirp';
-import * as savepixels from 'save-pixels';
-import * as ndarray from 'ndarray';
+import {FrameType, Frame} from 'fw/Frame';
+import * as jpeg from 'jpeg-js';
 
-export class RGB24toJPEG extends TTransform<RGB24Frame, Buffer> {
+export class JPEGFrame extends Frame<Buffer> {}
+
+export class RGB24toJPEG extends TTransform<RGB24Frame, JPEGFrame> {
 
 	private c = 0;
 
 	constructor(
-		private name: string,
 		private transpose = true
 	) {
 		super();
-
-		let dirName = `storage/out/${this.name}`;
-
-		if (! fs.existsSync(dirName)) {
-			mkdirp.sync(dirName);
-		}
 	}
 
 	_transform(rgbFrame: RGB24Frame, encoding: string, callback: Function): void {
-		this.c++;
-		let fn = `storage/out/${this.name}/${this.c}.jpg`;
+		this.log(`${rgbFrame.t.toFixed(2)}`);
 
-		this.log(`${rgbFrame.t.toFixed(2)} => ${fn}`);
-
-		let xpixels = new ndarray(rgbFrame.data, [rgbFrame.height, rgbFrame.width, 3]);
-
-		if (this.transpose) {
-			xpixels = xpixels.transpose(1, 0);
-		}
 		
-		savepixels(xpixels, 'JPEG').pipe(fs.createWriteStream(fn));
-
+		let jpg = jpeg.encode({
+			data: rgbFrame.data,
+			width: rgbFrame.width,
+			height: rgbFrame.height,
+		}, 100);
+		
+		this.push(new JPEGFrame(
+			rgbFrame.width,
+			rgbFrame.height,
+			rgbFrame.t,
+			FrameType.GL,
+			jpg.data
+			));
+			
 		callback();
+	}
+	
+		
+	rgb24torgba32(rgbFrame: RGB24Frame) {
+		let data = Buffer.alloc(rgbFrame.width * rgbFrame.height * 4);
+		
 	}
 }

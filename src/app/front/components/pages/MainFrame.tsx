@@ -8,7 +8,6 @@ import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import SkipNextIcon from '@material-ui/icons/SkipNext';
 import * as React from "react";
-import TheMachine from './TheMachine';
 
 const styles = theme => createStyles({
 	card: {
@@ -50,12 +49,11 @@ class MainFrame extends React.Component<any, any> {
 					</Typography>
 				</CardContent>
 				<div>
-				{/* <CardMedia
+				<CardMedia
 					className={classes.cover}
 					image={url}
 					title="Frame editor"
-				/> */}
-				<TheMachine />
+				/>
 				</div>
 				<div className={classes.details}>
 					<div className={classes.controls}>
