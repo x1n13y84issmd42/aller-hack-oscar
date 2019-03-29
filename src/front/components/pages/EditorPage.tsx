@@ -8,6 +8,7 @@ import MainFrameContainer from 'front/components/pages/MainFrameContainer';
 import TimelinesContainer from 'front/components/pages/TimelinesContainer';
 import VideoEffectsContainer from 'front/components/pages/VideoEffectsContainer';
 import VideosContainer from 'front/components/pages/VideosContainer';
+import VideoClipsContainer from 'front/components/pages/VideoClipsContainer';
 
 class EditorPage extends React.Component<any, any> {
 	render(): JSX.Element {

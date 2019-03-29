@@ -1,3 +1,4 @@
+
 import { Action, createAction } from 'redux-actions';
 
 import { APIGet, APIPost } from 'front/service/API';
@@ -28,6 +29,9 @@ const addProjectErrorAction: Action = createAction(Constants.ADD_PROJECT_ERROR);
 const addTimelineAction: Action = createAction(Constants.ADD_TIMELINE);
 const addTimelineErrorAction: Action = createAction(Constants.ADD_TIMELINE_ERROR);
 
+const getImageAction: Action = createAction(Constants.GET_IMAGE);
+const getImageErrorAction: Action = createAction(Constants.GET_IMAGE_ERROR);
+
 export const selectProject = (projectIndex) => {
 	try {
 		return Store.dispatch(selectProjectAction(projectIndex))
@@ -55,11 +59,15 @@ export const addProject = (projectName: string) => {
 	}
 };
 
-export const addEffect = (videoIndex, effect) => {
+export const addEffect = (entityIndex, timelineIndex, effect) => {
 	try {
 		const payload = {
-			videoIndex,
-			effect,
+			entityIndex,
+			timelineIndex,
+			effect: {
+				...effect,
+				id: `${Date.now()}`
+			}
 		};
 		return Store.dispatch(addEffectAction(payload))
 	} catch (err) {
@@ -72,15 +80,18 @@ export const addTimeline = async (rawVideo) => {
 	try {
 		const videoId = rawVideo._id || rawVideo.id;
 		const payload = {
-			id: `${Date.now()}`,
-			videoId,
-			clipping: {
-				start: 0,
-				end: 1,
-			},
-			position: {
-				start: 0,
-			},
+			entities: [{
+				id: `${Date.now()}`,
+				videoId,
+				clipping: {
+					start: 0,
+					end: 1,
+				},
+				position: {
+					start: 0,
+				},
+				effects: [],
+			}],
 		};
 		return Store.dispatch(addTimelineAction(payload))
 	} catch (err) {
@@ -113,7 +124,7 @@ export const getClips = async () => {
 export const getEffects = async () => {
 	try {
 		let { data } = await APIGet(`/api/lib/effects`);
-		return Store.dispatch(getEffectsAction(data))
+		Store.dispatch(getEffectsAction(data));
 	} catch (err) {
 		Store.dispatch(getEffectsErrorAction());
 		throw err;
@@ -137,3 +148,17 @@ export const addClip = async (params) => {
 		Store.dispatch(addVideoErrorAction());
 	}
 }
+
+
+export const getCurrentImage = async (params) => {
+	try {
+		let { data } = await APIGet(`/api/frames`, params);
+		while (data) {
+			Store.dispatch(getImageAction(data));
+			data  = await APIGet(`/api/frames`);
+		}
+	} catch (err) {
+		Store.dispatch(getImageErrorAction());
+		throw err;
+	}
+};

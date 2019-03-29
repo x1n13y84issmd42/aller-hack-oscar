@@ -21,31 +21,33 @@ const ProjectsReducer = handleActions({
 		const project = action.payload as Project;
 		return state.set('projects', [...projects, project]);
 	},
-	[Constants.ADD_VIDEO]: (state, action) => {
+	/*[Constants.ADD_VIDEO]: (state, action) => { ???
 		const projects = state.getIn(['projects']);
-
 		const project = action.payload;
-
 		return state.set('timelines', [...projects, project]);
-	},
+	},*/
 	[Constants.ADD_TIMELINE]: (state, action) => {
 		const selectedProject = state.getIn(['selectedProject']) as Project;
-		selectedProject.timelines.push({
-			entities: [action.payload]
-		});
-
-		return state.set('selectedProject', selectedProject);
+		const mutableArray = Immutable.asMutable(selectedProject, {deep: true});
+		mutableArray.timelines.push(action.payload);
+		return state.set('selectedProject', mutableArray);
 	},
+
 	[Constants.ADD_EFFECT]: (state, action) => {
-		const projects = state.getIn(['projects']);
-
-		const payload = action.payload;
-
-		return state.set('timelines', [...projects, payload]);
+		const selectedProject = state.getIn(['selectedProject']) as Project;
+		const { effect, entityIndex, timelineIndex } = action.payload;
+		const mutableArray = Immutable.asMutable(selectedProject, {deep: true});
+		mutableArray.timelines[timelineIndex].entities[entityIndex].effects.push(effect);
+		return state.set('selectedProject', mutableArray);
 	},
 	[Constants.SELECT_PROJECT]: (state, action) => {
 		const project = { ...action.payload };
 		return state.set('selectedProject', project);
+	},
+
+	[Constants.GET_IMAGE]: (state, action) => {
+		const image = { ...action.payload };
+		return state.set('currentImage', image);
 	},
 }, initialStateProjects);
 

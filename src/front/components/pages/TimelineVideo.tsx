@@ -1,74 +1,79 @@
 import * as React from "react";
 import { connect } from 'react-redux';
 import Timeline from 'react-visjs-timeline';
-
 import { addEffect } from "front/actions/actions";
 
 class TimelineVideo extends React.Component<any, any> {
 	private timelineWrapperRef = React.createRef<HTMLDivElement>();
-	state = {
-		time1: new Date(2010, 7, 15, 1, 1, 16).getTime(),
-		time2: new Date(2010, 7, 15, 1, 1, 22).getTime(),
+	private time = -7200000;
+
+	constructor(props) {
+		super(props);
+		this.state = {
+			time1: this.time,
+			start: this.time
+		};
 	}
 
 	onDragOver = (event) => {
 		event.preventDefault();
-	}
+	};
 
 	onEffectDrop = (event) => {
 		try {
 			const jsonDraggedEffectItem = event.dataTransfer.getData('DraggedEffectItem');
 			if (jsonDraggedEffectItem) {
-				const { position } = this.props;
 				const draggedEffectItem = JSON.parse(jsonDraggedEffectItem);
-				addEffect(position, draggedEffectItem);
+				addEffect(0, 0, draggedEffectItem);
 			}
 		} catch (error) {
 			console.error(`_OnEffectDrop_Error_`, error);
 		}
 	}
 
+	frameGenerator = ()=> {
+		const { entities } = this.props;
+		console.log(entities);
+		let duration =0;
+		let i=0;
+		const items =[];
+		entities.forEach((item)=>{
+			items.push ({
+				start: item.clipping.start*1000+this.time,
+				end: item.clipping.end*1000+this.time,
+				content: '',
+				id: i
+			});
+			i++;
+			duration = (duration +  (item.clipping.end - item.clipping.start));
+		});
+		console.log(items)
+		return items;
+	};
+	timechangedHandler = (props) => {
+		console.log('time chan');
+	}
 
 	clickHandler = (props) => {
+		console.log('click')
+		console.log(this)
+		console.log(new Date(props.time).getTime() - this.time)
+	};
+
+	rangeChangeHandler = (props)=>{
+	};
+
+	select = (props) => {
+		console.log('select')
+		console.log(props)
 	}
 
-	rangeChangeHandler = (props) => {
-	}
 
 	timechangeHandler = (props) => {
 	}
 
-	timechangedHandler = (props) => {
-		this.setState({ [props.id]: new Date(props.time).getTime() });
-		console.log(this.state);
-		let { time1, time2 } = this.state;
-		if (time1 > time2) {
-			let temp = time2;
-			time2 = time1;
-			time1 = temp
-		}
-		const v = this.timelineWrapperRef.current;
-		const items = v['$el'].itemsData._data;
-		const selectedItems = [];
-		Object.keys(items).forEach((key, index) => {
-			let itemStart = new Date(items[key].start).getTime();
-			let itemEnd = new Date(items[key].end).getTime();
-			if (((itemStart <= time1 && itemEnd >= time1) || (itemStart >= time1 && itemEnd >= time1))
-				&& ((itemStart <= time2 && itemEnd >= time2) || (itemStart <= time2 && itemEnd <= time2))) {
-				selectedItems.push(key)
-			}
-		})
-		console.log(selectedItems);
-
-		selectedItems.forEach((id) => {
-			const el = document.querySelectorAll("[data-id='" + id + "']");
-			if ((' ' + el[0].className + ' ').indexOf(' ' + 'vis-selected' + ' ') < 0) {
-				el[0].className += ' ' + 'vis-selected';
-			}
-		})
-	};
-
 	render(): JSX.Element {
+		const {start, time1} = this.state;
 		const options = {
 			width: '100%',
 			height: '200px',
@@ -86,57 +91,17 @@ class TimelineVideo extends React.Component<any, any> {
 					minute: 'mm'
 				}
 			},
-			start: new Date(2010, 7, 15, 1, 1, 16),
-			end: new Date(2010, 7, 15, 1, 1, 22),
-			dataAttributes: 'all'
+			start: start,
+			end: start + 1000,
+			dataAttributes: 'all',
+			editable: true
 		};
-
-		const customTimes: any = {
-			time1: new Date(2010, 7, 15, 1, 1, 16),
-			time2: new Date(2010, 7, 15, 1, 1, 22)
+		const customTimes = {
+			time1: time1,
 		};
-
-		const items = [
-			{
-				start: new Date(2010, 7, 15, 1, 1, 16),
-				end: new Date(2010, 7, 15, 1, 1, 17),  // end is optional
-				content: '<img src="/static/images/clip_mock.jpg" width=100 height=100/>',
-				id: 0
-			},
-			{
-				start: new Date(2010, 7, 15, 1, 1, 17),
-				end: new Date(2010, 7, 15, 1, 1, 18),  // end is optional
-				content: '<img src="/static/images/clip_mock.jpg" width=100 height=100/>',
-				id: 1
-			},
-			{
-				start: new Date(2010, 7, 15, 1, 1, 18),
-				end: new Date(2010, 7, 15, 1, 1, 19),  // end is optional
-				content: '<img src="/static/images/clip_mock.jpg" width=100 height=100/>',
-				id: 2
-			},
-			{
-				start: new Date(2010, 7, 15, 1, 1, 19),
-				end: new Date(2010, 7, 15, 1, 1, 20),  // end is optional
-				content: '<img src="/static/images/clip_mock.jpg" width=100 height=100/>',
-				id: 3
-			},
-			{
-				start: new Date(2010, 7, 15, 1, 1, 20),
-				end: new Date(2010, 7, 15, 1, 1, 21),  // end is optional
-				content: '<img src="/static/images/clip_mock.jpg" width=100 height=100/>',
-				id: 4
-			},
-			{
-				start: new Date(2010, 7, 15, 1, 1, 21),
-				end: new Date(2010, 7, 15, 1, 1, 22),  // end is optional
-				content: '<img src="/static/images/clip_mock.jpg" width=100 height=100/>',
-				id: 5
-			}
-		];
-
 		customTimes.time1 = this.state.time1;
-		customTimes.time2 = this.state.time2;
+		const items = this.frameGenerator();
+		console.log(items);
 
 		return (
 			<div
@@ -152,6 +117,7 @@ class TimelineVideo extends React.Component<any, any> {
 					rangechangeHandler={this.rangeChangeHandler}
 					timechangeHandler={this.rangeChangeHandler}
 					timechangedHandler={this.timechangedHandler}
+					select={this.select}
 					ref={this.timelineWrapperRef}
 				/>
 			</div>
@@ -164,3 +130,144 @@ const mapStateToProps = ({ }) => ({});
 const mapDispatchToProps = () => ({});
 
 export default connect(mapStateToProps, mapDispatchToProps)(TimelineVideo)
+
+
+/*const { video, frames } = this.props;
+		const { start } = this.state;
+		let i=0;
+		//frameDuration is counted like 25 frame oer second, 1 sec = 1000 msec
+		const frameDuration = 1000/25;
+		const framesOfTimeline = [];
+		frames.forEach((frame) => {
+			const item = {
+				start: start + frameDuration * i,
+				end: start + frameDuration *(i+1),
+				content: '',
+				id: i};
+			i++;
+			framesOfTimeline.push(item)
+		})
+		console.log(framesOfTimeline)
+		return framesOfTimeline;*/
+//}
+
+
+// need this for clipping
+/*
+timechangedHandler = (props) => {
+	this.setState({ [props.id]: new Date(props.time).getTime() });
+	console.log(this.state);
+	let { time1, time2 } = this.state;
+	if (time1 > time2) {
+		let temp = time2;
+		time2 = time1;
+		time1 = temp
+	}
+	const v = this.timelineWrapperRef.current;
+	const items = v['$el'].itemsData._data;
+	const selectedItems = [];
+	Object.keys(items).forEach((key, index) => {
+		let itemStart = new Date(items[key].start).getTime();
+		let itemEnd = new Date(items[key].end).getTime();
+		if (((itemStart <= time1 && itemEnd >= time1) || (itemStart >= time1 && itemEnd >= time1))
+			&& ((itemStart <= time2 && itemEnd >= time2) || (itemStart <= time2 && itemEnd <= time2))) {
+			selectedItems.push(key)
+		}
+	});
+	console.log(selectedItems);
+
+	selectedItems.forEach((id) => {
+		const el = document.querySelectorAll("[data-id='" + id + "']");
+		if ((' ' + el[0].className + ' ').indexOf(' ' + 'vis-selected' + ' ') < 0) {
+			el[0].className += ' ' + 'vis-selected';
+		}
+	})
+};*/
+
+//const items = [
+//{
+//	start: new Date(2010, 7, 15, 1, 1, 16),
+//	end: new Date(2010, 7, 15,1,1,17,),  // end is optional
+//	content: '',
+//	id: 0
+//},
+//]
+/*	{
+		start: new Date(2010, 7, 15, 1, 1, 17),
+		end: new Date(2010, 7, 15,1,1,18),  // end is optional
+		content: '<img src="/static/images/clip_mock.jpg" width=100 height=100/>',
+		id: 1
+	},
+	{
+		start: new Date(2010, 7, 15, 1, 1, 18),
+		end: new Date(2010, 7, 15,1,1,19),  // end is optional
+		content: '<img src="/static/images/clip_mock.jpg" width=100 height=100/>',
+		id: 2
+	},
+	{
+		start: new Date(2010, 7, 15, 1, 1, 19),
+		end: new Date(2010, 7, 15,1,1,20),  // end is optional
+		content: '<img src="/static/images/clip_mock.jpg" width=100 height=100/>',
+		id: 3
+	},
+	{
+		start: new Date(2010, 7, 15, 1, 1, 20),
+		end: new Date(2010, 7, 15,1,1,21),  // end is optional
+		content: '<img src="/static/images/clip_mock.jpg" width=100 height=100/>',
+		id: 4
+	},
+	{
+		start: new Date(2010, 7, 15, 1, 1, 21),
+		end: new Date(2010, 7, 15,1,1,22),  // end is optional
+		content: '<img src="/static/images/clip_mock.jpg" width=100 height=100/>',
+		id: 5
+	}
+	];*/
+//customTimes.time2 = this.state.time2;
+
+//const customTimes: any = {
+//	time1: new Date(2010, 7, 15, 1, 1, 16),
+//	time2: new Date(2010, 7, 15, 1, 1, 22)
+//};
+
+/*const items = [
+	{
+		start: new Date(2010, 7, 15, 1, 1, 16),
+		end: new Date(2010, 7, 15, 1, 1, 17),  // end is optional
+		content: '<img src="/static/images/clip_mock.jpg" width=100 height=100/>',
+		id: 0
+	},
+	{
+		start: new Date(2010, 7, 15, 1, 1, 17),
+		end: new Date(2010, 7, 15, 1, 1, 18),  // end is optional
+		content: '<img src="/static/images/clip_mock.jpg" width=100 height=100/>',
+		id: 1
+	},
+	{
+		start: new Date(2010, 7, 15, 1, 1, 18),
+		end: new Date(2010, 7, 15, 1, 1, 19),  // end is optional
+		content: '<img src="/static/images/clip_mock.jpg" width=100 height=100/>',
+		id: 2
+	},
+	{
+		start: new Date(2010, 7, 15, 1, 1, 19),
+		end: new Date(2010, 7, 15, 1, 1, 20),  // end is optional
+		content: '<img src="/static/images/clip_mock.jpg" width=100 height=100/>',
+		id: 3
+	},
+	{
+		start: new Date(2010, 7, 15, 1, 1, 20),
+		end: new Date(2010, 7, 15, 1, 1, 21),  // end is optional
+		content: '<img src="/static/images/clip_mock.jpg" width=100 height=100/>',
+		id: 4
+	},
+	{
+		start: new Date(2010, 7, 15, 1, 1, 21),
+		end: new Date(2010, 7, 15, 1, 1, 22),  // end is optional
+		content: '<img src="/static/images/clip_mock.jpg" width=100 height=100/>',
+		id: 5
+	}
+];*/
+
+//customTimes.time1 = this.state.time1;
+//customTimes.time2 = this.state.time2;

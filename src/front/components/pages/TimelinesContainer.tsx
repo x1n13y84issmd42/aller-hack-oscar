@@ -11,7 +11,7 @@ import Typography from '@material-ui/core/Typography';
 class TimelinesContainer extends React.Component<any, any> {
 	onDragOver = (event) => {
 		event.preventDefault();
-	}
+	};
 
 	onFileDrop = (event) => {
 		try {
@@ -26,50 +26,40 @@ class TimelinesContainer extends React.Component<any, any> {
 	}
 
 	renderTimelines = (timelines) => {
-		return timelines.map((tl, index) => <TimelineVideo
-			key={index}
-			position={index}
-			video={tl.video}
-			frames={tl.frames}
-		/>)
+		return timelines.map((tl, index) =>
+			<TimelineVideo
+				key={index}
+				entities={tl.entities}
+			/>
+		)
 	};
 
 	render(): JSX.Element {
-		const { timelines } = this.props;
+		const { timelines } = this.props.project;
+		console.log(timelines)
 		return (
-			<div
-				className="timelines-container"
-				onDrop={this.onFileDrop}
-				onDragOver={this.onDragOver}
-			>
-				{(!timelines || !timelines.length) ?
-					(
-						<Card className="timelines-empty">
-							<Typography component="h5" variant="h5">
-								Dude, I want some video item... Drag to me.
-							</Typography>
-						</Card>
-					)
-					: (
-						<Card>
-							{this.renderTimelines(timelines)}
-						</Card>
-					)
-				}
-				<Card>
-					<TimelineVideo />
+			<div className="timelines-container" onDrop={this.onFileDrop} onDragOver={this.onDragOver}>
+				<Card  className="timelines-empty">
+					<Typography component="h5" variant="h5">
+						Dude, I want some video item... Drag to me.
+					</Typography>
 				</Card>
+				{timelines && timelines.length &&
+				<Card>
+					{this.renderTimelines(timelines)}
+				</Card>
+				}
 			</div>
 		);
 	}
 }
 
-const mapStateToProps = (state) => {
-	return {
-		//
-	};
-}
+
+const mapStateToProps = state =>
+	({
+		project: state.projects.getIn(['selectedProject'], [])
+	});
 
 const mapDispatchToProps = () => ({});
 
-export default connect(mapStateToProps,mapDispatchToProps)(TimelinesContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(TimelinesContainer)

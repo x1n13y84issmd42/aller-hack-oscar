@@ -22,22 +22,7 @@ const VideosReducer = handleActions({
 		console.log(action.payload)
 		const videos = state.getIn(['videos']);
 		return state.set('videos', [video, ...videos]);
-	},
-	/*[UsersConstants.DELETE_USER]: (state, action) => {
-		let users = state.getIn(['users']);
-		const userId = action.payload;
-		const newUsers = users.flatMap((value) => {
-			if (value.id === userId) {
-				return [];
-			} else {
-				return value;
-			}
-		});
-		return state.set('users', newUsers);
-	},
-	[UsersConstants.UPDATE_USER]: (state, action) => {
-		return state.merge({users: [action.payload]}, mergeConfig);
-	}*/
+	}
 }, InitialState);
 
 export default VideosReducer;
