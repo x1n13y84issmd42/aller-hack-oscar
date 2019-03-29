@@ -5,6 +5,8 @@ import * as THREE from 'three.js-node';
 import { Project } from "../Types";
 import { RGB24Frame } from "lib/ffmpeg";
 import { GLFrame } from "../GL";
+import { Effect } from 'lib/render/effects/Effect';
+import { EffectSetting } from 'lib/render/Types';
 
 dom();
 
@@ -15,12 +17,8 @@ export class Three implements API<RGB24Frame> {
 	private scene;
 	private camera;
 
-	private plane;
-	
-	private material;
-	private box;
-
-	private boxRotation = 0;
+	private currentEffects;
+	private currentEffectsSettings;
 
 	constructor(private project: Project, webgl?: WebGLRenderingContext) {
 		this.gl = webgl || gl(project.settings.width, project.settings.height, {
@@ -43,31 +41,18 @@ export class Three implements API<RGB24Frame> {
 		this.camera.position.x = 0;
 		this.camera.position.y = 0;
 		this.camera.position.z = 10;
-
-		/////////////////////// THIS IS A TEST ///////////////////////
-		this.material = new THREE.MeshBasicMaterial({
-			color: 0xffffff
-		});
-
-		let boxDim = 270;
-		this.box = new THREE.Mesh(new THREE.BoxGeometry(boxDim, boxDim, boxDim), this.material);
-		this.box.position.x = -15;
-		this.box.position.y = 0;
-		this.box.position.z = -20;
-		this.box.rotation.x = 0.1;
-		this.box.rotation.y = 0.3;
-		this.box.rotation.z = 0;
-		this.scene.add(this.box);
-
-		////////////////////////////////////////////////////////
 	}
 
 	renderFrames(frames: GLFrame[]) {
 		if (frames.length) {
 			let frame = frames[0];
-			this.material.map = frame.data;
-			this.box.rotation.z = frame.t * 0.5;
-			this.three.render(this.scene, this.camera);
+			let effects = this.currentEffects[0];
+			let effectsSettings = this.currentEffectsSettings[0];
+
+			for (let effectIndex in effects) {
+				let effect = effects[effectIndex];
+				effect.processFrame(frame, effectsSettings[effectIndex]);
+			}
 		}
 	}
 
@@ -78,5 +63,16 @@ export class Three implements API<RGB24Frame> {
 		//	This copies entire pixels and is inefficient from both performance & memory perspective.
 		//TODO: optimize this.
 		return new Buffer(pixels);
+	}
+
+	setEffects(effects: Effect<RGB24Frame>[][], settings: EffectSetting[][][]) {
+		this.currentEffects = effects;
+		this.currentEffectsSettings = settings;
+
+		for (let currentEffects_i of this.currentEffects) {
+			for (let currentEffect of currentEffects_i) {
+				currentEffect.setContext(this.three, this.scene, this.camera);
+			}
+		}
 	}
 }

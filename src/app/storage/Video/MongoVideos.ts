@@ -29,6 +29,7 @@ export class MongoVideos implements IVideos<VideoDesc> {
 	}
 
 	async get(id: string): Promise<VideoDesc> {
+		return {path: 'storage/in/25.mp4'} as VideoDesc;
 		return await mongo.videos.findOne({_id: new ObjectId(id)});
 	}
 
