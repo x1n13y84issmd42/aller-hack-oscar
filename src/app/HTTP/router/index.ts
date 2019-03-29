@@ -8,6 +8,8 @@ import staticRouter from 'HTTP/router/static';
 import storageRouter from 'HTTP/router/storage';
 import { Request, Response } from 'express';
 import { Blur } from 'lib/render/effects/Blur';
+import { BlackWhite } from 'lib/render/effects/BlackWhite';
+import { RotatingCube } from 'lib/render/effects/RotatingCube';
 import { StreamFramesExtractor } from 'lib/render/StreamFramesExtractor';
 import { TheMachine } from 'lib/render';
 import { MongoVideos } from 'storage/Video/MongoVideos';
@@ -52,7 +54,11 @@ class TempEffectsRepo implements EffectsRepo<RGBA32Frame> {
 
   getEffectById(id: string): Effect<RGBA32Frame> {
     if (id === 'rotating_box') {
+      return new RotatingCube();
+    } else if (id === 'blur') {
       return new Blur();
+    } else if (id === 'bw') {
+      return new BlackWhite();
     } else {
       throw "No effect with such id";
     }
