@@ -28,6 +28,12 @@ export class RGBA32toJPEG extends TTransform<RGBA32Frame, Buffer> {
     // let fn = `storage/out/${this.name}/${this.c}.jpg`;
 		let fn = `assets/images/${this.name}/${this.c}.jpg`;
 
+    let dirName = `assets/images/${this.name}`;
+
+    if (! fs.existsSync(dirName)) {
+      mkdirp.sync(dirName);
+    }
+
 		this.log(`${rgbFrame.t.toFixed(2)} => ${fn}`);
 
 		let xpixels = new ndarray(rgbFrame.data, [rgbFrame.height, rgbFrame.width, 4]);
