@@ -25,6 +25,7 @@ export class RGBA32toGL extends TTransform<RGBA32Frame, GLFrame> {
 			rgbFrame.width,
 			rgbFrame.height,
 			rgbFrame.t,
+			rgbFrame.i,
 			FrameType.GL,
 			texture
 		));

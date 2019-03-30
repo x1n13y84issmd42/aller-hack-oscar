@@ -16,6 +16,7 @@ export class RGB24toGL extends TTransform<RGB24Frame, GLFrame> {
 			rgbFrame.width,
 			rgbFrame.height,
 			rgbFrame.t,
+			rgbFrame.i,
 			FrameType.GL,
 			texture
 		));

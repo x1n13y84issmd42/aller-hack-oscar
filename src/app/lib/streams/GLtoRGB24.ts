@@ -13,6 +13,7 @@ export class GLtoRGB24 extends TTransform<GLFrame, RGB24Frame> {
 			glFrame.width,
 			glFrame.height,
 			glFrame.t,
+			glFrame.i,
 			FrameType.GL,
 			glFrame.data.image.data
 		));

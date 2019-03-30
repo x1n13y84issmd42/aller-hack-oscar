@@ -10,7 +10,6 @@ import * as FrameStream from 'fw/FrameStream';
 export class FrameWrapper extends TTransform<Buffer, RGB24Frame>
 {
 	private totalBytes = 0;
-	private framesEmitted = 0;
 	private buffer: Buffer;
 	private bufOffset = 0;
 	private T = 0;
@@ -26,6 +25,7 @@ export class FrameWrapper extends TTransform<Buffer, RGB24Frame>
 
 	configure(cfg: FrameStream.Config) {
 		super.configure(cfg);
+		this.T = this.cfg.encodingStart;
 		this.buffer = Buffer.alloc(this.cfg.frameSize);
 	}
 
@@ -38,13 +38,15 @@ export class FrameWrapper extends TTransform<Buffer, RGB24Frame>
 		if (this.totalBytes >= this.cfg.frameSize) {
 			this.totalBytes -= this.cfg.frameSize;
 			this.bufOffset = 0;
+			let fi = Math.round(this.T * this.cfg.FPS);
 
-			this.log(`Emitting a frame #${this.framesEmitted++} @ ${this.T.toFixed(2)}`);
+			this.log(`Emitting a frame #${fi} @ ${this.T.toFixed(2)}`);
 
 			this.push(new RGB24Frame(
 				this.cfg.width,
 				this.cfg.height,
 				this.T,
+				fi,
 				FrameType.pixels,
 				Buffer.from(this.buffer)
 			));

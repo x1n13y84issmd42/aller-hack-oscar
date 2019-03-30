@@ -40,38 +40,64 @@ const styles = theme => createStyles({
 
 
 class MainFrame extends React.Component<any, any> {
+	private frameIndex: 0;
+
+	constructor(props) {
+		super(props);
+		this.state = {
+			frameIndex: 10
+		};
+	}
+
+	componentDidMount() {
+		this.setState({
+			frameIndex: 0
+		})
+	}
+
+	nextFrame() {
+		this.setState({frameIndex: this.state.frameIndex + 1});
+	}
+	
+	prevFrame() {
+		this.setState({frameIndex: Math.max(0, this.state.frameIndex - 1)});
+	}
+
 	render(): JSX.Element {
 		const { classes, theme, url } = this.props;
 		return (
 			<Card className={classes.card}>
-				<CardContent className={classes.content}>
-					<Typography component="h5" variant="h5">
-						Frame Editor
-					</Typography>
-				</CardContent>
 				<div>
-				{/* <CardMedia
-					className={classes.cover}
-					image={url}
-					title="Frame editor"
-				/> */}
-				<TheMachine />
+
+				<TheMachine frameIndex={this.state.frameIndex} playing={this.state.playing}/>
+				
 				</div>
 				<div className={classes.details}>
 					<div className={classes.controls}>
 						<IconButton aria-label="Previous">
 							{theme.direction === 'rtl' ? <SkipNextIcon /> : <SkipPreviousIcon />}
 						</IconButton>
-						<IconButton aria-label="Play/pause">
-							<PlayArrowIcon className={classes.playIcon} />
-						</IconButton>
-						<IconButton aria-label="Next">
-							{theme.direction === 'rtl' ? <SkipPreviousIcon /> : <SkipNextIcon />}
-						</IconButton>
+						<a className='button-a' onClick={()=>{
+							this.togglePlayback();
+						}} >
+							<IconButton aria-label="Play/pause">
+								<PlayArrowIcon className={classes.playIcon} />
+							</IconButton>
+						</a>
+						<a className='button-a' onClick={()=>{
+							this.nextFrame();
+						}} >
+							<IconButton aria-label="Next">
+								{theme.direction === 'rtl' ? <SkipPreviousIcon /> : <SkipNextIcon />}
+							</IconButton>
+						</a>
 					</div>
 				</div>
 			</Card>
 		);
+	}
+	togglePlayback(): any {
+		this.setState({playing: !this.state.playing});
 	}
 }
 

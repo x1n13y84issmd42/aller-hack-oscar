@@ -26,9 +26,9 @@ bootMgr.define('web', new BootSequence([
 	Router,
 ]));
 
-bootMgr.define('cli', new BootSequence([
+bootMgr.define('sleep', new BootSequence([
 	Env,
-	MongoDB,
+//	MongoDB,
 	Hello,
 	Bye,
 ]));

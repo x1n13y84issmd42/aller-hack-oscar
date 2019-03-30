@@ -7,12 +7,14 @@ import { StreamFramesExtractor, StreamFramesExtractorJPEG } from 'lib/render/Str
 
 const ctrler =  {
 	preview: async (req: Request, resp: Response) => {
-		console.log(req.body);
-		let { project, t} = req.body;
-		let sfx = new StreamFramesExtractorJPEG(project, new MongoVideos);
-		let jpgframes = await sfx.get(t);
+		let { project, i} = req.body;
+		let sfx = new StreamFramesExtractorJPEG(project, new MongoVideos, true);
+		console.log(`--------- Getting frames`);
+		let jpgframes = await sfx.get(i);
+		console.log(`--------- Got frames`);
 		let b64frames = jpgframes.map(jpg => 'data:image/jpeg;base64,' + jpg.data.toString('base64'));
-
+		
+		console.log(`--------- Sending response`);
 		return resp.status(200).json(b64frames).end();
 	}
 };

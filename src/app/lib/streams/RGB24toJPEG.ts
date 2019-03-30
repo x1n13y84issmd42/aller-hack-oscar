@@ -28,6 +28,7 @@ export class RGB24toJPEG extends TTransform<RGB24Frame, JPEGFrame> {
 			rgbFrame.width,
 			rgbFrame.height,
 			rgbFrame.t,
+			rgbFrame.i,
 			FrameType.GL,
 			jpg.data
 		));

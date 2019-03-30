@@ -93,7 +93,7 @@ export function decoder(input?: any, options?: any): FrameWrapper {
 	ff.videoCodec('rawvideo')
 		.addOption(['-pix_fmt', 'rgb24']);
 
-	if (options.from) {
+	if (options.from != undefined) {
 		log(`seekInput`, options.from);
 		ff.seekInput(options.from || '0:0:0');
 	}
@@ -109,9 +109,11 @@ export function decoder(input?: any, options?: any): FrameWrapper {
 		
 		maker.configure({
 			frameSize: frameSize,
+			FPS: encoding.FPS,
 			frameT: 1 / encoding.FPS,
 			width: encoding.width,
-			height: encoding.height
+			height: encoding.height,
+			encodingStart: options.from || 0,
 		});
 	});
 	

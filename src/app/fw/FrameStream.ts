@@ -1,9 +1,11 @@
 
 export type Config = {
 	frameSize: number;
+	FPS: number;
 	frameT: number;
 	width: number;
 	height: number;
+	encodingStart: number;
 };
 
 export class FrameStream {

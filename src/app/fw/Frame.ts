@@ -8,6 +8,7 @@ export class FrameBase {
 		public width: number,
 		public height: number,
 		public t: number,
+		public i: number,
 		public type: FrameType,
 	) {
 		//
@@ -20,10 +21,11 @@ export class Frame<T> extends FrameBase {
 		public width: number,
 		public height: number,
 		public t: number,
+		public i: number,
 		public type: FrameType,
 		public data: T,
 	) {
-		super(width, height, t, type);
+		super(width, height, t, i, type);
 	}
 }
 

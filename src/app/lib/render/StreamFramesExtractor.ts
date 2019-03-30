@@ -22,16 +22,16 @@ export abstract class StreamFramesExtractor<FT extends FrameBase> implements IFr
 	private timelines: Array<FT>[] = [];
 	private requests: FrameRequest<FT>[] = [];
 
-	constructor(private project: Project, private videos: IVideos<VideoDesc>) {}
+	constructor(private project: Project, private videos: IVideos<VideoDesc>, private singleFrameMode=false) {}
 
 	/**
 	 * Returns all the frames from all the timelines that happen to be at the given index.
-	 * @param pfi A 0-based frame index of the entire project.
+	 * @param tlfi A 0-based frame index on the timeline.
 	 */
-	async get(pfi: number): Promise<FT[]> {
+	async get(tlfi: number): Promise<FT[]> {
 
-		_log(`Getting frames @ ${pfi}`);
-		await this.start();
+		_log(`Getting frames @ ${tlfi}`);
+		await this.start(tlfi);
 
 		/*
 			Sooo, we want a frame...
@@ -44,13 +44,13 @@ export abstract class StreamFramesExtractor<FT extends FrameBase> implements IFr
 	
 			for (let tI = 0; tI < this.timelines.length; tI++) {
 				let tl = this.timelines[tI];
-				let frame = tl[pfi];
+				let frame = tl[tlfi];
 				if (frame) {
-					_log(`Found a ready frame #${pfi} on TL${tI}`);
+					_log(`Found a ready frame #${tlfi} on TL${tI}`);
 					result.push(Promise.resolve(frame));
 				} else {
-					_log(`Creating a request for frame #${pfi} on TL${tI}`);
-					let req = new FrameRequest<FT>(tI, pfi);
+					_log(`Creating a request for frame #${tlfi} on TL${tI}`);
+					let req = new FrameRequest<FT>(tI, tlfi);
 					result.push(req.promise);
 					this.requests.push(req);
 				}
@@ -61,7 +61,7 @@ export abstract class StreamFramesExtractor<FT extends FrameBase> implements IFr
 		});
 	}
 
-	private async start() {
+	private async start(tlfi: number) {
 		if (! this.started) {
 			this.started = true;
 
@@ -88,7 +88,7 @@ export abstract class StreamFramesExtractor<FT extends FrameBase> implements IFr
 						let video = await this.videos.get(clip.videoId);
 
 						if (video) {
-							this.decodeVideo(video, clip, tI, debug(`SFX TL:${tI} V:${video.id}`));
+							this.decodeVideo(video, clip, tI, tlfi, debug(`SFX TL:${tI} V:${video.id}`));
 							videoIDs[clip.videoId] = true;
 						} else {
 							_log(`Video ${clip.videoId} not found`);
@@ -100,13 +100,20 @@ export abstract class StreamFramesExtractor<FT extends FrameBase> implements IFr
 		}
 	}
 
-	private decodeVideo(video: VideoDesc, clip: ClipDesc, tI: number, log, frameCounter = 0) {
-		log = ()=>{};
-		log(`Starting decoding of ${video.name}`);
+	private decodeVideo(video: VideoDesc, clip: ClipDesc, tI: number, tlfi: number, log, frameCounter = 0) {
+		log(`Starting decoding of ${video.name} referenced by a clip`, clip);
+
+		let from = clip.clipping.start
+		let frames = video.FPS * (clip.clipping.end - clip.clipping.start)
+
+		if (this.singleFrameMode) {
+			from += tlfi / this.project.settings.FPS
+			frames = 1
+		}
 
 		let dec = decoder(video.path, {
-			from: clip.clipping.start,
-			frames: video.FPS * (clip.clipping.end - clip.clipping.start)
+			from,
+			frames 
 		});
 
 		this.convertFrameStream(dec).pipe(new Reflector<FT>((frame: FT) => {
@@ -115,14 +122,16 @@ export abstract class StreamFramesExtractor<FT extends FrameBase> implements IFr
 				Someone may be waiting for it - means, there is a FrameRequest for that timestamp. Those must be served.
 				Then putting the frame into `this.timelines` for future generations.
 			*/
-			log(`Got a frame #${frameCounter} @ ${frame.t.toFixed(2)}`);
-			let frameReq = this.getRequest(tI, frameCounter);
+			let TLt = frame.t + clip.timelinePosition.start;
+			let TLi = TLt / this.project.settings.FPS;
+			log(`Got a frame #${frame.i} @ ${frame.t.toFixed(2)} (TL: #${TLi} @ ${TLt})`);
+			let frameReq = this.getRequest(tI, frame.i);
 
 			if (frameReq) {
 				log(`Have a request for it, serving`);
 				frameReq.serve(frame);
 			} else {
-				log(`No one is waiting for the frame #${frameCounter} @ ${frame.t.toFixed(2)} on TL${tI} (${this.requests.length} requests though)`);
+				log(`No one is waiting for the frame #${frame.i} @ ${frame.t.toFixed(2)} on TL${tI} (${this.requests.length} requests though)`);
 			}
 
 			this.timelines[tI].push(frame);
@@ -135,7 +144,7 @@ export abstract class StreamFramesExtractor<FT extends FrameBase> implements IFr
 
 	private getRequest(ti: number, t: number) {
 		for (let req of this.requests) {
-			if (req.tI === ti && req.pfi === t) {
+			if (req.tI === ti && req.tlfi === t) {
 				return req;
 			}
 		}
@@ -147,7 +156,7 @@ class FrameRequest<FT> {
 
 	constructor(
 		public tI: number,
-		public pfi: number,
+		public tlfi: number,
 		) {}
 
 	get promise(): Promise<FT> {
