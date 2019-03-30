@@ -66,7 +66,7 @@ export class Three implements API<RGB24Frame> {
 		if (frames.length) {
 			let frame = frames[0];
 			this.material.map = frame.data;
-			this.box.rotation.z = frame.t * 0.5;
+			this.box.rotation.z = frame.vt * 0.5;
 			this.three.render(this.scene, this.camera);
 		}
 	}

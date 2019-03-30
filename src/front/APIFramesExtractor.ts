@@ -6,6 +6,14 @@ import { JPEGFrame } from "lib/streams/RGB24toJPEG";
 import * as THREE from 'three';
 import { FrameType } from "fw/Frame";
 
+type APIFrame = {
+	vt: number;
+	vi: number;
+	ct: number;
+	ci: number;
+	data: string;
+};
+
 export class APIFramesExtractor implements IFramesExtractor<JPEGFrame> {
 	constructor(private project: Project) {}
 
@@ -21,16 +29,24 @@ export class APIFramesExtractor implements IFramesExtractor<JPEGFrame> {
 
 		if (resp.status === 200 && resp.data.length) {
 
-			let promises = (resp.data as string[]).map((frame64: string) => {
+			let promises = (resp.data as APIFrame[]).map((frame64: APIFrame) => {
 				let img = new Image;
 				let texture = new THREE.Texture(img);
 				return new Promise<GLFrame>((resolve) => {
 					img.onload = () => {
 						console.log(`Texture #${i} is loaded`);
 						texture.needsUpdate = true;
-						resolve(new GLFrame(img.width, img.height, i / this.project.settings.FPS, i, FrameType.GL, texture));
+						resolve(new GLFrame(
+							img.width,
+							img.height,
+							i / this.project.settings.FPS,
+							i,
+							frame64.ct,
+							frame64.ci,
+							FrameType.GL, texture
+						));
 					};
-					img.src = frame64;
+					img.src = frame64.data;
 				});
 			});
 

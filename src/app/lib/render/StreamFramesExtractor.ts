@@ -15,7 +15,7 @@ const _log = debug(`StreamFramesExtractor`);
 /**
  * Extracts frames right from video files on demand.
  * This one is meant for rendering of videos, so it starts few decoding streams
- * and accumulates frames, then serves frames at the specified time `t`.
+ * and accumulates frames, then serves frames at the specified index `i`.
  */
 export abstract class StreamFramesExtractor<FT extends FrameBase> implements IFramesExtractor<FT> {
 	private started: boolean = false;
@@ -26,12 +26,12 @@ export abstract class StreamFramesExtractor<FT extends FrameBase> implements IFr
 
 	/**
 	 * Returns all the frames from all the timelines that happen to be at the given index.
-	 * @param tlfi A 0-based frame index on the timeline.
+	 * @param ti A 0-based frame index on the timeline.
 	 */
-	async get(tlfi: number): Promise<FT[]> {
+	async get(ti: number): Promise<FT[]> {
 
-		_log(`Getting frames @ ${tlfi}`);
-		await this.start(tlfi);
+		_log(`Getting frames @ ${ti}`);
+		await this.start(ti);
 
 		/*
 			Sooo, we want a frame...
@@ -44,13 +44,13 @@ export abstract class StreamFramesExtractor<FT extends FrameBase> implements IFr
 	
 			for (let tI = 0; tI < this.timelines.length; tI++) {
 				let tl = this.timelines[tI];
-				let frame = tl[tlfi];
+				let frame = tl[ti];
 				if (frame) {
-					_log(`Found a ready frame #${tlfi} on TL${tI}`);
+					_log(`Found a ready frame #${ti} on TL${tI}`);
 					result.push(Promise.resolve(frame));
 				} else {
-					_log(`Creating a request for frame #${tlfi} on TL${tI}`);
-					let req = new FrameRequest<FT>(tI, tlfi);
+					_log(`Creating a request for frame #${ti} on TL${tI}`);
+					let req = new FrameRequest<FT>(tI, ti);
 					result.push(req.promise);
 					this.requests.push(req);
 				}
@@ -122,16 +122,16 @@ export abstract class StreamFramesExtractor<FT extends FrameBase> implements IFr
 				Someone may be waiting for it - means, there is a FrameRequest for that timestamp. Those must be served.
 				Then putting the frame into `this.timelines` for future generations.
 			*/
-			let TLt = frame.t + clip.timelinePosition.start;
+			let TLt = frame.vt + clip.timelinePosition.start;
 			let TLi = TLt / this.project.settings.FPS;
-			log(`Got a frame #${frame.i} @ ${frame.t.toFixed(2)} (TL: #${TLi} @ ${TLt})`);
-			let frameReq = this.getRequest(tI, frame.i);
+			log(`Got a frame #${frame.vi} @ ${frame.vt.toFixed(2)} (TL: #${TLi} @ ${TLt})`);
+			let frameReq = this.getRequest(tI, frame.vi);
 
 			if (frameReq) {
 				log(`Have a request for it, serving`);
 				frameReq.serve(frame);
 			} else {
-				log(`No one is waiting for the frame #${frame.i} @ ${frame.t.toFixed(2)} on TL${tI} (${this.requests.length} requests though)`);
+				log(`No one is waiting for the frame #${frame.vi} @ ${frame.vt.toFixed(2)} on TL${tI} (${this.requests.length} requests though)`);
 			}
 
 			this.timelines[tI].push(frame);

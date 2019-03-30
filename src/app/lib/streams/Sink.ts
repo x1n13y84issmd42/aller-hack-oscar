@@ -21,7 +21,7 @@ export class Sink<FT extends FrameBase> extends TTransform<FT, void>
 	}
 
 	_transform(frame: FT, enc: string, callback: Function) {
-		this.log(`${frame.t.toFixed(2)}`);
+		this.log(`${frame.vt.toFixed(2)}`);
 		callback();
 	}
 }

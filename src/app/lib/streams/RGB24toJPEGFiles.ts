@@ -27,7 +27,7 @@ export class RGB24toJPEGFiles extends TTransform<RGB24Frame, Buffer> {
 		this.c++;
 		let fn = `storage/out/${this.name}/${this.c}.jpg`;
 
-		this.log(`${rgbFrame.t.toFixed(2)} => ${fn}`);
+		this.log(`${rgbFrame.vt.toFixed(2)} => ${fn}`);
 
 		let xpixels = new ndarray(rgbFrame.data, [rgbFrame.height, rgbFrame.width, 3]);
 

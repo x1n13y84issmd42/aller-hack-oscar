@@ -9,12 +9,16 @@ const ctrler =  {
 	preview: async (req: Request, resp: Response) => {
 		let { project, i} = req.body;
 		let sfx = new StreamFramesExtractorJPEG(project, new MongoVideos, true);
-		console.log(`--------- Getting frames`);
 		let jpgframes = await sfx.get(i);
-		console.log(`--------- Got frames`);
-		let b64frames = jpgframes.map(jpg => 'data:image/jpeg;base64,' + jpg.data.toString('base64'));
-		
-		console.log(`--------- Sending response`);
+		let b64frames = jpgframes.map(jpg => {
+			return {
+				vt: jpg.vt,
+				vi: jpg.vi,
+				ct: jpg.ct,
+				ci: jpg.ci,
+				data: 'data:image/jpeg;base64,' + jpg.data.toString('base64')
+			};
+		});
 		return resp.status(200).json(b64frames).end();
 	}
 };

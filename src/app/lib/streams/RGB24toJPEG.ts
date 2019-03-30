@@ -16,7 +16,7 @@ export class RGB24toJPEG extends TTransform<RGB24Frame, JPEGFrame> {
 	}
 
 	_transform(rgbFrame: RGB24Frame, encoding: string, callback: Function): void {
-		this.log(`${rgbFrame.t.toFixed(2)}`);
+		this.log(`${rgbFrame.vt.toFixed(2)}`);
 
 		let jpg = jpeg.encode({
 			data: this.rgb24torgba32(rgbFrame),
@@ -27,8 +27,10 @@ export class RGB24toJPEG extends TTransform<RGB24Frame, JPEGFrame> {
 		this.push(new JPEGFrame(
 			rgbFrame.width,
 			rgbFrame.height,
-			rgbFrame.t,
-			rgbFrame.i,
+			rgbFrame.vt,
+			rgbFrame.vi,
+			rgbFrame.ct,
+			rgbFrame.ci,
 			FrameType.GL,
 			jpg.data
 		));

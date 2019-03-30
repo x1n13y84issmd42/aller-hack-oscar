@@ -19,13 +19,15 @@ export class RGBA32toGL extends TTransform<RGBA32Frame, GLFrame> {
 
 		texture.needsUpdate = true;
 
-		this.log(rgbFrame.t.toFixed(2));
+		this.log(rgbFrame.vt.toFixed(2));
 		
 		this.push(new GLFrame(
 			rgbFrame.width,
 			rgbFrame.height,
-			rgbFrame.t,
-			rgbFrame.i,
+			rgbFrame.vt,
+			rgbFrame.vi,
+			rgbFrame.ct,
+			rgbFrame.ci,
 			FrameType.GL,
 			texture
 		));

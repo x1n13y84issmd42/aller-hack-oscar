@@ -18,7 +18,7 @@ export class Files<FT extends Frame<Buffer>> extends TTransform<FT, void> {
 	
 	_transform(frame: FT, encoding: string, callback: Function): void {
 		let path = `storage/out/${this.dirname}/${this.c++}.${this.ext}`;
-		this.log(`${frame.t.toFixed(2)} => ${path}`);
+		this.log(`${frame.vt.toFixed(2)} => ${path}`);
 
 		fs.writeFileSync(path, frame.data);
 

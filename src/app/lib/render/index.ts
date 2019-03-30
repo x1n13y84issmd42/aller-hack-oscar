@@ -55,6 +55,8 @@ export class TheMachine {
 			this.project.settings.height,
 			t,
 			i,
+			t,
+			i,
 			FrameType.pixels,
 			this.api.getFramePixels(),
 		));

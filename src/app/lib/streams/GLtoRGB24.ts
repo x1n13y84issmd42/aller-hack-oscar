@@ -7,13 +7,15 @@ import * as THREE from 'three.js-node';
 export class GLtoRGB24 extends TTransform<GLFrame, RGB24Frame> {
 	
 	_transform(glFrame: GLFrame, encoding: string, callback: Function): void {
-		this.log(glFrame.t.toFixed(2));
+		this.log(glFrame.vt.toFixed(2));
 		
 		this.push(new RGB24Frame(
 			glFrame.width,
 			glFrame.height,
-			glFrame.t,
-			glFrame.i,
+			glFrame.vt,
+			glFrame.vi,
+			glFrame.ct,
+			glFrame.ci,
 			FrameType.GL,
 			glFrame.data.image.data
 		));

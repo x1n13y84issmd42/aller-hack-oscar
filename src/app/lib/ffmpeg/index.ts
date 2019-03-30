@@ -5,7 +5,15 @@ export class RGB24Frame extends Frame<Uint8Array> {}
 
 export class RGBA32Frame extends Frame<Uint8Array> {
 	public static fromRGB24Frame(f24: RGB24Frame) {
-		let f32 = new RGBA32Frame(f24.width, f24.height, f24.t, f24.i, f24.type, new Uint8Array(f24.width * f24.height * 4));
+		let f32 = new RGBA32Frame(
+			f24.width,
+			f24.height,
+			f24.vt,
+			f24.vi,
+			f24.ct,
+			f24.ci,
+			f24.type,
+			new Uint8Array(f24.width * f24.height * 4));
 
 		let di = 0;
 		for (let i=0; i<f24.data.length; i++) {

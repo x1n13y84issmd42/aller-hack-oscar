@@ -12,7 +12,9 @@ export class FrameWrapper extends TTransform<Buffer, RGB24Frame>
 	private totalBytes = 0;
 	private buffer: Buffer;
 	private bufOffset = 0;
-	private T = 0;
+	private vt = 0;
+	private ct = 0;
+	private ci = 0;
 
 	constructor() {
 		super({
@@ -25,7 +27,7 @@ export class FrameWrapper extends TTransform<Buffer, RGB24Frame>
 
 	configure(cfg: FrameStream.Config) {
 		super.configure(cfg);
-		this.T = this.cfg.encodingStart;
+		this.vt = this.cfg.encodingStart;
 		this.buffer = Buffer.alloc(this.cfg.frameSize);
 	}
 
@@ -38,20 +40,24 @@ export class FrameWrapper extends TTransform<Buffer, RGB24Frame>
 		if (this.totalBytes >= this.cfg.frameSize) {
 			this.totalBytes -= this.cfg.frameSize;
 			this.bufOffset = 0;
-			let fi = Math.round(this.T * this.cfg.FPS);
+			let vi = Math.round(this.vt * this.cfg.FPS);
 
-			this.log(`Emitting a frame #${fi} @ ${this.T.toFixed(2)}`);
+			this.log(`Emitting a frame C#${this.ci} (V#${vi}) C@${this.vt.toFixed(2)}`);
 
 			this.push(new RGB24Frame(
 				this.cfg.width,
 				this.cfg.height,
-				this.T,
-				fi,
+				this.vt,
+				vi,
+				this.ct,
+				this.ci,
 				FrameType.pixels,
 				Buffer.from(this.buffer)
 			));
 
-			this.T += this.cfg.frameT;
+			this.vt += this.cfg.frameT;
+			this.ct += this.cfg.frameT;
+			this.ci++;
 
 			if (copied != chunk.length) {
 				copied = chunk.copy(this.buffer, this.bufOffset, copied);
