@@ -1,5 +1,5 @@
 import { Project, VideoDesc, ClipDesc } from "./Types";
-import { IFramesExtractor } from "./IFramesExtractor";
+import { IFramesExtractor, VideoMap, VideoClipMap } from "./IFramesExtractor";
 import { Reflector } from "lib/streams/Reflector";
 import { decoder, RGB24toGL, FrameWrapper, RGB24toJPEG } from "lib/streams";
 import { IVideos } from "storage/Video";
@@ -21,6 +21,9 @@ export abstract class StreamFramesExtractor<FT extends FrameBase> implements IFr
 	private started: boolean = false;
 	private timelines: Array<FT>[] = [];
 	private requests: FrameRequest<FT>[] = [];
+
+	private mVideos: {[vid:string]: VideoDesc} = {};
+	private mClips: {[vid:string]: ClipDesc[]} = {};
 
 	constructor(private project: Project, private videos: IVideos<VideoDesc>, private singleFrameMode=false) {}
 
@@ -79,7 +82,10 @@ export abstract class StreamFramesExtractor<FT extends FrameBase> implements IFr
 			//TODO: merge different clips referencing the same video and figure out
 			//	how to skip extra frames and put the needed ones at correct place on the TL
 
-			let videoIDs = {};	//	For duplicate checks
+			let videoMap: VideoMap = {};
+			let clipsMap: VideoClipMap = {};
+
+			let videoIDs = {};
 
 			for (let tI = 0; tI < this.project.timelines.length; tI++) {
 				let tl = this.project.timelines[tI];
