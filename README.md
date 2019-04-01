@@ -8,6 +8,12 @@ Since we're limited in many ways, from screen real estate to users' proficiency 
 
 A typical usage scenario: a user uploads few videos they took with their camera, selects a `preset`, makes minor adjustments, the app renders the resulting video and uploads it to a social network of choice.
 
+# The Crew
+* [**Eugene S. Merkoulov**](https://github.com/x1n13y84issmd42) - [transcoding](https://github.com/x1n13y84issmd42/aller-hack-oscar/tree/render/front/src/app/lib/streams) & [rendering engine](https://github.com/x1n13y84issmd42/aller-hack-oscar/tree/render/front/src/app/lib/render);
+* [**Maxim Sorokin**](https://github.com/Ziqul) - [rendering engine](https://github.com/x1n13y84issmd42/aller-hack-oscar/tree/render/front/src/app/lib/render) & [FX](https://github.com/x1n13y84issmd42/aller-hack-oscar/tree/render/repos-effects/src/app/lib/render/effects) development;
+* **Natalia Kulychyk** - [user interface](https://github.com/x1n13y84issmd42/aller-hack-oscar/tree/render/repos-effects/src/front);
+* [**Daniel Morozov**](https://github.com/hameltomor) - all around guy, from [auth](https://github.com/x1n13y84issmd42/aller-hack-oscar/blob/master/src/app/lib/auth/index.ts) to [back-end APIs](https://github.com/x1n13y84issmd42/aller-hack-oscar/blob/master/src/app/HTTP/controllers/FrameController.ts) to [social media publishing](https://github.com/x1n13y84issmd42/aller-hack-oscar/blob/master/src/app/HTTP/controllers/FacebookController.ts) to [fron-end](https://github.com/x1n13y84issmd42/aller-hack-oscar/commit/467b36b2e22123161056e64fc7fe2471221ff18e), the real MVP.
+
 ## Main components
 Lucky us, we have the exact number of people we need to parallelize the development.
 
