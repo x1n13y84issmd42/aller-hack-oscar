@@ -1,16 +1,19 @@
 import { Router } from 'express';
-import VideoLibraryController from 'HTTP/controllers/VideoLibraryController';
-import ClipLibraryController from 'HTTP/controllers/ClipLibraryController';
-import FXLibraryController from 'HTTP/controllers/FXLibraryController';
+
+import libRoute from './lib';
+import adminRoute from './admin';
+import facebookRoute from './facebook';
+import uploaderRoute from './uploader';
+import renderRoute from './render';
 
 const router: Router = Router();
 
-router.get('/lib/videos', VideoLibraryController.index);
-router.post('/lib/videos', VideoLibraryController.upload);
+router.use('/auth', adminRoute);
+router.use('/lib', libRoute);
 
-router.get('/lib/clips', ClipLibraryController.index);
+router.use('/facebook', facebookRoute);
+router.use('/upload', uploaderRoute);
 
-router.get('/lib/effects', FXLibraryController.index);
-
+router.use('/render', renderRoute);
 
 export default router;

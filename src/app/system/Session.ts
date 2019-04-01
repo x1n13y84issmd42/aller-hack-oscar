@@ -16,12 +16,13 @@ export default function (app: Express) {
 			store: new ctor({
 				url: process.env.SESSION_REDIS_URL,
 				db: ~~process.env.SESSION_REDIS_DB,
+				logErrors: true,
 			}),
 			secret: process.env.SESSION_SECRET,
-			saveUninitialized: false, // don't create session until something stored
-			resave: false, //don't save session if unmodified
+			saveUninitialized: false, // Don't create session until something stored
+			resave: false, // Don't save session if unmodified
 		}));
 
-		log('ready');
+		log('Session is ready');
 	}
 }

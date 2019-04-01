@@ -22,3 +22,12 @@ Nata you go! See [UI](doc/UI.md) for details.
 
 ### FX & Preset Libraries
 When the FX framework is ready it's time to implement the actual effeects. See [FX](doc/FX.md) for details
+
+
+### Dev notes
+#### CLI for testing
+`run/app rt [PATH TO VIDEO FILE] [OPERATION] [OP ARGS]`
+
+*OPERATIONS*
+* pixels - outputs raw RGB24 output from `ffmpeg`
+* frames - outputs JPG frames

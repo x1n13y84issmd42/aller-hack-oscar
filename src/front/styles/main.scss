@@ -1,0 +1,12 @@
+.main-container {
+  display: flex;
+  width: 100%;
+}
+.main-item {
+  flex-grow: 1;
+  padding: 10px;
+  height: 600px;
+}
+.video-frame {
+  width: 65%
+}

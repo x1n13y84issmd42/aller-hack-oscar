@@ -1,5 +1,5 @@
-export {TTransform} from './TTransform';
-export {TReadable} from './TReadable';
-export {TWritable} from './TWritable';
+export {TTransform} from 'fw/TTransform';
+export {TReadable} from 'fw/TReadable';
+export {TWritable} from 'fw/TWritable';
 
-export {FrameStream} from './FrameStream';
+export {FrameStream} from 'fw/FrameStream';

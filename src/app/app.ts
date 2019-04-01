@@ -33,7 +33,7 @@ export const root = findRoot(module.filename, (dir) => {
 //	Concurrency
 export const numThreads = os.cpus().length;
 
-export const numConcurrency: number = (function() {
+export const numConcurrency: number = (function () {
 	if (process.env.WEB_CONCURRENCY) {
 		const webConcur = parseInt(process.env.WEB_CONCURRENCY);
 		if (Number.isSafeInteger(webConcur) && webConcur > 0 && webConcur < numThreads) {
