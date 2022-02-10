@@ -58,7 +58,7 @@
     "moment-timezone": "^0.5.23",
     "mongodb": "^3.2.2",
     "ndarray": "^1.0.18",
-    "node-sass": "^4.11.0",
+    "node-sass": "^7.0.0",
     "react": "^16.8.2",
     "react-bootstrap": "^0.32.3",
     "react-dom": "^16.8.2",
