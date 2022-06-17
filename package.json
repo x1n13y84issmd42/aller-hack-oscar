@@ -50,7 +50,7 @@
     "find-root": "^1.1.0",
     "fluent-ffmpeg": "^2.1.2",
     "gl": "^4.2.2",
-    "jpeg-js": "^0.3.4",
+    "jpeg-js": "^0.4.4",
     "jsdom": "^14.0.0",
     "jsdom-global": "^3.0.2",
     "minimist": "^1.2.0",
